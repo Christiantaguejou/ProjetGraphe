@@ -1,6 +1,3 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by chris on 19/05/2017.
@@ -10,10 +7,10 @@ public class Commune {
     private String id;
     private String nom;
     private int population;
-    private float longitude;
-    private float latitude;
+    private double longitude;
+    private double latitude;
 
-    public Commune(String id, String nom, int population, float longitude, float latitude){
+    public Commune(String id, String nom, int population, double longitude, double latitude){
         this.id = id;
         this.nom = nom;
         this.population = population;
@@ -21,33 +18,50 @@ public class Commune {
         this.latitude = latitude;
     }
 
-    public static void readFile(File file) {
+    public void afficheCommune(){
+        System.out.println("id: "+id+"\nNom: "+nom+"\nPopulation: "+population+"\nLongitude: "+longitude+"\nLatitude: "+latitude);
+    }
 
-        List<String> result = new ArrayList<String>();
 
-        FileReader fr = null;
-        try {
-                fr = new FileReader(file);
+    public void setId(String id) {
+        this.id = id;
+    }
 
-            BufferedReader br = new BufferedReader(fr);
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-            //Tant que la ligne n'est pas nulle, on continue la lecture du fichier
-            for (String line = br.readLine(); line != null; line = br.readLine()) {
-                result.add(line);
-                System.out.println(line);
-            }
+    public void setPopulation(int population) {
+        this.population = population;
+    }
 
-            br.close();
-            fr.close();
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
+    }
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Fichier Introuvable");
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("Problème lors de la lecture du fichier");
-            e.printStackTrace();
-        }
-      //  return result;
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public String getNom(){
+        return nom;
+
     }
 
 }

@@ -1,7 +1,5 @@
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,14 +8,13 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-    /*    List<String> fichier = Commune.readFile(new File("CommunesFrance.csv"));
 
-        for (Iterator iter = listeNom.iterator(); iter.hasNext();)
-        {
-            String  ch2= (String)iter.next();
-            System.out.println(ch2)  ;
-        }*/
-
-    Commune.readFile(new File("CommunesFrance.csv"));
+    //Commune.readFile(new File("CommunesFrance.csv"));
+    //Commune.tableau(Commune.readFile(new File("CommunesFrance.csv")));
+        List<String> liste;
+        liste = CsvCommunes.readFile(new File("CommunesFrance.csv"));
+        ArrayList<Commune> listeCommunes;
+        listeCommunes = CsvCommunes.tableau(liste);
+        listeCommunes.get(456).afficheCommune();
     }
 }
