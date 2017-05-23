@@ -18,29 +18,12 @@ public class Commune {
         this.latitude = latitude;
     }
 
+    public Commune(){
+
+    }
+
     public void afficheCommune(){
         System.out.println("id: "+id+"\nNom: "+nom+"\nPopulation: "+population+"\nLongitude: "+longitude+"\nLatitude: "+latitude);
-    }
-
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setPopulation(int population) {
-        this.population = population;
-    }
-
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
     }
 
     public String getId(){

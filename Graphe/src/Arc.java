@@ -12,12 +12,12 @@ public class Arc {
     private Commune c1;
     private Commune c2;
 
-    public Arc(Commune c1, Commune c2){
-        this.c1 = c1;
-        this.c2 = c2;
+    public Arc(Commune depart, Commune arrive){
+        this.c1 = depart;
+        this.c2 = arrive;
     }
 
-    public void distanceVolOiseau(){
+    public double distanceVolOiseau(){
         double distance;
 
         //Conversion des coordonnées en radian
@@ -27,7 +27,8 @@ public class Arc {
         double long2 = Math.toRadians(c2.getLongitude());
 
         distance = acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(long1 - long2)) * 6371;
-        System.out.println(distance);
+       // System.out.println(distance);
+        return distance;
     }
 
 }

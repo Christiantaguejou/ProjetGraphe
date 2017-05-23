@@ -45,41 +45,47 @@ public class CsvCommunes{
             String[] commune = listeCommune.get(n).split(";");
             tabCommune.add(new Commune(commune[0], commune[1], Integer.parseInt(commune[2]), Double.parseDouble(commune[3]),Double.parseDouble(commune[4])));
         }
-
         return tabCommune;
     }
 
     /**
-     * Permet de trier les communes en supprimant les populations inferieures à popMin
+     * Permet de creer une liste avec des communes contenant une population > popMin
      * @param listeCommunes
      * @param popMin
      * @return
      */
     public static ArrayList<Commune> triPopMin (ArrayList<Commune> listeCommunes, int popMin){
 
+        ArrayList<Commune> listeTrie = new ArrayList<>();
+
         for(int i = 0; i < listeCommunes.size(); i++) {
-            if (listeCommunes.get(i).getPopulation() < popMin) {
-                listeCommunes.remove(i);
+            if (listeCommunes.get(i).getPopulation() > popMin) {
+                listeTrie.add(listeCommunes.get(i));
             }
         }
 
-        return listeCommunes;
+       /* System.out.println("Liste triée popMin");
+        for(Commune c : listeTrie){
+            System.out.println(c.getPopulation());
+        }*/
+        return listeTrie;
     }
 
     /**
-     * Permet de trier les communes en supprimant les populations superieures à popMax
+     * Permet de creer une liste avec des communant ayant une population < popMax
      * @param listeCommunes
      * @param popMax
      * @return
      */
     public static ArrayList<Commune> triPopMax (ArrayList<Commune> listeCommunes, int popMax){
 
+        ArrayList<Commune> listeTrie = new ArrayList<>();
+
         for(int i = 0; i < listeCommunes.size(); i++) {
             if (listeCommunes.get(i).getPopulation() > popMax) {
-                listeCommunes.remove(i);
+                listeTrie.add(listeCommunes.get(i));
             }
         }
-
-        return listeCommunes;
+        return listeTrie;
     }
 }

@@ -13,11 +13,20 @@ public class Main {
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes;
         listeCommunes = CsvCommunes.tableau(liste);
-        listeCommunes.get(0).afficheCommune();
-        listeCommunes.get(1).afficheCommune();
 
-        Arc a = new Arc(listeCommunes.get(1234), listeCommunes.get(35876));
-        a.distanceVolOiseau();
+        ArrayList<Commune> listeTrie;
+        listeTrie = CsvCommunes.triPopMin(listeCommunes, 20000);
+
+        Commune metz = new Commune("metz","METZ",120738,6.16667,49.1333);
+        Commune strasbourg = new Commune("strasbourg", "STRASBOURG", 271782,7.75,48.5833);
+        Graphe test1 = new Graphe(listeTrie, metz, strasbourg);
+        test1.gps();
+
+        //listeCommunes.get(0).afficheCommune();
+        //listeCommunes.get(1326).afficheCommune();
+
+     //   Arc a = new Arc(listeCommunes.get(0), listeCommunes.get(1326));
+     //   a.distanceVolOiseau();
         //System.out.println(listeCommunes.get(456).getLatitude());
 
         //Créer une classe arret avec un point de départ et d'arrivée
