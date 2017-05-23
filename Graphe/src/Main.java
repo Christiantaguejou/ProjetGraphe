@@ -9,12 +9,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-    //Commune.readFile(new File("CommunesFrance.csv"));
-    //Commune.tableau(Commune.readFile(new File("CommunesFrance.csv")));
         List<String> liste;
-        liste = CsvCommunes.readFile(new File("CommunesFrance.csv"));
+        liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes;
         listeCommunes = CsvCommunes.tableau(liste);
-        listeCommunes.get(456).afficheCommune();
+        listeCommunes.get(0).afficheCommune();
+        listeCommunes.get(1).afficheCommune();
+
+        Arc a = new Arc(listeCommunes.get(0), listeCommunes.get(1));
+        a.distance();
+        //System.out.println(listeCommunes.get(456).getLatitude());
+
+        //Créer une classe arret avec un point de départ et d'arrivée
+        //Filtrer les villes pour améliorer la rapiditer du prgm
+        //Filtrer les arretes par rapport à leur distance
     }
 }

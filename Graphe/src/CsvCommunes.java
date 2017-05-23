@@ -38,7 +38,7 @@ public class CsvCommunes{
     public static ArrayList<Commune> tableau(List<String> listeCommune){
 
         ArrayList<Commune> tabCommune = new ArrayList<>();
-       // listeCommune
+
         for(int n = 1; n < listeCommune.size(); n++){
           //  System.out.println(listeCommune.get(n));
             //Le ; permettra de découper les chaines de caracteres listeCommune.get(n)
