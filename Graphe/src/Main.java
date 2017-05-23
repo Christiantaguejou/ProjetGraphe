@@ -17,9 +17,9 @@ public class Main {
         ArrayList<Commune> listeTrie;
         listeTrie = CsvCommunes.triPopMin(listeCommunes, 20000);
 
-        Commune metz = new Commune("metz","METZ",120738,6.16667,49.1333);
-        Commune strasbourg = new Commune("strasbourg", "STRASBOURG", 271782,7.75,48.5833);
-        Graphe test1 = new Graphe(listeTrie, metz, strasbourg);
+        Commune rennes = new Commune("rennes","RENNES",207178,-1.68333,48.0833);
+        Commune brest = new Commune("brest", "BREST", 141303,-4.48333,48.4);
+        Graphe test1 = new Graphe(listeTrie, rennes, brest);
         test1.gps();
 
         //listeCommunes.get(0).afficheCommune();

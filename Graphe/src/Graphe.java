@@ -22,14 +22,12 @@ public class Graphe {
 
         System.out.println("Dans gps");
         for(int i = 0; i < listeCommune.size(); i++) {
-          //  while (comDepart != null) {
-                if (comDepart != arrive) {
-                    comSuiv = nextCommune(comDepart);
-                    chemin.add(comSuiv);
-                    comDepart = comSuiv;
-                    System.out.println(comSuiv.getNom());
-                }
-          //  }
+            while(comDepart.getNom() != null) {
+                comSuiv = nextCommune(comDepart);
+                chemin.add(comSuiv);
+                comDepart = comSuiv;
+                System.out.println(comSuiv.getNom());
+            }
         }
 
     /*    for(int i = 0; i < chemin.size(); i++){
