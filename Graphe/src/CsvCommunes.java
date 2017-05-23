@@ -49,4 +49,37 @@ public class CsvCommunes{
         return tabCommune;
     }
 
+    /**
+     * Permet de trier les communes en supprimant les populations inferieures à popMin
+     * @param listeCommunes
+     * @param popMin
+     * @return
+     */
+    public static ArrayList<Commune> triPopMin (ArrayList<Commune> listeCommunes, int popMin){
+
+        for(int i = 0; i < listeCommunes.size(); i++) {
+            if (listeCommunes.get(i).getPopulation() < popMin) {
+                listeCommunes.remove(i);
+            }
+        }
+
+        return listeCommunes;
+    }
+
+    /**
+     * Permet de trier les communes en supprimant les populations superieures à popMax
+     * @param listeCommunes
+     * @param popMax
+     * @return
+     */
+    public static ArrayList<Commune> triPopMax (ArrayList<Commune> listeCommunes, int popMax){
+
+        for(int i = 0; i < listeCommunes.size(); i++) {
+            if (listeCommunes.get(i).getPopulation() > popMax) {
+                listeCommunes.remove(i);
+            }
+        }
+
+        return listeCommunes;
+    }
 }

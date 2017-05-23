@@ -17,7 +17,7 @@ public class Arc {
         this.c2 = c2;
     }
 
-    public void distance(){
+    public void distanceVolOiseau(){
         double distance;
 
         //Conversion des coordonnées en radian
@@ -29,4 +29,5 @@ public class Arc {
         distance = acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(long1 - long2)) * 6371;
         System.out.println(distance);
     }
+
 }

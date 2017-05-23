@@ -16,8 +16,8 @@ public class Main {
         listeCommunes.get(0).afficheCommune();
         listeCommunes.get(1).afficheCommune();
 
-        Arc a = new Arc(listeCommunes.get(0), listeCommunes.get(1));
-        a.distance();
+        Arc a = new Arc(listeCommunes.get(1234), listeCommunes.get(35876));
+        a.distanceVolOiseau();
         //System.out.println(listeCommunes.get(456).getLatitude());
 
         //Créer une classe arret avec un point de départ et d'arrivée
