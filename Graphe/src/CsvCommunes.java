@@ -63,11 +63,6 @@ public class CsvCommunes{
                 listeTrie.add(listeCommunes.get(i));
             }
         }
-
-       /* System.out.println("Liste triée popMin");
-        for(Commune c : listeTrie){
-            System.out.println(c.getPopulation());
-        }*/
         return listeTrie;
     }
 

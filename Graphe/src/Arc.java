@@ -17,6 +17,10 @@ public class Arc {
         this.c2 = arrive;
     }
 
+    /**
+     * Permet de calculer la distance entre deux villes
+     * @return
+     */
     public double distanceVolOiseau(){
         double distance;
 

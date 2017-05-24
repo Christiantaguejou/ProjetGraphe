@@ -9,18 +9,25 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Ouverture de la liste des communes en ArrayList
         List<String> liste;
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes;
         listeCommunes = CsvCommunes.tableau(liste);
 
+        //Trie de la liste
         ArrayList<Commune> listeTrie;
-        listeTrie = CsvCommunes.triPopMin(listeCommunes, 20000);
+        listeTrie = CsvCommunes.triPopMin(listeCommunes, 10000);
 
+        //Graphe
         Commune rennes = new Commune("rennes","RENNES",207178,-1.68333,48.0833);
         Commune brest = new Commune("brest", "BREST", 141303,-4.48333,48.4);
-        Graphe test1 = new Graphe(listeTrie, rennes, brest);
-        test1.gps();
+        Graphe graph1 = new Graphe(listeTrie, rennes, brest);
+        graph1.gps();
+
+        for(Commune c : graph1.gps()){
+            System.out.println(c.getNom());
+        }
 
         //listeCommunes.get(0).afficheCommune();
         //listeCommunes.get(1326).afficheCommune();
