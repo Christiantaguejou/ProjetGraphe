@@ -1,3 +1,4 @@
+package Communes;
 
 /**
  * Created by chris on 19/05/2017.

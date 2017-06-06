@@ -1,3 +1,7 @@
+package Graphes;
+
+import Communes.*;
+
 import java.util.ArrayList;
 
 /**
@@ -45,7 +49,7 @@ public class Graphe {
      * @param comActuelle
      * @return
      */
-    public Commune nextCommune(Commune comActuelle){
+    private Commune nextCommune(Commune comActuelle){
         double distance = 999999;
         Commune nextCommune = new Commune();
 

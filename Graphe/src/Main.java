@@ -1,3 +1,10 @@
+import Communes.Commune;
+import Communes.CsvCommunes;
+import Graphes.Aetoile;
+import Graphes.Arc;
+import Graphes.Graphe;
+import Graphes.Sommet;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,25 +26,30 @@ public class Main {
         ArrayList<Commune> listeTrie;
         listeTrie = CsvCommunes.triPopMin(listeCommunes, 10000);
 
-        //Graphe
+
+        //Graphes
         Commune rennes = new Commune("rennes","RENNES",207178,-1.68333,48.0833);
         Commune brest = new Commune("brest", "BREST", 141303,-4.48333,48.4);
+        Commune ozan = new Commune("ozan", "OZAN",618,4.91667,49.3833);
         Graphe graph1 = new Graphe(listeTrie, rennes, brest);
-        graph1.gps();
-
         for(Commune c : graph1.gps()){
-            System.out.println(c.getNom());
+         //   System.out.println(c.getNom());
         }
 
-        //listeCommunes.get(0).afficheCommune();
-        //listeCommunes.get(1326).afficheCommune();
+        //Aetoile
+        ArrayList<Sommet> listeSommet= new ArrayList<>();
+        for(Commune c : listeTrie){
+            listeSommet.add(new Sommet(c));
+        }
+        Sommet sRennes = new Sommet(rennes);
+        Sommet sBrest = new Sommet(brest);
+        Sommet sOzan = new Sommet(ozan);
+      /*  System.out.println(sOzan.coutTotal(sRennes, sBrest));
+        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau());
+        System.out.println(new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());
+        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau() + new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());*/
+        Aetoile.algo(listeSommet, sBrest, sRennes);
+        //Aetoile.AfficherAetoile();
 
-     //   Arc a = new Arc(listeCommunes.get(0), listeCommunes.get(1326));
-     //   a.distanceVolOiseau();
-        //System.out.println(listeCommunes.get(456).getLatitude());
-
-        //Créer une classe arret avec un point de départ et d'arrivée
-        //Filtrer les villes pour améliorer la rapiditer du prgm
-        //Filtrer les arretes par rapport à leur distance
     }
 }
