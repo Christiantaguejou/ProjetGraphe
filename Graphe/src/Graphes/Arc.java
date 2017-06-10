@@ -1,3 +1,7 @@
+package Graphes;
+
+import Communes.*;
+
 import java.lang.Math;
 
 import static java.lang.StrictMath.acos;
@@ -17,6 +21,10 @@ public class Arc {
         this.c2 = arrive;
     }
 
+    /**
+     * Permet de calculer la distance entre deux villes
+     * @return
+     */
     public double distanceVolOiseau(){
         double distance;
 
@@ -27,7 +35,6 @@ public class Arc {
         double long2 = Math.toRadians(c2.getLongitude());
 
         distance = acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(long1 - long2)) * 6371;
-       // System.out.println(distance);
         return distance;
     }
 

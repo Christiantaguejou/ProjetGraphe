@@ -1,3 +1,7 @@
+package Graphes;
+
+import Communes.*;
+
 import java.util.ArrayList;
 
 /**
@@ -15,34 +19,43 @@ public class Graphe {
         this.arrive = arrive;
     }
 
-    public void gps(){
+    /**
+     * Renvoie la liste de commune entre la commune de depart et celle d'arrivée
+     */
+    public ArrayList<Commune> gps(){
         ArrayList<Commune> chemin = new ArrayList<>();
         Commune comSuiv;
         Commune comDepart = depart;
 
-        System.out.println("Dans gps");
+        chemin.add(depart);
+
         for(int i = 0; i < listeCommune.size(); i++) {
             while(comDepart.getNom() != null) {
                 comSuiv = nextCommune(comDepart);
-                chemin.add(comSuiv);
                 comDepart = comSuiv;
-                System.out.println(comSuiv.getNom());
+
+                if(comDepart .getNom()!= null) {
+                    chemin.add(comSuiv);
+                }
             }
         }
-
-    /*    for(int i = 0; i < chemin.size(); i++){
-            System.out.println(chemin.get(i).getNom());
-        }*/
+        return chemin;
     }
 
-    public Commune nextCommune(Commune precedCommune){
-      //  System.out.println("Dans next com");
+    /**
+     * Permet de déterminer la prochaine commune. La méthode cacule la distance entre la commune actuelle (comActuelle)
+     * et toutes les autres communes contenues dans la liste. La prochaine commune sera celle qui sera la plus proche
+     * de comActuelle
+     * @param comActuelle
+     * @return
+     */
+    private Commune nextCommune(Commune comActuelle){
         double distance = 999999;
         Commune nextCommune = new Commune();
 
         for(Commune com : listeCommune){
-            Arc precedCom = new Arc(precedCommune, com);
-            Arc arrivePreced = new Arc(precedCommune, arrive);
+            Arc precedCom = new Arc(comActuelle, com);
+            Arc arrivePreced = new Arc(comActuelle, arrive);
             Arc arriveCom = new Arc (com, arrive);
 
             if((precedCom.distanceVolOiseau() < distance) &&
