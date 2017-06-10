@@ -1,7 +1,5 @@
 package Graphes;
 
-import Communes.Commune;
-
 import java.util.ArrayList;
 
 /**
@@ -18,7 +16,7 @@ public class Aetoile {
         Sommet comSuivante = new Sommet();
         double coutTotal = 99999;
 
-        while((sommetAExplorer.size() != 0) && (!sommetAExplorer.contains(arrive))){
+        while((!sommetAExplorer.isEmpty()) && (!sommetAExplorer.contains(arrive))){
 
             //Recupere la commune de cout minimal et l'ajoute à la liste des communes visitée
             for(Sommet c : listeSommet){
@@ -40,9 +38,9 @@ public class Aetoile {
                     c.cout = c.coutTotal(depart, arrive);
 
                     //On identifie le predecesseur de la commune qu'on vient d'ajouter
-                    for(Sommet som : listeSommet){
+                    listeSommet.forEach((som) -> {
                         som.predecesseur = som.predecesseur(depart, arrive, som);
-                    }
+                    });
                 }
                 if(sommetAExplorer.contains(c) && (c.coutTotal(comSuivante,arrive) < coutTotal)){
                     coutTotal = c.coutTotal(comSuivante,arrive);
@@ -54,8 +52,8 @@ public class Aetoile {
     }
 
     public static void AfficherAetoile(){
-        for(Sommet s : sommetVisiter){
+        sommetVisiter.forEach((s) -> {
             System.out.println(s.commune.getNom());
-        }
+        });
     }
 }
