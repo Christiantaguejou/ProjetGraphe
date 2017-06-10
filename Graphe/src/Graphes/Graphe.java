@@ -10,60 +10,68 @@ import java.util.ArrayList;
 public class Graphe {
 
     ArrayList<Commune> listeCommune;
-    Commune depart;
-    Commune arrive;
 
-    public Graphe(ArrayList<Commune> listCommune, Commune depart, Commune arrive){
+    public Graphe(ArrayList<Commune> listCommune){
         this.listeCommune = listCommune;
-        this.depart = depart;
-        this.arrive = arrive;
     }
 
     /**
-     * Renvoie la liste de commune entre la commune de depart et celle d'arrivée
-     */
-    public ArrayList<Commune> gps(){
-        ArrayList<Commune> chemin = new ArrayList<>();
-        Commune comSuiv;
-        Commune comDepart = depart;
-
-        chemin.add(depart);
-
-        for(int i = 0; i < listeCommune.size(); i++) {
-            while(comDepart.getNom() != null) {
-                comSuiv = nextCommune(comDepart);
-                comDepart = comSuiv;
-
-                if(comDepart .getNom()!= null) {
-                    chemin.add(comSuiv);
-                }
-            }
-        }
-        return chemin;
-    }
-
-    /**
-     * Permet de déterminer la prochaine commune. La méthode cacule la distance entre la commune actuelle (comActuelle)
-     * et toutes les autres communes contenues dans la liste. La prochaine commune sera celle qui sera la plus proche
-     * de comActuelle
-     * @param comActuelle
+     * Permet de creer une liste avec des communes contenant une population > popMin
+     * @param listeCommunes
+     * @param popMin
      * @return
      */
-    private Commune nextCommune(Commune comActuelle){
-        double distance = 999999;
-        Commune nextCommune = new Commune();
+    public static ArrayList<Commune> triPopMin (ArrayList<Commune> listeCommunes, int popMin){
 
-        for(Commune com : listeCommune){
-            Arc precedCom = new Arc(comActuelle, com);
-            Arc arrivePreced = new Arc(comActuelle, arrive);
-            Arc arriveCom = new Arc (com, arrive);
+        ArrayList<Commune> listeTrie = new ArrayList<>();
 
-            if((precedCom.distanceVolOiseau() < distance) &&
-                    ( arriveCom.distanceVolOiseau() <arrivePreced.distanceVolOiseau())){
-                distance = precedCom.distanceVolOiseau();
-                    nextCommune = com;
+        for(int i = 0; i < listeCommunes.size(); i++) {
+            if (listeCommunes.get(i).getPopulation() > popMin) {
+                listeTrie.add(listeCommunes.get(i));
             }
         }
-        return nextCommune;
+        return listeTrie;
+    }
+
+    /**
+     * Permet de creer une liste avec des communant ayant une population < popMax
+     * @param listeCommunes
+     * @param popMax
+     * @return
+     */
+    public static ArrayList<Commune> triPopMax (ArrayList<Commune> listeCommunes, int popMax){
+
+        ArrayList<Commune> listeTrie = new ArrayList<>();
+
+        for(int i = 0; i < listeCommunes.size(); i++) {
+            if (listeCommunes.get(i).getPopulation() > popMax) {
+                listeTrie.add(listeCommunes.get(i));
+            }
+        }
+        return listeTrie;
+    }
+
+    /**
+     * permet de creer un graphe avec des arcs de longueur inferieur a la
+     * distance a vol doiseau
+     *
+     * @param listeCommunes
+     * @param distanceMax
+     * @return une arraylist de communes
+     */
+    public static ArrayList<Commune> triVolDoiseauMax(ArrayList<Commune> listeCommunes, int distanceMax) {
+        ArrayList<Commune> listeTrie = new ArrayList<>();
+        return listeTrie;
+    }
+    /**
+     * permet de creer un graphe avec des arcs de longueur superieur a la
+     * distance a vol doiseau
+     * @param listeCommunes
+     * @param distanceMin
+     * @return
+     */
+    public static ArrayList<Commune> triVolDoiseauMin(ArrayList<Commune> listeCommunes, int distanceMin) {
+        ArrayList<Commune> listeTrie = new ArrayList<>();
+        return listeTrie;
     }
 }
