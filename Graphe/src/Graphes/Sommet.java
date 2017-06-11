@@ -21,6 +21,29 @@ public class Sommet implements Comparable<Sommet>{
         this.cout = cout;
     }
 
+    @Override
+    public boolean equals(Object s){
+       boolean retVal = false;
+
+        if (s instanceof Sommet){
+            Sommet ptr = (Sommet) s;
+            /*System.out.println("test degalite");
+            System.out.println(this.commune.getId());
+            System.out.println(ptr.commune.getId());
+            System.out.println("fin test degalite");*/
+            if(this.commune.getId().equals(ptr.commune.getId())) retVal = true;
+           // System.out.println(retVal);
+        }
+     return retVal;
+   
+    }
+    /**
+     *
+     */
+    @Override
+    public String toString(){
+        return this.commune.getNom();   
+    }
     public Sommet(Commune commune){
         this.commune = commune;
     }
