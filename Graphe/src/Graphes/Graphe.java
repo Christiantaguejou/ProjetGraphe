@@ -13,6 +13,7 @@ public class Graphe {
 
     public Graphe(ArrayList<Commune> listCommune){
         this.listeCommune = listCommune;
+        //creer un arc entre les villes distanyes de moins de 100km
     }
 
     /**

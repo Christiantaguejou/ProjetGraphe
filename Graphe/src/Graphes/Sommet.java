@@ -42,7 +42,7 @@ public class Sommet implements Comparable<Sommet>{
      */
     @Override
     public String toString(){
-        return this.commune.getNom();   
+        return this.commune.getNom()+this.coutTotal();   
     }
     public Sommet(Commune commune){
         this.commune = commune;
