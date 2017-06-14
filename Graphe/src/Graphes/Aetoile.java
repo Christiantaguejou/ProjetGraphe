@@ -31,7 +31,7 @@ public class Aetoile {
             System.out.println("Affichage de la closedList");
             System.out.println(closedList);
             System.out.println("Fin Affichage de la closedList");
-            for (Sommet tmp : listeSommet) {
+            for (Sommet tmp : courant.getSuccesseur()) {
                 System.out.println("Sommet a tester  : "+tmp.getCommune().getNom());
                 if (!closedList.contains(tmp)) {
                     System.out.println("Sommet  : "+tmp.getCommune().getNom());
