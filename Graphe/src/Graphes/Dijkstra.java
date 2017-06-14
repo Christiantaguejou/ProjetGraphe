@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class Dijkstra {
 
-    public void Dijkstra(ArrayList<Commune> graphe){
+    public void Dijkstra(Graphe graphe){
         //Initialisation de l'algo
 
     }

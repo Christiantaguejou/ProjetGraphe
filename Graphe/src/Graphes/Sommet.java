@@ -2,22 +2,32 @@ package Graphes;
 
 import Communes.Commune;
 
+import java.util.ArrayList;
+
 /**
  * Created by Christian TAGUEJOU on 25/05/2017.
  */
 public class Sommet implements Comparable<Sommet>{
 
     private Commune commune;
-    private Sommet successeur;
-    private Sommet predecesseur;
+    private ArrayList<Sommet> successeurs;
     private double cout=0;
     private double gCost=0;
     private double hCost=0;
 
-    public Sommet(Commune commune,Sommet successeur, Sommet predecesseur,  double cout){
+    public Sommet() {
+        this.successeurs = new ArrayList<Sommet>();
+    }
+
+    public Sommet(Commune commune){
+        this();
         this.commune = commune;
-        this.predecesseur = predecesseur;
-        this.successeur = successeur;
+    }
+
+    public Sommet(Commune commune,Sommet successeur,  double cout){
+        this();
+        this.commune = commune;
+        this.successeurs.add(successeur);
         this.cout = cout;
     }
 
@@ -44,29 +54,27 @@ public class Sommet implements Comparable<Sommet>{
     public String toString(){
         return this.commune.getNom();   
     }
-    public Sommet(Commune commune){
-        this.commune = commune;
-    }
 
-    public Sommet() {}
+
+
 
     public double coutTotal(){
        return this.gCost+this.hCost;
     }
 
-    public Sommet successeur(Sommet dep, Sommet arr, Sommet actuelle){
-        if ( new Arc(dep.getCommune(), arr.getCommune()).distanceVolOiseau() > new Arc(actuelle.getCommune(), arr.getCommune()).distanceVolOiseau()){
-            setSuccesseur(actuelle); //La commune actuelle est un successeur de la commune de depart
-        }
-        return getSuccesseur();
-    }
-
-    public Sommet predecesseur(Sommet dep, Sommet arr, Sommet preced){
-        if ( new Arc(dep.getCommune(), arr.getCommune()).distanceVolOiseau() < new Arc(preced.getCommune(), arr.getCommune()).distanceVolOiseau()){
-            setPredecesseur(preced);
-        }
-        return getPredecesseur();
-    }
+//    public Sommet successeur(Sommet dep, Sommet arr, Sommet actuelle){
+//        if ( new Arc(dep.getCommune(), arr.getCommune()).distanceVolOiseau() > new Arc(actuelle.getCommune(), arr.getCommune()).distanceVolOiseau()){
+//            setSuccesseur(actuelle); //La commune actuelle est un successeur de la commune de depart
+//        }
+//        return getSuccesseur();
+//    }
+//
+//    public Sommet predecesseur(Sommet dep, Sommet arr, Sommet preced){
+//        if ( new Arc(dep.getCommune(), arr.getCommune()).distanceVolOiseau() < new Arc(preced.getCommune(), arr.getCommune()).distanceVolOiseau()){
+//            setPredecesseur(preced);
+//        }
+//        return getPredecesseur();
+//    }
 
     /**
      * @return the commune
@@ -85,30 +93,27 @@ public class Sommet implements Comparable<Sommet>{
     /**
      * @return the successeur
      */
-    public Sommet getSuccesseur() {
-        return successeur;
+    public ArrayList<Sommet> getSuccesseur() {
+        return successeurs;
     }
 
     /**
-     * @param successeur the successeur to set
+     * add a successeur into the list
+     * @param successeur the successeur to add
      */
-    public void setSuccesseur(Sommet successeur) {
-        this.successeur = successeur;
+    public void addSuccesseur(Sommet successeur) {
+        this.successeurs.add(successeur);
     }
 
     /**
-     * @return the predecesseur
+     * erase the corresponding successeur
+     * @param successeur
      */
-    public Sommet getPredecesseur() {
-        return predecesseur;
+    public void removeSuccesseur(Sommet successeur){
+        this.successeurs.remove(successeur);
     }
 
-    /**
-     * @param predecesseur the predecesseur to set
-     */
-    public void setPredecesseur(Sommet predecesseur) {
-        this.predecesseur = predecesseur;
-    }
+
 
     /**
      * @return the cout

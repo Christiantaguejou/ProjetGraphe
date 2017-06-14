@@ -10,10 +10,43 @@ import java.util.ArrayList;
 public class Graphe {
 
     ArrayList<Commune> listeCommune;
+    ArrayList<Arc> arcs;
 
-    public Graphe(ArrayList<Commune> listCommune){
-        this.listeCommune = listCommune;
+
+    /**
+     * Constructeur de Graphr sans arguement
+     * Initialise l'arrayList Arc
+     */
+    public Graphe(){
+        this.arcs = new ArrayList<>();
     }
+
+    /**
+     * Constructeurs de Graph
+     * @param listeCommune liste des communes
+     */
+    public Graphe(ArrayList<Commune> listeCommune)
+    {
+        this();
+        triPopMin(listeCommune,10000);
+        for(int i = 0; i< listeCommune.size();i+=2){
+            Arc arc = new Arc(new Sommet(listeCommune.get(i)),new Sommet(listeCommune.get(i+2)));
+            this.arcs.add(arc);
+        }
+    }
+
+    /**
+     * Enleve l'arc du graph
+     * @param arc
+     */
+    public void removeArc(Arc arc)
+    {
+        int indice = arcs.indexOf(arc);
+        if(indice!=-1)
+            arcs.get(indice).aboutToBeRemove();
+        arcs.remove(arc);
+    }
+
 
     /**
      * Permet de creer une liste avec des communes contenant une population > popMin
@@ -73,5 +106,9 @@ public class Graphe {
     public static ArrayList<Commune> triVolDoiseauMin(ArrayList<Commune> listeCommunes, int distanceMin) {
         ArrayList<Commune> listeTrie = new ArrayList<>();
         return listeTrie;
+    }
+
+    public ArrayList<Arc> getArcs() {
+        return arcs;
     }
 }
