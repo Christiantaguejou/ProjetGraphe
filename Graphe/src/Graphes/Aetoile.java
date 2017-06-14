@@ -19,8 +19,8 @@ public class Aetoile {
         LinkedList<Sommet> closedList = new LinkedList<>();
         openList.add(depart);
         Sommet courant;
-        // && !openList.contains(arrive)
-        while (!openList.isEmpty()) {
+        // 
+        while (!openList.isEmpty() && !openList.contains(arrive)) {
             System.out.println("Debut Algo :");
             System.out.println("Affichage de la PriorityQueue");
             System.out.println(openList);
@@ -31,6 +31,7 @@ public class Aetoile {
             System.out.println("Affichage de la closedList");
             System.out.println(closedList);
             System.out.println("Fin Affichage de la closedList");
+            //parcours de la liste de successeurs
             for (Sommet tmp : courant.getSuccesseur()) {
                 System.out.println("Sommet a tester  : "+tmp.getCommune().getNom());
                 if (!closedList.contains(tmp)) {
