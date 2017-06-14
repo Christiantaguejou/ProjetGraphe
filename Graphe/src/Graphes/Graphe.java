@@ -32,8 +32,12 @@ public class Graphe {
     }
 
     /**
-     * Constructeurs de Graph
+     * Constructeur de graph
+     * On trie directement les communes et pour chaque commune on crée des arcs vers toutes les autres commmunes
      * @param listeCommune liste des communes
+     * @param triPar choix du tri(Par population ou Distance)
+     * @param choixTri si on trie par Max ou Min
+     * @param valeurTri valeur pour le trie des communes
      */
     public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri)
     {
