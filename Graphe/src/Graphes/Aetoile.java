@@ -17,11 +17,11 @@ public class Aetoile {
     public static LinkedList<Sommet> algo(ArrayList<Sommet> listeSommet, Sommet depart, Sommet arrive) {
         PriorityQueue<Sommet> openList = new PriorityQueue<>();
         LinkedList<Sommet> closedList = new LinkedList<>();
-        openList.add(depart);      
+        openList.add(depart);
         Sommet courant;
         // && !openList.contains(arrive)
         while (!openList.isEmpty()) {
-            System.out.println("Debut Algo :");          
+            System.out.println("Debut Algo :");
             System.out.println("Affichage de la PriorityQueue");
             System.out.println(openList);
             System.out.println("Fin Affichage de la PriorityQueue");
@@ -59,7 +59,7 @@ public class Aetoile {
         boolean done = false;
         int i=0;
         while (!done) {
-            
+
             chemin.addFirst(courant);
             System.out.println("Dans calc1: "+courant.getCommune().getNom()+"\n");
             courant = courant.getPredecesseur();

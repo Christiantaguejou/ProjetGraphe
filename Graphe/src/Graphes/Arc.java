@@ -81,4 +81,8 @@ public class Arc {
         this.s2.removeSuccesseur(s1);
     }
 
+    public Sommet[] getSommet(){
+        return new Sommet[] {s1,s2};
+    }
+
 }

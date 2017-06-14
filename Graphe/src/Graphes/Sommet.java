@@ -11,11 +11,13 @@ public class Sommet implements Comparable<Sommet>{
 
     private Commune commune;
     private ArrayList<Sommet> successeurs;
+    private Sommet predecesseur;
     private double cout=0;
     private double gCost=0;
     private double hCost=0;
 
     public Sommet() {
+        predecesseur=null;
         this.successeurs = new ArrayList<Sommet>();
     }
 
@@ -176,5 +178,13 @@ public class Sommet implements Comparable<Sommet>{
     public int compareTo(Sommet t) {
         Double tmp = this.coutTotal();
         return tmp.compareTo(t.coutTotal());
+    }
+
+    public Sommet getPredecesseur() {
+        return predecesseur;
+    }
+
+    public void setPredecesseur(Sommet predecesseur) {
+        this.predecesseur = predecesseur;
     }
 }
