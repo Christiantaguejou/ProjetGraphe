@@ -58,7 +58,7 @@ public class Arc {
      * @param c2
      * @return
      */
-    public double distanceVolOiseau(Commune c1, Commune c2){
+    public static double distanceVolOiseau(Commune c1, Commune c2){
         double distance;
 
         //Conversion des coordonnées en radian

@@ -12,6 +12,16 @@ public class Graphe {
     ArrayList<Commune> listeCommune;
     ArrayList<Arc> arcs;
 
+    public enum choixTri{
+        MAX,
+        MIN
+    }
+
+    public enum triPar{
+        POPULATION,
+        DISTANCE
+    }
+
 
     /**
      * Constructeur de Graphr sans arguement
@@ -25,14 +35,42 @@ public class Graphe {
      * Constructeurs de Graph
      * @param listeCommune liste des communes
      */
-    public Graphe(ArrayList<Commune> listeCommune)
+    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri)
     {
         this();
-        triPopMin(listeCommune,10000);
-        for(int i = 0; i< listeCommune.size();i+=2){
-            Arc arc = new Arc(new Sommet(listeCommune.get(i)),new Sommet(listeCommune.get(i+2)));
-            this.arcs.add(arc);
+        ArrayList<Commune> trier;
+        switch (triPar){
+            case POPULATION:
+                switch (choixTri){
+                    case MAX:
+                        trier = triPopMax(listeCommune, valeurTri);
+                        break;
+                    case MIN:
+                         trier= triPopMin(listeCommune,valeurTri);
+                        break;
+                    default:
+                        trier = new ArrayList<Commune>();
+                        break;
+                }
+                break;
+            case DISTANCE:
+                trier = new ArrayList<Commune>();
+                break;
+            default:
+                trier = new ArrayList<Commune>();
+                break;
         }
+        for(int i = 0; i<trier.size(); i++){
+            for(int j = 0; j<trier.size(); j++){
+                if(i==j)
+                    continue;
+                else {
+                    Arc arc = new Arc(new Sommet(trier.get(i)),new Sommet(trier.get(j)));
+                    this.arcs.add(arc);
+                }
+            }
+        }
+
     }
 
     /**
@@ -108,6 +146,9 @@ public class Graphe {
         return listeTrie;
     }
 
+    /**
+     * @return arcs liste des arêtes
+     */
     public ArrayList<Arc> getArcs() {
         return arcs;
     }
