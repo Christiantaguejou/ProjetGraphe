@@ -11,6 +11,7 @@ public class Graphe {
 
     ArrayList<Commune> listeCommune;
     ArrayList<Arc> arcs;
+    ArrayList<Sommet> sommets;
 
     public enum choixTri {
         MAX,
@@ -29,6 +30,7 @@ public class Graphe {
      */
     public Graphe() {
         this.arcs = new ArrayList<>();
+        this.sommets = new ArrayList<>();
     }
 
     /**
@@ -76,6 +78,14 @@ public class Graphe {
         }
         this.arcs = trier;
 
+        //ON AJOUTE LES SOMMETS A LA LISTE DES SOMMETS
+        for(int i =0; i< arcs.size();i++){
+            Sommet[] sommets = arcs.get(i).getSommet();
+            if(this.sommets.indexOf(sommets[0])!=-1)
+                this.sommets.add(sommets[0]);
+            if(this.sommets.indexOf(sommets[1])!=-1)
+                this.sommets.add(sommets[1]);
+        }
     }
 
     /**
@@ -211,9 +221,19 @@ public class Graphe {
     }
 
     /**
+     * Getteur d'arêtes
      * @return arcs liste des arêtes
      */
     public ArrayList<Arc> getArcs() {
         return arcs;
     }
+
+    /**
+     * Getteur de sommets
+     * @return sommets liste de sommets
+     */
+    public ArrayList<Sommet> getSommets() {
+        return sommets;
+    }
+
 }
