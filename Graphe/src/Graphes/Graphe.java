@@ -123,7 +123,7 @@ public class Graphe {
     }
 
     /**
-     * permet de creer un graphe avec des arcs de longueur inferieur a la
+     * permet de creer un graphe avec des distances entre sommet de longueur inferieur a la
      * distance a vol doiseau
      *
      * @param listeCommunes
@@ -135,7 +135,7 @@ public class Graphe {
         return listeTrie;
     }
     /**
-     * permet de creer un graphe avec des arcs de longueur superieur a la
+     * permet de creer un graphe avec des distances entre sommet de longueur superieur a la
      * distance a vol doiseau
      * @param listeCommunes
      * @param distanceMin
