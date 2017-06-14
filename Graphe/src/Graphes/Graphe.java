@@ -44,7 +44,7 @@ public class Graphe {
      */
     public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri) {
         this();
-        ArrayList<Arc> trier;
+        ArrayList<Commune> trier;
         switch (triPar) {
             case POPULATION:
                 switch (choixTri) {
@@ -76,14 +76,14 @@ public class Graphe {
                 trier = new ArrayList<>();
                 break;
         }
-        this.arcs = trier;
+        //this.arcs = trier;
 
         //ON AJOUTE LES SOMMETS A LA LISTE DES SOMMETS
-        for(int i =0; i< arcs.size();i++){
+        for (int i = 0; i < arcs.size(); i++) {
             Sommet[] sommets = arcs.get(i).getSommet();
-            if(this.sommets.indexOf(sommets[0])!=-1)
+            if (this.sommets.indexOf(sommets[0]) != -1)
                 this.sommets.add(sommets[0]);
-            if(this.sommets.indexOf(sommets[1])!=-1)
+            if (this.sommets.indexOf(sommets[1]) != -1)
                 this.sommets.add(sommets[1]);
         }
     }
@@ -108,23 +108,11 @@ public class Graphe {
      * @param popMin
      * @return
      */
-    public static ArrayList<Arc> triPopMin(ArrayList<Commune> listeCommunes, int popMin) {
-        ArrayList<Arc> listeTrie = new ArrayList<>();
-        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+    public static ArrayList<Commune> triPopMin(ArrayList<Commune> listeCommunes, int popMin) {
+        ArrayList<Commune> listeTrie = new ArrayList<>();
         for (int i = 0; i < listeCommunes.size(); i++) {
-            for (int j = 0; j < listeCommunes.size(); j++) {
-                if (i != j && listeCommunes.get(i).getPopulation() > popMin) {
-                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
-                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
-                    if (alReadyVisited.indexOf(arc) == -1) {
-                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
-                        alReadyVisited.add(arc);
-                        alReadyVisited.add(tmpt);
-                        listeTrie.add(arc);
-                    } else
-                        continue;
-                } else
-                    continue;
+            if (listeCommunes.get(i).getPopulation() > popMin) {
+                listeTrie.add(listeCommunes.get(i));
             }
         }
         return listeTrie;
@@ -137,25 +125,12 @@ public class Graphe {
      * @param popMax
      * @return
      */
-    public static ArrayList<Arc> triPopMax(ArrayList<Commune> listeCommunes, int popMax) {
+    public static ArrayList<Commune> triPopMax(ArrayList<Commune> listeCommunes, int popMax) {
 
-        ArrayList<Arc> listeTrie = new ArrayList<>();
-        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+        ArrayList<Commune> listeTrie = new ArrayList<>();
         for (int i = 0; i < listeCommunes.size(); i++) {
-            for (int j = 0; j < listeCommunes.size(); j++) {
-                if (i != j && listeCommunes.get(i).getPopulation() < popMax) {
-                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
-                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
-                    if (alReadyVisited.indexOf(arc) == -1) {
-                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
-                        alReadyVisited.add(arc);
-                        alReadyVisited.add(tmpt);
-                        listeTrie.add(arc);
-                    } else
-                        continue;
-                } else
-                    continue;
-            }
+            if (listeCommunes.get(i).getPopulation() < popMax)
+                listeTrie.add(listeCommunes.get(i));
         }
         return listeTrie;
     }
@@ -168,23 +143,18 @@ public class Graphe {
      * @param distanceMax
      * @return une arraylist de communes
      */
-    public static ArrayList<Arc> triVolDoiseauMax(ArrayList<Commune> listeCommunes, int distanceMax) {
-        ArrayList<Arc> listeTrie = new ArrayList<>();
-        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+    public static ArrayList<Commune> triVolDoiseauMax(ArrayList<Commune> listeCommunes, int distanceMax) {
+        ArrayList<Commune> listeTrie = new ArrayList<>();
         for (int i = 0; i < listeCommunes.size(); i++) {
             for (int j = 0; j < listeCommunes.size(); j++) {
-                if (i != j && distanceMax > Arc.distanceVolOiseau(listeCommunes.get(i), listeCommunes.get(j))) {
-                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
-                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
-                    if (alReadyVisited.indexOf(arc) == -1) {
-                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
-                        alReadyVisited.add(arc);
-                        alReadyVisited.add(tmpt);
-                        listeTrie.add(arc);
-                    } else
-                        continue;
-                } else
-                    continue;
+                if (distanceMax > Arc.distanceVolOiseau(listeCommunes.get(i), listeCommunes.get(j))) {
+                    if (!listeTrie.contains(listeCommunes.get(i))) {
+                        listeTrie.add(listeCommunes.get(i));
+                    }
+                    if (!listeTrie.contains(listeCommunes.get(j))) {
+                        listeTrie.add(listeCommunes.get(j));
+                    }
+                }
             }
         }
         return listeTrie;
@@ -198,23 +168,18 @@ public class Graphe {
      * @param distanceMin
      * @return
      */
-    public static ArrayList<Arc> triVolDoiseauMin(ArrayList<Commune> listeCommunes, int distanceMin) {
-        ArrayList<Arc> listeTrie = new ArrayList<>();
-        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+    public static ArrayList<Commune> triVolDoiseauMin(ArrayList<Commune> listeCommunes, int distanceMin) {
+        ArrayList<Commune> listeTrie = new ArrayList<>();
         for (int i = 0; i < listeCommunes.size(); i++) {
             for (int j = 0; j < listeCommunes.size(); j++) {
-                if (i != j && distanceMin < Arc.distanceVolOiseau(listeCommunes.get(i), listeCommunes.get(j))) {
-                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
-                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
-                    if (alReadyVisited.indexOf(arc) == -1) {
-                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
-                        alReadyVisited.add(arc);
-                        alReadyVisited.add(tmpt);
-                        listeTrie.add(arc);
-                    } else
-                        continue;
-                } else
-                    continue;
+                if (distanceMin < Arc.distanceVolOiseau(listeCommunes.get(i), listeCommunes.get(j))) {
+                    if (!listeTrie.contains(listeCommunes.get(i))) {
+                        listeTrie.add(listeCommunes.get(i));
+                    }
+                    if (!listeTrie.contains(listeCommunes.get(j))) {
+                        listeTrie.add(listeCommunes.get(j));
+                    }
+                }
             }
         }
         return listeTrie;
@@ -222,6 +187,7 @@ public class Graphe {
 
     /**
      * Getteur d'arêtes
+     *
      * @return arcs liste des arêtes
      */
     public ArrayList<Arc> getArcs() {
@@ -230,10 +196,22 @@ public class Graphe {
 
     /**
      * Getteur de sommets
+     *
      * @return sommets liste de sommets
      */
     public ArrayList<Sommet> getSommets() {
         return sommets;
+    }
+
+    public Arc getArcBySommets(Sommet s1, Sommet s2) {
+        Arc arc = null;
+        Arc tmp1 = new Arc(s1, s2);
+        Arc tmp2 = new Arc(s2, s1);
+        if (this.arcs.indexOf(tmp1) != -1)
+            arc = tmp1;
+        else if (this.arcs.indexOf(tmp2) != -1)
+            arc = tmp2;
+        return arc;
     }
 
 }

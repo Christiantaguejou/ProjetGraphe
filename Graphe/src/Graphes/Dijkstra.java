@@ -11,10 +11,13 @@ public class Dijkstra {
 
     public void Dijkstra(Graphe graphe){
         //Initialisation de l'algo
-        ArrayList<Sommet> sommets= graphe.getArcs();
-        for(int i =0; i<arcs.size();i++){
-            Sommet tmp1 = arcs.get(i).getSommet()[0];
-            for(int j = 0; j<tmp1.getSuccesseur().size())
+        ArrayList<Sommet> sommets= graphe.getSommets();
+        int[] poids = new int[sommets.size()];
+        for(int i =0; i<sommets.size();i++){
+            Sommet tmp = sommets.get(i);
+            for(int j = 0; j<tmp.getSuccesseur().size();j++){
+
+            }
         }
     }
 }

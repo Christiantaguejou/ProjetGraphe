@@ -22,8 +22,8 @@ public class Main {
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 200000);
-        for(Arc arc : graphe.getArcs()){
-            System.out.println();
+        for(Sommet sommet : graphe.getSommets()){
+            System.out.println(sommet.getCommune().getNom());
         }
         //ArrayList<Commune> graphe = Graphe.triPopMin(listeCommunes, 200000);
 //        for(Commune c : graphe){
