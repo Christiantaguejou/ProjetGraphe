@@ -12,12 +12,12 @@ public class Graphe {
     ArrayList<Commune> listeCommune;
     ArrayList<Arc> arcs;
 
-    public enum choixTri{
+    public enum choixTri {
         MAX,
         MIN
     }
 
-    public enum triPar{
+    public enum triPar {
         POPULATION,
         DISTANCE
     }
@@ -27,64 +27,65 @@ public class Graphe {
      * Constructeur de Graphr sans arguement
      * Initialise l'arrayList Arc
      */
-    public Graphe(){
+    public Graphe() {
         this.arcs = new ArrayList<>();
     }
 
     /**
      * Constructeur de graph
      * On trie directement les communes et pour chaque commune on crée des arcs vers toutes les autres commmunes
+     *
      * @param listeCommune liste des communes
-     * @param triPar choix du tri(Par population ou Distance)
-     * @param choixTri si on trie par Max ou Min
-     * @param valeurTri valeur pour le trie des communes
+     * @param triPar       choix du tri(Par population ou Distance)
+     * @param choixTri     si on trie par Max ou Min
+     * @param valeurTri    valeur pour le trie des communes
      */
-    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri)
-    {
+    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri) {
         this();
-        ArrayList<Commune> trier;
-        switch (triPar){
+        ArrayList<Arc> trier;
+        switch (triPar) {
             case POPULATION:
-                switch (choixTri){
+                switch (choixTri) {
                     case MAX:
                         trier = triPopMax(listeCommune, valeurTri);
                         break;
                     case MIN:
-                         trier= triPopMin(listeCommune,valeurTri);
+                        trier = triPopMin(listeCommune, valeurTri);
                         break;
                     default:
-                        trier = new ArrayList<Commune>();
+                        trier = new ArrayList<Arc>();
                         break;
                 }
                 break;
             case DISTANCE:
-                trier = new ArrayList<Commune>();
+                switch (choixTri) {
+                    case MAX:
+                        trier = triVolDoiseauMax(listeCommune, valeurTri);
+                        break;
+                    case MIN:
+                        trier = triVolDoiseauMin(listeCommune, valeurTri);
+                        break;
+                    default:
+                        trier = new ArrayList<>();
+                        break;
+                }
                 break;
             default:
-                trier = new ArrayList<Commune>();
+                trier = new ArrayList<>();
                 break;
         }
-        for(int i = 0; i<trier.size(); i++){
-            for(int j = 0; j<trier.size(); j++){
-                if(i==j)
-                    continue;
-                else {
-                    Arc arc = new Arc(new Sommet(trier.get(i)),new Sommet(trier.get(j)));
-                    this.arcs.add(arc);
-                }
-            }
-        }
+        this.arcs = trier;
 
     }
 
     /**
      * Enleve l'arc du graph
+     *
      * @param arc
      */
-    public void removeArc(Arc arc)
-    {
+    public void removeArc(Arc arc) {
         int indice = arcs.indexOf(arc);
-        if(indice!=-1)
+        if (indice != -1)
             arcs.get(indice).aboutToBeRemove();
         arcs.remove(arc);
     }
@@ -92,17 +93,28 @@ public class Graphe {
 
     /**
      * Permet de creer une liste avec des communes contenant une population > popMin
+     *
      * @param listeCommunes
      * @param popMin
      * @return
      */
-    public static ArrayList<Commune> triPopMin (ArrayList<Commune> listeCommunes, int popMin){
-
-        ArrayList<Commune> listeTrie = new ArrayList<>();
-
-        for(int i = 0; i < listeCommunes.size(); i++) {
-            if (listeCommunes.get(i).getPopulation() > popMin) {
-                listeTrie.add(listeCommunes.get(i));
+    public static ArrayList<Arc> triPopMin(ArrayList<Commune> listeCommunes, int popMin) {
+        ArrayList<Arc> listeTrie = new ArrayList<>();
+        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+        for (int i = 0; i < listeCommunes.size(); i++) {
+            for (int j = 0; j < listeCommunes.size(); j++) {
+                if (i != j && listeCommunes.get(i).getPopulation() > popMin) {
+                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
+                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
+                    if (alReadyVisited.indexOf(arc) == -1) {
+                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
+                        alReadyVisited.add(arc);
+                        alReadyVisited.add(tmpt);
+                        listeTrie.add(arc);
+                    } else
+                        continue;
+                } else
+                    continue;
             }
         }
         return listeTrie;
@@ -110,17 +122,29 @@ public class Graphe {
 
     /**
      * Permet de creer une liste avec des communant ayant une population < popMax
+     *
      * @param listeCommunes
      * @param popMax
      * @return
      */
-    public static ArrayList<Commune> triPopMax (ArrayList<Commune> listeCommunes, int popMax){
+    public static ArrayList<Arc> triPopMax(ArrayList<Commune> listeCommunes, int popMax) {
 
-        ArrayList<Commune> listeTrie = new ArrayList<>();
-
-        for(int i = 0; i < listeCommunes.size(); i++) {
-            if (listeCommunes.get(i).getPopulation() > popMax) {
-                listeTrie.add(listeCommunes.get(i));
+        ArrayList<Arc> listeTrie = new ArrayList<>();
+        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+        for (int i = 0; i < listeCommunes.size(); i++) {
+            for (int j = 0; j < listeCommunes.size(); j++) {
+                if (i != j && listeCommunes.get(i).getPopulation() < popMax) {
+                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
+                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
+                    if (alReadyVisited.indexOf(arc) == -1) {
+                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
+                        alReadyVisited.add(arc);
+                        alReadyVisited.add(tmpt);
+                        listeTrie.add(arc);
+                    } else
+                        continue;
+                } else
+                    continue;
             }
         }
         return listeTrie;
@@ -134,19 +158,55 @@ public class Graphe {
      * @param distanceMax
      * @return une arraylist de communes
      */
-    public static ArrayList<Commune> triVolDoiseauMax(ArrayList<Commune> listeCommunes, int distanceMax) {
-        ArrayList<Commune> listeTrie = new ArrayList<>();
+    public static ArrayList<Arc> triVolDoiseauMax(ArrayList<Commune> listeCommunes, int distanceMax) {
+        ArrayList<Arc> listeTrie = new ArrayList<>();
+        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+        for (int i = 0; i < listeCommunes.size(); i++) {
+            for (int j = 0; j < listeCommunes.size(); j++) {
+                if (i != j && distanceMax > Arc.distanceVolOiseau(listeCommunes.get(i), listeCommunes.get(j))) {
+                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
+                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
+                    if (alReadyVisited.indexOf(arc) == -1) {
+                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
+                        alReadyVisited.add(arc);
+                        alReadyVisited.add(tmpt);
+                        listeTrie.add(arc);
+                    } else
+                        continue;
+                } else
+                    continue;
+            }
+        }
         return listeTrie;
     }
+
     /**
      * permet de creer un graphe avec des arcs de longueur superieur a la
      * distance a vol doiseau
+     *
      * @param listeCommunes
      * @param distanceMin
      * @return
      */
-    public static ArrayList<Commune> triVolDoiseauMin(ArrayList<Commune> listeCommunes, int distanceMin) {
-        ArrayList<Commune> listeTrie = new ArrayList<>();
+    public static ArrayList<Arc> triVolDoiseauMin(ArrayList<Commune> listeCommunes, int distanceMin) {
+        ArrayList<Arc> listeTrie = new ArrayList<>();
+        ArrayList<Arc> alReadyVisited = new ArrayList<>();
+        for (int i = 0; i < listeCommunes.size(); i++) {
+            for (int j = 0; j < listeCommunes.size(); j++) {
+                if (i != j && distanceMin < Arc.distanceVolOiseau(listeCommunes.get(i), listeCommunes.get(j))) {
+                    Arc arc = new Arc(new Sommet(listeCommunes.get(i)), new Sommet(listeCommunes.get(j)));
+                    ////////LE GRAPH EST NON ORIENTE ON DOIT DONC VERIFIER QU IL N Y AIT PAS DEUX FOIS LE MEME ARC
+                    if (alReadyVisited.indexOf(arc) == -1) {
+                        Arc tmpt = new Arc(new Sommet(listeCommunes.get(j)), new Sommet(listeCommunes.get(i)));
+                        alReadyVisited.add(arc);
+                        alReadyVisited.add(tmpt);
+                        listeTrie.add(arc);
+                    } else
+                        continue;
+                } else
+                    continue;
+            }
+        }
         return listeTrie;
     }
 
