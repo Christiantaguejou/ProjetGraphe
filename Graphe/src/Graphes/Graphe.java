@@ -240,25 +240,32 @@ public class Graphe {
         return listeTrie;
     }
 
+    // Ceci permet d'affiche les successeur de la ville de départ
     public void firtSuccesseur(){
         listeSommet = transformToSommet(this.listeCommune);
+        //liste des communes qu'on va supprimer de listeSommet parce qu'il sont deja dans la liste
+        //de successeur du sommet de depart
         ArrayList<Sommet> listaSuppr = new ArrayList<>();
 
+        //Pour chaque sommet s, on verifie que la distance soit < distMAX
+        //si c'est bon, on l'ajoute dans les listes des successeurs
         for(Sommet s : listeSommet){
             if(Arc.distanceVolOiseau(s.getCommune(), somDepart.getCommune()) <= DIST_MAX_ARC){
-                somDepart.addSuccesseur(s);
-                listeSuccesseurs.add(s);
+                somDepart.addSuccesseur(s); //Liste personnel du sommet de depart
+                listeSuccesseurs.add(s); //On travaillera avec cette liste par la suite pour avoir tous les sommet
+                                        //possible
                 System.out.println(s.getCommune().getNom());
             }
         }
+        //On supprime les sommet qui sont deja dans listeSuccesseur pour diminuer le nombre d'itération
         for(int i = 0; i < listaSuppr.size(); i++){
             listeSommet.remove(i);
         }
 
         do{
-            System.out.println("web");
             web();
-        }while(listeSuccesseurs.isEmpty());
+        }while(listeSuccesseurs.isEmpty());//Sachant qu'a chaque itération on supprime les communes inutiles,
+                        //On effectura cette boucle jusqu'a ce qu'il n'ya plus de commune (ou sommet) à tester
 
       /*  for(Sommet s : listeSuccesseurs){
             System.out.println(s.getCommune().getNom());
@@ -266,15 +273,23 @@ public class Graphe {
     }
 
     public void web (){
+        /**
+         * Pour chaque sommet su GRAPHE A, on verifie si la distance entre A et les successeur <dISTMAX
+         */
         for(Sommet s : listeSommet){
+            System.out.println("sommet: "+s.getCommune().getNom() );
             for(Sommet som : listeSuccesseurs){
-                while(Arc.distanceVolOiseau(som.getCommune(), s.getCommune()) <= DIST_MAX_ARC){
+                System.out.println("sommet2: "+som.getCommune().getNom() );
+                //Si la distance est bonne....
+                if(Arc.distanceVolOiseau(som.getCommune(), s.getCommune()) <= DIST_MAX_ARC){
+                    //S'il n'est pas contenu dans listeSuccesseurs, on l'ajoute, puis on le supprime de listeSommet
                     if(!listeSuccesseurs.contains(s)) {
                         som.addSuccesseur(s);
                         listeSuccesseurs.add(s);
                         listeSommet.remove(listeSommet.indexOf(s));
                         System.out.println(s.getCommune().getNom());
                     }
+                    //S'il est contenu dans listeSuccesseur, on l'ajoute dans la liste perso des successeur de som
                     else
                         som.addSuccesseur(s);
                 }
