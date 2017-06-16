@@ -19,7 +19,7 @@ public class Dijkstra {
             //System.out.println(i);
             for(int j = 0; j<successeurs.size();j++){
                 //System.out.println(sommets.indexOf(successeurs.get(j)));
-                System.out.println(sommets+"-> "+successeurs.get(j));
+                System.out.println(sommets.get(i)+"-> "+successeurs.get(j));
             }
         }
     }
