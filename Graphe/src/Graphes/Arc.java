@@ -32,9 +32,9 @@ public class Arc {
     public Arc(Sommet s1, Sommet s2){
         this.s1 = s1;
         this.s2 = s2;
-        s1.addSuccesseur(s2);
-        s2.addSuccesseur(s1);
-        this.poids = distanceVolOiseau(s1.getCommune(),s2.getCommune());
+//        s1.addSuccesseur(s2);
+//        s2.addSuccesseur(s1);
+        this.poids = distanceVolOiseau(s1,s2);
     }
 
 
@@ -71,10 +71,15 @@ public class Arc {
         return distance;
     }
 
-    /**
-     * Enleve s2 de la liste des successeurs de s1
-     * et s1 de la liste des successeurs de s2
-     */
+    public static double distanceVolOiseau(Sommet s1, Sommet s2){
+        return distanceVolOiseau(s1.getCommune(),s2.getCommune());
+    }
+
+
+        /**
+         * Enleve s2 de la liste des successeurs de s1
+         * et s1 de la liste des successeurs de s2
+         */
     public void aboutToBeRemove()
     {
         this.s1.removeSuccesseur(s2);
@@ -85,4 +90,7 @@ public class Arc {
         return new Sommet[] {s1,s2};
     }
 
+    public double getPoids() {
+        return poids;
+    }
 }
