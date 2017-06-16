@@ -25,7 +25,12 @@ public class Main {
         Sommet sParis = new Sommet(paris);
 
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
-        graphe.firtSuccesseur();
+        //graphe.firtSuccesseur();
+        for (Sommet sommet : graphe.getSommets()){
+            System.out.println(sommet);
+            for(Sommet sommet1 : sommet.getSuccesseur())
+                System.out.println("-> " + sommet1);
+        }
 //        System.out.println(graphe.getArcs().size());
 //        _Dijkstra(graphe);
 
