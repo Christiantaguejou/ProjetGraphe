@@ -49,6 +49,7 @@ public class Aetoile {
                 }
             }
         }
+        arrive.setPredecesseur(closedList.getLast());
         return calcPath(depart,arrive);
     }
 
@@ -58,7 +59,7 @@ public class Aetoile {
         LinkedList<Sommet> chemin = new LinkedList<Sommet>();
         Sommet courant = arrive;
         boolean done = false;
-        int i=0;
+        int i=0; 
         while (!done) {
 
             chemin.addFirst(courant);
