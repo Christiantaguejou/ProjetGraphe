@@ -294,6 +294,17 @@ public class Graphe {
         }
     }
 
+    public void spiderman()
+    {
+        for (int i =0; i< this.sommets.size(); i++){
+            //ON NE REGARDE QUE LES SOMMETS OU L ON A PAS FIXE DE SUCCESSEURQUE L ON A PAS ENCORE VISITE D OU LE I+1
+            for(int j=i+1; j< this.sommets.size(); j++){
+                if(Arc.distanceVolOiseau(this.sommets.get(i).getCommune(),this.sommets.get(j).getCommune())<DIST_MAX_ARC)
+                    sommets.get(i).addSuccesseur(this.sommets.get(j));
+            }
+        }
+    }
+
     /**
      * Getteur d'arêtes
      *
