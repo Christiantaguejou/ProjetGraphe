@@ -12,6 +12,7 @@ public class Graphe {
     ArrayList<Commune> listeCommune;
     ArrayList<Arc> arcs;
     ArrayList<Sommet> sommets;
+    static int DIST_MAX_ARC = 100;
 
     public enum choixTri {
         MAX,
@@ -44,48 +45,78 @@ public class Graphe {
      */
     public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri) {
         this();
-        ArrayList<Commune> trier;
         switch (triPar) {
             case POPULATION:
                 switch (choixTri) {
                     case MAX:
-                        trier = triPopMax(listeCommune, valeurTri);
+                        this.listeCommune = triPopMax(listeCommune, valeurTri);
                         break;
                     case MIN:
-                        trier = triPopMin(listeCommune, valeurTri);
+                        this.listeCommune= triPopMin(listeCommune, valeurTri);
                         break;
                     default:
-                        trier = new ArrayList<Arc>();
+                        this.listeCommune = new ArrayList<>();
                         break;
                 }
                 break;
             case DISTANCE:
                 switch (choixTri) {
                     case MAX:
-                        trier = triVolDoiseauMax(listeCommune, valeurTri);
+                        this.listeCommune = triVolDoiseauMax(listeCommune, valeurTri);
                         break;
                     case MIN:
-                        trier = triVolDoiseauMin(listeCommune, valeurTri);
+                        this.listeCommune = triVolDoiseauMin(listeCommune, valeurTri);
                         break;
                     default:
-                        trier = new ArrayList<>();
+                        this.listeCommune = new ArrayList<>();
                         break;
                 }
                 break;
             default:
-                trier = new ArrayList<>();
+                this.listeCommune = new ArrayList<>();
                 break;
         }
         //this.arcs = trier;
+        System.out.println(this.listeCommune.size());
+        System.out.println("debut parcours liste de commune");
+        ArrayList<Sommet> sAlreadyAdd = new ArrayList<>();
+        ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
+        for(int i =0; i<this.listeCommune.size();i++){
+            for(int j = 0; j< this.listeCommune.size();j++){
+                if(i!=j){
+                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(i))<DIST_MAX_ARC){
+                        Sommet tmp_s1 = new Sommet(this.listeCommune.get(i));
+                        Sommet tmp_s2 =new Sommet(this.listeCommune.get(j));
+                        Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
+                        if(!aAlreadyAdd.contains(tmp_arc)){
+                            this.arcs.add(tmp_arc);
+                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s2));
+                            aAlreadyAdd.add(tmp_arc);
+                        }
 
-        //ON AJOUTE LES SOMMETS A LA LISTE DES SOMMETS
-        for (int i = 0; i < arcs.size(); i++) {
-            Sommet[] sommets = arcs.get(i).getSommet();
-            if (this.sommets.indexOf(sommets[0]) != -1)
-                this.sommets.add(sommets[0]);
-            if (this.sommets.indexOf(sommets[1]) != -1)
-                this.sommets.add(sommets[1]);
+                        if(!sAlreadyAdd.contains(tmp_s1)){
+                            this.sommets.add(tmp_s1);
+                            sAlreadyAdd.add(tmp_s1);
+                        }
+
+                        if (!sAlreadyAdd.contains(tmp_s2)){
+                            this.sommets.add(tmp_s2);
+                            sAlreadyAdd.add(tmp_s2);
+                        }
+
+                    }
+                }
+            }
         }
+        System.out.println("fin parcours");
+        //ON AJOUTE LES SOMMETS A LA LISTE DES SOMMETS
+//        for (int i = 0; i < arcs.size(); i++) {
+//            Sommet[] sommets = arcs.get(i).getSommet();
+//            if (this.sommets.indexOf(sommets[0]) != -1)
+//                this.sommets.add(sommets[0]);
+//            if (this.sommets.indexOf(sommets[1]) != -1)
+//                this.sommets.add(sommets[1]);
+//        }
     }
 
     /**
@@ -214,4 +245,7 @@ public class Graphe {
         return arc;
     }
 
+    public ArrayList<Commune> getListeCommune() {
+        return listeCommune;
+    }
 }

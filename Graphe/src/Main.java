@@ -21,14 +21,13 @@ public class Main {
         List<String> liste;
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
-        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 200000);
-        for(Sommet sommet : graphe.getSommets()){
-            System.out.println(sommet.getCommune().getNom());
-        }
-        //ArrayList<Commune> graphe = Graphe.triPopMin(listeCommunes, 200000);
-//        for(Commune c : graphe){
+
+        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 20000);
+        System.out.println(graphe.getListeCommune().size());
+//        for(Commune c : graphe.getListeCommune()){
 //            System.out.println(c.getNom());
 //        }
+        System.out.println(graphe.getSommets().size());
 //        System.out.println("FIN dAFFICHAGE");
 //        //Trie de la liste
 //        //ArrayList<Commune> listeTrie;
