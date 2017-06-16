@@ -55,9 +55,7 @@ public class Graphe {
                         this.listeCommune= triPopMin(listeCommune, valeurTri);
                         break;
                     default:
-
                         this.listeCommune = new ArrayList<>();
-
                         break;
                 }
                 break;
