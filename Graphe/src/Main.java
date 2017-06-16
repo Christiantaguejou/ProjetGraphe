@@ -36,6 +36,13 @@ public class Main {
             Sommet[] sommets = arc.getSommet();
             System.out.println(sommets[0]+"--------"+sommets[1]);
         }
+        Sommet depart = graphe.getSommets().get(0);
+        Sommet arrive = graphe.getSommets().get(1);
+        System.out.println("Depart :"+depart+"\nArrive :"+arrive);
+        double[] poids = _Dijkstra(graphe,depart,arrive);
+        for(int i =0; i<poids.length; i++){
+            System.out.println("poids a i = "+i+" :"+poids[i]);
+        }
 //        System.out.println(graphe.getArcs().size());
 //        _Dijkstra(graphe);
 

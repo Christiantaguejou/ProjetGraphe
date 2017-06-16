@@ -30,12 +30,14 @@ public class Dijkstra {
         double[] poids = new double[sommets.size()];
         poids[indice_depart] = 0;
         for (int i = 0; i < sommets.size(); i++) {
+            if(i!=indice_depart){
+                Arc tmp = new Arc(depart, sommets.get(i));
+                if (arcs.contains(tmp))
+                    poids[i] = tmp.getPoids();
+                else
+                    poids[i] = HIGH;
+            }
 
-            Arc tmp = new Arc(depart, sommets.get(i));
-            if (arcs.contains(tmp))
-                poids[i] = tmp.getPoids();
-            else
-                poids[i] = HIGH;
 
         }
 
