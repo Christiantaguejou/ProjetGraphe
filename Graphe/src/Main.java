@@ -1,14 +1,13 @@
 import Communes.Commune;
 import Communes.CsvCommunes;
-import Graphes.Aetoile;
-import Graphes.Arc;
-import Graphes.Graphe;
-import Graphes.Sommet;
+import Graphes.*;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static Graphes.Dijkstra._Dijkstra;
 
 /**
  * Created by Fabien on 19/05/2017.
@@ -23,11 +22,11 @@ public class Main {
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
 
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 20000);
-        System.out.println(graphe.getListeCommune().size());
+        System.out.println(graphe.getArcs().size());
+        _Dijkstra(graphe);
 //        for(Commune c : graphe.getListeCommune()){
 //            System.out.println(c.getNom());
 //        }
-        System.out.println(graphe.getSommets().size());
 //        System.out.println("FIN dAFFICHAGE");
 //        //Trie de la liste
 //        //ArrayList<Commune> listeTrie;
