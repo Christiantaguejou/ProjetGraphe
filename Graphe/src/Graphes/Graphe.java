@@ -84,40 +84,41 @@ public class Graphe {
         /////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME ARC
         ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
 
+        this.sommets = transformToSommet(this.listeCommune);
 
-        for(int i =0; i<this.listeCommune.size();i++){
-            for(int j = 0; j< this.listeCommune.size();j++){
-                if(i!=j){
-                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(j))<DIST_MAX_ARC){
-                        Sommet tmp_s1 = new Sommet(this.listeCommune.get(i));
-                        Sommet tmp_s2 =new Sommet(this.listeCommune.get(j));
-                        Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
-                        //System.out.println(tmp_s1);
-                        //System.out.println(tmp_s2);
-
-
-                        if(!sAlreadyAdd.contains(tmp_s1)){
-                            this.sommets.add(tmp_s1);
-                            sAlreadyAdd.add(tmp_s1);
-                        }
-
-                        if (!sAlreadyAdd.contains(tmp_s2)){
-                            this.sommets.add(tmp_s2);
-                            sAlreadyAdd.add(tmp_s2);
-                        }
-
-                        if(!aAlreadyAdd.contains(tmp_arc)){
-                            this.arcs.add(tmp_arc);
-                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
-                            ////AVOIR DE DOUBLONS
-                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
-                            aAlreadyAdd.add(tmp_arc);
-                        }
-
-                    }
-                }
-            }
-        }
+//        for(int i =0; i<this.listeCommune.size();i++){
+//            for(int j = 0; j< this.listeCommune.size();j++){
+//                if(i!=j){
+//                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(j))<DIST_MAX_ARC){
+//                        Sommet tmp_s1 = new Sommet(this.listeCommune.get(i));
+//                        Sommet tmp_s2 =new Sommet(this.listeCommune.get(j));
+//                        Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
+//                        //System.out.println(tmp_s1);
+//                        //System.out.println(tmp_s2);
+//
+//
+//                        if(!sAlreadyAdd.contains(tmp_s1)){
+//                            this.sommets.add(tmp_s1);
+//                            sAlreadyAdd.add(tmp_s1);
+//                        }
+//
+//                        if (!sAlreadyAdd.contains(tmp_s2)){
+//                            this.sommets.add(tmp_s2);
+//                            sAlreadyAdd.add(tmp_s2);
+//                        }
+//
+//                        if(!aAlreadyAdd.contains(tmp_arc)){
+//                            this.arcs.add(tmp_arc);
+//                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
+//                            ////AVOIR DE DOUBLONS
+//                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
+//                            aAlreadyAdd.add(tmp_arc);
+//                        }
+//
+//                    }
+//                }
+//            }
+//        }
         System.out.println("fin parcours");
         //ON AJOUTE LES SOMMETS A LA LISTE DES SOMMETS
 //        for (int i = 0; i < arcs.size(); i++) {
@@ -127,6 +128,25 @@ public class Graphe {
 //            if (this.sommets.indexOf(sommets[1]) != -1)
 //                this.sommets.add(sommets[1]);
 //        }
+    }
+
+    public void web(ArrayList<Commune> listeCommune, Sommet sommet){
+        for(int i =0; i<listeCommune.size();i++){
+            if(Arc.distanceVolOiseau(listeCommune.get(i),sommet.getCommune())<DIST_MAX_ARC){
+                Sommet sommet_suivant = new Sommet(listeCommune.get(i));
+                sommet.addSuccesseur(sommet_suivant);
+                web(listeCommune, sommet_suivant);
+            }
+        }
+    }
+
+
+    public ArrayList<Sommet> transformToSommet(ArrayList<Commune> listeCommune){
+        ArrayList<Sommet> listeSommets = new ArrayList<>();
+        for(Commune commune : listeCommune){
+            listeSommets.add(new Sommet(commune));
+        }
+        return listeSommets;
     }
 
     /**

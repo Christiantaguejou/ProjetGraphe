@@ -22,8 +22,10 @@ public class Main {
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
 
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 20000);
-        System.out.println(graphe.getArcs().size());
-        _Dijkstra(graphe);
+//        System.out.println(graphe.getArcs().size());
+//        _Dijkstra(graphe);
+        for(Sommet s : graphe.getSommets())
+            System.out.println(s);
 //        for(Commune c : graphe.getListeCommune()){
 //            System.out.println(c.getNom());
 //        }
