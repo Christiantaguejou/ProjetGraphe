@@ -255,11 +255,8 @@ public class Graphe {
                 listeSuccesseurs.add(s); //On travaillera avec cette liste par la suite pour avoir tous les sommet
                                         //possible
                 System.out.println(s.getCommune().getNom());
+                listeSommet.remove(s);
             }
-        }
-        //On supprime les sommet qui sont deja dans listeSuccesseur pour diminuer le nombre d'itération
-        for(int i = 0; i < listaSuppr.size(); i++){
-            listeSommet.remove(i);
         }
 
         do{
