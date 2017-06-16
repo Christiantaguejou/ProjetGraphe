@@ -9,14 +9,17 @@ import java.util.ArrayList;
  */
 public class Dijkstra {
 
-    public void Dijkstra(Graphe graphe){
+    public static void _Dijkstra(Graphe graphe){
         //Initialisation de l'algo
         ArrayList<Sommet> sommets= graphe.getSommets();
         int[] poids = new int[sommets.size()];
         for(int i =0; i<sommets.size();i++){
             Sommet tmp = sommets.get(i);
-            for(int j = 0; j<tmp.getSuccesseur().size();j++){
-
+            ArrayList<Sommet> successeurs = tmp.getSuccesseur();
+            //System.out.println(i);
+            for(int j = 0; j<successeurs.size();j++){
+                //System.out.println(sommets.indexOf(successeurs.get(j)));
+                System.out.println(successeurs.get(j));
             }
         }
     }

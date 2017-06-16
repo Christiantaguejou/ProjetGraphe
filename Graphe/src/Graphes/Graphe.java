@@ -57,7 +57,10 @@ public class Graphe {
                     default:
 
                         this.listeCommune = new ArrayList<>();
+<<<<<<< HEAD
 
+=======
+>>>>>>> bec190c927ceb1717548762e83411bff7c97771e
                         break;
                 }
                 break;
@@ -83,13 +86,17 @@ public class Graphe {
 
         /////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME ARC
         ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
+
+
         for(int i =0; i<this.listeCommune.size();i++){
             for(int j = 0; j< this.listeCommune.size();j++){
                 if(i!=j){
-                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(i))<DIST_MAX_ARC){
+                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(j))<DIST_MAX_ARC){
                         Sommet tmp_s1 = new Sommet(this.listeCommune.get(i));
                         Sommet tmp_s2 =new Sommet(this.listeCommune.get(j));
                         Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
+                        //System.out.println(tmp_s1);
+                        //System.out.println(tmp_s2);
                         if(!aAlreadyAdd.contains(tmp_arc)){
                             this.arcs.add(tmp_arc);
                             ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
