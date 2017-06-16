@@ -55,7 +55,7 @@ public class Graphe {
                         trier = triPopMin(listeCommune, valeurTri);
                         break;
                     default:
-                        trier = new ArrayList<Arc>();
+                        trier = new ArrayList<Commune>();
                         break;
                 }
                 break;
