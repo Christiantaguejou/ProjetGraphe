@@ -76,10 +76,10 @@ public class Graphe {
                 this.listeCommune = new ArrayList<>();
                 break;
         }
-        //this.arcs = trier;
-        System.out.println(this.listeCommune.size());
-        System.out.println("debut parcours liste de commune");
+        //////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME SOMMET
         ArrayList<Sommet> sAlreadyAdd = new ArrayList<>();
+
+        /////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME ARC
         ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
         for(int i =0; i<this.listeCommune.size();i++){
             for(int j = 0; j< this.listeCommune.size();j++){
@@ -90,7 +90,9 @@ public class Graphe {
                         Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
                         if(!aAlreadyAdd.contains(tmp_arc)){
                             this.arcs.add(tmp_arc);
-                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s2));
+                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
+                            ////AVOIR DE DOUBLONS
+                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
                             aAlreadyAdd.add(tmp_arc);
                         }
 
