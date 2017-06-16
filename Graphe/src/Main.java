@@ -21,9 +21,32 @@ public class Main {
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
 
-        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 20000);
-        System.out.println(graphe.getArcs().size());
-        _Dijkstra(graphe);
+        Commune paris = new Commune("paris", "PARIS",2243833,2.34445,48.86);
+        Sommet sParis = new Sommet(paris);
+
+        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+        //graphe.firtSuccesseur();
+        for (Sommet sommet : graphe.getSommets()){
+            System.out.println(sommet);
+            for(Sommet sommet1 : sommet.getSuccesseur())
+                System.out.println("-> " + sommet1);
+        }
+
+        for(Arc arc : graphe.getArcs()){
+            Sommet[] sommets = arc.getSommet();
+            System.out.println(sommets[0]+"--------"+sommets[1]);
+        }
+        Sommet depart = graphe.getSommets().get(0);
+        Sommet arrive = graphe.getSommets().get(1);
+        System.out.println("Depart :"+depart+"\nArrive :"+arrive);
+        double[] poids = _Dijkstra(graphe,depart,arrive);
+        for(int i =0; i<poids.length; i++){
+            System.out.println("poids a i = "+i+" :"+poids[i]);
+        }
+//        System.out.println(graphe.getArcs().size());
+//        _Dijkstra(graphe);
+
+
 //        for(Commune c : graphe.getListeCommune()){
 //            System.out.println(c.getNom());
 //        }
