@@ -226,6 +226,15 @@ public class Graphe {
         return listeTrie;
     }
 
+
+    public void web (ArrayList<Sommet> listeSommet, Sommet comDepart){
+        for(Sommet s : listeSommet){
+            if(Arc.distanceVolOiseau(s.getCommune(), comDepart.getCommune()) <= DIST_MAX_ARC){
+                comDepart.addSuccesseur(s);
+            }
+        }
+    }
+
     /**
      * Getteur d'arêtes
      *

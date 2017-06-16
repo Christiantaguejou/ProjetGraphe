@@ -21,7 +21,7 @@ public class Main {
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
 
-        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 20000);
+        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000);
         System.out.println(graphe.getArcs().size());
         _Dijkstra(graphe);
 //        for(Commune c : graphe.getListeCommune()){
