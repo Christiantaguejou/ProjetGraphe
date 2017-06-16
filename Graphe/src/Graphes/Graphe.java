@@ -57,10 +57,7 @@ public class Graphe {
                     default:
 
                         this.listeCommune = new ArrayList<>();
-<<<<<<< HEAD
 
-=======
->>>>>>> bec190c927ceb1717548762e83411bff7c97771e
                         break;
                 }
                 break;
