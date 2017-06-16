@@ -12,7 +12,10 @@ public class Graphe {
     ArrayList<Commune> listeCommune;
     ArrayList<Arc> arcs;
     ArrayList<Sommet> sommets;
-    static int DIST_MAX_ARC = 100;
+    ArrayList<Sommet> listeSuccesseurs = new ArrayList<>();
+    ArrayList<Sommet> listeSommet = new ArrayList<>();
+    Sommet somDepart;
+    static int DIST_MAX_ARC = 160;
 
     public enum choixTri {
         MAX,
@@ -43,8 +46,9 @@ public class Graphe {
      * @param choixTri     si on trie par Max ou Min
      * @param valeurTri    valeur pour le trie des communes
      */
-    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri) {
+    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart) {
         this();
+        this.somDepart = somDepart;
         switch (triPar) {
             case POPULATION:
                 switch (choixTri) {
@@ -84,40 +88,41 @@ public class Graphe {
         /////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME ARC
         ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
 
+        this.sommets = transformToSommet(this.listeCommune);
 
-        for(int i =0; i<this.listeCommune.size();i++){
-            for(int j = 0; j< this.listeCommune.size();j++){
-                if(i!=j){
-                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(j))<DIST_MAX_ARC){
-                        Sommet tmp_s1 = new Sommet(this.listeCommune.get(i));
-                        Sommet tmp_s2 =new Sommet(this.listeCommune.get(j));
-                        Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
-                        //System.out.println(tmp_s1);
-                        //System.out.println(tmp_s2);
-
-
-                        if(!sAlreadyAdd.contains(tmp_s1)){
-                            this.sommets.add(tmp_s1);
-                            sAlreadyAdd.add(tmp_s1);
-                        }
-
-                        if (!sAlreadyAdd.contains(tmp_s2)){
-                            this.sommets.add(tmp_s2);
-                            sAlreadyAdd.add(tmp_s2);
-                        }
-
-                        if(!aAlreadyAdd.contains(tmp_arc)){
-                            this.arcs.add(tmp_arc);
-                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
-                            ////AVOIR DE DOUBLONS
-                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
-                            aAlreadyAdd.add(tmp_arc);
-                        }
-
-                    }
-                }
-            }
-        }
+//        for(int i =0; i<this.listeCommune.size();i++){
+//            for(int j = 0; j< this.listeCommune.size();j++){
+//                if(i!=j){
+//                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(j))<DIST_MAX_ARC){
+//                        Sommet tmp_s1 = new Sommet(this.listeCommune.get(i));
+//                        Sommet tmp_s2 =new Sommet(this.listeCommune.get(j));
+//                        Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
+//                        //System.out.println(tmp_s1);
+//                        //System.out.println(tmp_s2);
+//
+//
+//                        if(!sAlreadyAdd.contains(tmp_s1)){
+//                            this.sommets.add(tmp_s1);
+//                            sAlreadyAdd.add(tmp_s1);
+//                        }
+//
+//                        if (!sAlreadyAdd.contains(tmp_s2)){
+//                            this.sommets.add(tmp_s2);
+//                            sAlreadyAdd.add(tmp_s2);
+//                        }
+//
+//                        if(!aAlreadyAdd.contains(tmp_arc)){
+//                            this.arcs.add(tmp_arc);
+//                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
+//                            ////AVOIR DE DOUBLONS
+//                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
+//                            aAlreadyAdd.add(tmp_arc);
+//                        }
+//
+//                    }
+//                }
+//            }
+//        }
         System.out.println("fin parcours");
         //ON AJOUTE LES SOMMETS A LA LISTE DES SOMMETS
 //        for (int i = 0; i < arcs.size(); i++) {
@@ -127,6 +132,15 @@ public class Graphe {
 //            if (this.sommets.indexOf(sommets[1]) != -1)
 //                this.sommets.add(sommets[1]);
 //        }
+    }
+
+
+    public ArrayList<Sommet> transformToSommet(ArrayList<Commune> listeCommune){
+        ArrayList<Sommet> listeSommets = new ArrayList<>();
+        for(Commune commune : listeCommune){
+            listeSommets.add(new Sommet(commune));
+        }
+        return listeSommets;
     }
 
     /**
@@ -226,11 +240,44 @@ public class Graphe {
         return listeTrie;
     }
 
+    public void firtSuccesseur(){
+        listeSommet = transformToSommet(this.listeCommune);
+        ArrayList<Sommet> listaSuppr = new ArrayList<>();
 
-    public void web (ArrayList<Sommet> listeSommet, Sommet comDepart){
         for(Sommet s : listeSommet){
-            if(Arc.distanceVolOiseau(s.getCommune(), comDepart.getCommune()) <= DIST_MAX_ARC){
-                comDepart.addSuccesseur(s);
+            if(Arc.distanceVolOiseau(s.getCommune(), somDepart.getCommune()) <= DIST_MAX_ARC){
+                somDepart.addSuccesseur(s);
+                listeSuccesseurs.add(s);
+                System.out.println(s.getCommune().getNom());
+            }
+        }
+        for(int i = 0; i < listaSuppr.size(); i++){
+            listeSommet.remove(i);
+        }
+
+        do{
+            System.out.println("web");
+            web();
+        }while(listeSuccesseurs.isEmpty());
+
+      /*  for(Sommet s : listeSuccesseurs){
+            System.out.println(s.getCommune().getNom());
+        }*/
+    }
+
+    public void web (){
+        for(Sommet s : listeSommet){
+            for(Sommet som : listeSuccesseurs){
+                while(Arc.distanceVolOiseau(som.getCommune(), s.getCommune()) <= DIST_MAX_ARC){
+                    if(!listeSuccesseurs.contains(s)) {
+                        som.addSuccesseur(s);
+                        listeSuccesseurs.add(s);
+                        listeSommet.remove(listeSommet.indexOf(s));
+                        System.out.println(s.getCommune().getNom());
+                    }
+                    else
+                        som.addSuccesseur(s);
+                }
             }
         }
     }

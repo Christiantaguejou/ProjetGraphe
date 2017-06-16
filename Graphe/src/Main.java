@@ -21,9 +21,15 @@ public class Main {
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
 
-        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000);
-        System.out.println(graphe.getArcs().size());
-        _Dijkstra(graphe);
+        Commune paris = new Commune("paris", "PARIS",2243833,2.34445,48.86);
+        Sommet sParis = new Sommet(paris);
+
+        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+        graphe.firtSuccesseur();
+//        System.out.println(graphe.getArcs().size());
+//        _Dijkstra(graphe);
+
+
 //        for(Commune c : graphe.getListeCommune()){
 //            System.out.println(c.getNom());
 //        }
