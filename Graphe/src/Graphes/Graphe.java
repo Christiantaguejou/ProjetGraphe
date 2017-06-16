@@ -94,13 +94,7 @@ public class Graphe {
                         Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
                         //System.out.println(tmp_s1);
                         //System.out.println(tmp_s2);
-                        if(!aAlreadyAdd.contains(tmp_arc)){
-                            this.arcs.add(tmp_arc);
-                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
-                            ////AVOIR DE DOUBLONS
-                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
-                            aAlreadyAdd.add(tmp_arc);
-                        }
+
 
                         if(!sAlreadyAdd.contains(tmp_s1)){
                             this.sommets.add(tmp_s1);
@@ -110,6 +104,14 @@ public class Graphe {
                         if (!sAlreadyAdd.contains(tmp_s2)){
                             this.sommets.add(tmp_s2);
                             sAlreadyAdd.add(tmp_s2);
+                        }
+
+                        if(!aAlreadyAdd.contains(tmp_arc)){
+                            this.arcs.add(tmp_arc);
+                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
+                            ////AVOIR DE DOUBLONS
+                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
+                            aAlreadyAdd.add(tmp_arc);
                         }
 
                     }
