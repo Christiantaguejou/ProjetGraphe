@@ -90,7 +90,7 @@ public class Graphe {
         ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
 
         this.sommets = transformToSommet(this.listeCommune);
-
+        spiderman();
 //        for(int i =0; i<this.listeCommune.size();i++){
 //            for(int j = 0; j< this.listeCommune.size();j++){
 //                if(i!=j){
