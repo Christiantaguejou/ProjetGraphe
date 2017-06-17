@@ -19,7 +19,7 @@ import org.json.JSONObject;
  *
  * @author markk
  */
-//cle_api=AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM 
+//cle_api=AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM
 public class GoogMatrixRequest {
     private static final String API_KEY = "AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM";
 
@@ -50,7 +50,7 @@ public class GoogMatrixRequest {
     JSONObject distancekm = distance.getJSONObject("distance");
     System.out.println(distancekm.getString("value"));
   }*/
-  
+
   public static int distanceReelle(String ville1,String ville2) throws IOException, JSONException{
     //GoogMatrixRequest request = new GoogMatrixRequest();
     String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ville1+"&destinations="+ville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
@@ -65,5 +65,5 @@ public class GoogMatrixRequest {
     System.out.println(distancekm.getString("value"));
     return (distancekm.getInt(distancekm.getString("value")))/1000;
   }
-      
+
 }
