@@ -23,7 +23,6 @@ public class Main {
         System.out.println("suis la");
         Commune paris = new Commune("paris", "PARIS",2243833,2.34445,48.86);
         Sommet sParis = new Sommet(paris);
-
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
         //graphe.firtSuccesseur();
 

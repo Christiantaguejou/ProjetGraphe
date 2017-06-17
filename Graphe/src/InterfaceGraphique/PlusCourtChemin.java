@@ -32,6 +32,7 @@ import org.jgrapht.ext.JGraphModelAdapter;
 import org.jgrapht.graph.DefaultListenableGraph;
 import org.jgrapht.graph.DirectedMultigraph;
 import org.jgrapht.graph.ListenableDirectedGraph;
+import org.jgrapht.graph.SimpleGraph;
 
 /**
  *
@@ -45,12 +46,10 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     /**
      * Creates new form PlusCourtChemin
      */
-    JGraph myGraph;
-    private JGraphModelAdapter myGraphAdapter;
+    
 
     public PlusCourtChemin() {
         initComponents();
-        drawGraph();
 
     }
 //
@@ -62,75 +61,6 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     Sommet sParis = new Sommet(paris);
     Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
 //
-
-    @SuppressWarnings("unchecked")
-    private void positionVertexAt(Object vertex, int x, int y) {
-        DefaultGraphCell cell = myGraphAdapter.getVertexCell(vertex);
-        AttributeMap attr = cell.getAttributes();
-        Rectangle2D bounds = GraphConstants.getBounds(attr);
-        Rectangle2D newBounds = new Rectangle2D.Double(x, y, bounds.getWidth(), bounds.getHeight());
-        GraphConstants.setBounds(attr, newBounds);
-        AttributeMap cellAttr = new AttributeMap();
-        cellAttr.put(cell, attr);
-        myGraphAdapter.edit(cellAttr, null, null, null);
-    }
-
-    private void adjustDisplaySettings(JGraph jg) {
-        jg.setPreferredSize(DEFAULT_SIZE);
-        Color c = DEFAULT_BG_COLOR;
-        String colorStr = null;
-        try {
-            //colorStr = getParameter("bgcolor");
-        } catch (Exception e) {
-        }
-        if (colorStr != null) {
-            c = Color.decode(colorStr);
-        }
-        jg.setBackground(c);
-    }
-    /**
-     * a listenable directed multigraph that allows loops and parallel edges.
-     */
-    private static class ListenableDirectedMultigraph<V, E>
-        extends DefaultListenableGraph<V, E>
-        implements DirectedGraph<V, E>
-    {
-        private static final long serialVersionUID = 1L; 
-        ListenableDirectedMultigraph(Class<E> edgeClass)
-        {
-            super(new DirectedMultigraph<>(edgeClass));
-        }
-    }
-
-    private void drawGraph() {
-        // create a JGraphT graph
-        ListenableGraph g = new ListenableDirectedGraph(DefaultEdge.class);
-        // create a visualization using JGraph, via an adapter
-        myGraphAdapter = new JGraphModelAdapter(g);
-        JGraph jgraph = new JGraph(myGraphAdapter);
-        adjustDisplaySettings(jgraph);
-        this.jTabbedPane1.add(jgraph);
-        resize(DEFAULT_SIZE);
-
-        // add some sample data (graph manipulated via JGraphT)
-        g.addVertex("v1");
-        g.addVertex("v2");
-        g.addVertex("v3");
-        g.addVertex("v4");
-
-        g.addEdge("v1", "v2");
-        g.addEdge("v2", "v3");
-        g.addEdge("v3", "v1");
-        g.addEdge("v4", "v3");
-
-        // position vertices nicely within JGraph component
-        positionVertexAt("v1", 130, 40);
-        positionVertexAt("v2", 60, 200);
-        positionVertexAt("v3", 310, 230);
-        positionVertexAt("v4", 380, 70);
-
-        // that's all there is to it!...
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -162,6 +92,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(809, 593));
 
         jLabel1.setText("Départ :");
 
