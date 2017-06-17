@@ -47,13 +47,13 @@ public class Main {
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
-        //ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
+        ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
 
         //System.out.println("LISTE DES SUCCESSEURS de "+depart+" :\n"+depart.getSuccesseur());
         //Sommet reims = depart.getSuccesseur().get(2);
         //System.out.println("LISTE DES SUCCESSEURS de "+reims+" :\n"+reims.getSuccesseur());
 
-        System.out.println("Depart :"+depart+"\nArrive :"+arrive);
+        System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
         /*double[] poids = _Dijkstra(graphe,depart,arrive);
         for(int i =0; i<poids.length; i++){
             System.out.println("poids a i = "+i+" :"+poids[i]);
