@@ -3,6 +3,7 @@ package Graphes;
 import Communes.*;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 /**
  * Created by Christian TAGUEJOU on 23/05/2017.
@@ -231,11 +232,8 @@ public class Graphe {
                 listeSuccesseurs.add(s); //On travaillera avec cette liste par la suite pour avoir tous les sommet
                                         //possible
                 System.out.println(s.getCommune().getNom());
+                listeSommet.remove(s);
             }
-        }
-        //On supprime les sommet qui sont deja dans listeSuccesseur pour diminuer le nombre d'itération
-        for(int i = 0; i < listaSuppr.size(); i++){
-            listeSommet.remove(i);
         }
 
         do{
@@ -265,6 +263,19 @@ public class Graphe {
                         listeSommet.remove(listeSommet.indexOf(s));
                         System.out.println(s.getCommune().getNom());
                     }
+
+                  /*  for(Element element : elements){
+                        if(element.isAlive()) element.changerEtat(infos.getLargeurUnivers(), infos.getHauteurUnivers(), elements);
+
+                    }
+
+                    ListIterator<Sommet> iterator = listeSuccesseurs.listIterator();
+                    while(iterator.hasNext()){
+                        Sommet som = (Sommet) iterator.next();
+                        if(!elem.isAlive()) iterator.remove();
+
+                    }*/
+
                     //S'il est contenu dans listeSuccesseur, on l'ajoute dans la liste perso des successeur de som
                     else
                         som.addSuccesseur(s);

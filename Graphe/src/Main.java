@@ -27,6 +27,7 @@ public class Main {
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
         //graphe.firtSuccesseur();
 
+
        for (Sommet sommet : graphe.getSommets()){
             System.out.println(sommet);
             for(Sommet sommet1 : sommet.getSuccesseur())
