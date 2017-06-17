@@ -16,11 +16,12 @@ public class Dijkstra {
      * @param graphe
      * @param depart sommet de depart
      * @param arrive sommet d arrive
-     * @return tableau de poids
+     * @return liste des sommets traités
      */
-    public static double[] _Dijkstra(Graphe graphe, Sommet depart, Sommet arrive) {
+    public static ArrayList<Sommet> _Dijkstra(Graphe graphe, Sommet depart, Sommet arrive) {
         //Initialisation de l'algo
         ArrayList<Sommet> sommets = (ArrayList<Sommet>)graphe.getSommets().clone();
+        ArrayList<Sommet> retour = (ArrayList<Sommet>)graphe.getSommets().clone();
         ArrayList<Arc> arcs = graphe.getArcs();
         int indice_depart = sommets.indexOf(depart);
         System.out.println("indice depart " + indice_depart);
@@ -38,46 +39,63 @@ public class Dijkstra {
         for (int i = 0; i < firstSuccesseur.size(); i++) {
             if(i!=indice_depart){
                 Arc tmp = new Arc(depart, sommets.get(i));
-                if (arcs.contains(tmp)){
                     poids[i] = tmp.getPoids();
-                    sommets.get(i).setPredecesseur(depart);
-                }
-
+                    retour.get(i).setPredecesseur(depart);
             }
 
 
         }
 
         sommets.remove(depart);
-
+        System.out.println("depart ="+depart);
         while (!sommets.isEmpty()){
-            Sommet x = getMin(poids, sommets);
+            Sommet x = getMin(poids, sommets,graphe);
+            System.out.println(x);
             int i_x = graphe.getSommets().indexOf(x);
             sommets.remove(x);
             ArrayList<Sommet> successeurs = x.getSuccesseur();
+            //System.out.println("poids " +poids[i_x]+"\n");
+
             for(int i = 0; i<successeurs.size();i++){
                 Arc arc_tmp = new Arc(x,successeurs.get(i));
-                if(poids[i_x]+arc_tmp.getPoids()<poids[i]){
-                    poids[i] = poids[i_x] + arc_tmp.getPoids();
-                    successeurs.get(i).setPredecesseur(x);
+                int i_successeur = graphe.getSommets().indexOf(successeurs.get(i));
+                System.out.println("poids "+successeurs.get(i)+" "+poids[i_successeur]+"\n");
+                if(poids[i_successeur]+arc_tmp.getPoids()<poids[i_x]){
+                    System.out.println("-> "+successeurs.get(i)+"\n" );
+                    poids[i_x] = poids[i_successeur] + arc_tmp.getPoids();
+                    retour.get(i_x).setPredecesseur(successeurs.get(i));
                 }
             }
             successeurs.clear();
         }
-
-        return poids;
+        test(retour,depart,arrive);
+        return retour;
     }
 
-    public static Sommet getMin(double[] poids, ArrayList<Sommet> sommets){
+    public static void test( ArrayList<Sommet> dijkstra , Sommet depart, Sommet arrive){
+        int indice_arrive = dijkstra.indexOf(arrive);
+        System.out.println("chemin : "+depart+"\n");
+        Sommet courant = dijkstra.get(indice_arrive).getPredecesseur();
+        System.out.println(courant);
+        while(courant!=null){
+            System.out.println(courant+"\n");
+            courant = courant.getPredecesseur();
+        }
+    }
+
+    public static Sommet getMin(double[] poids, ArrayList<Sommet> sommets, Graphe graphe){
         double min = HIGH;
         int i_min =0;
         for(int i=0; i< sommets.size();i++){
-            if(poids[i]<min){
-                min = poids[i];
+            int indice = graphe.getSommets().indexOf(sommets.get(i));
+            if(poids[indice]<min){
+                min = poids[indice];
                 i_min = i;
             }
 
         }
+//        int indice = graphe.getSommets().indexOf(sommets.get(i_min));
+//        System.out.println("Min retourné pour "+sommets.get(i_min)+poids[indice]);
         return sommets.get(i_min);
     }
 
