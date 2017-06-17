@@ -20,18 +20,18 @@ public class Main {
         List<String> liste;
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
-
+        System.out.println("suis la");
         Commune paris = new Commune("paris", "PARIS",2243833,2.34445,48.86);
         Sommet sParis = new Sommet(paris);
 
-        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 0, sParis);
         //graphe.firtSuccesseur();
-     /*   for (Sommet sommet : graphe.getSommets()){
+       for (Sommet sommet : graphe.getSommets()){
             System.out.println(sommet);
             for(Sommet sommet1 : sommet.getSuccesseur())
                 System.out.println("-> " + sommet1);
         }
-
+/* 
         for(Arc arc : graphe.getArcs()){
             Sommet[] sommets = arc.getSommet();
             System.out.println(sommets[0]+"--------"+sommets[1]);

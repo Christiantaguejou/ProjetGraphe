@@ -87,25 +87,30 @@ public class Graphe {
         ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
 
         this.sommets = transformToSommet(this.listeCommune);
+         System.out.println("ici4");
         for (int i =0; i< this.sommets.size(); i++){
+           
             //ON NE REGARDE QUE LES SOMMETS OU L ON A PAS FIXE DE SUCCESSEURQUE L ON A PAS ENCORE VISITE D OU LE I+1
             for(int j=i+1; j< this.sommets.size(); j++){
+                
                 if(Arc.distanceVolOiseau(this.sommets.get(i).getCommune(),this.sommets.get(j).getCommune())<DIST_MAX_ARC){
+                    
                     this.sommets.get(i).addSuccesseur(this.sommets.get(j));
                     this.arcs.add(new Arc(sommets.get(i),this.sommets.get(j)));
                 }
-
             }
         }
-
     }
 
 
     public ArrayList<Sommet> transformToSommet(ArrayList<Commune> listeCommune){
         ArrayList<Sommet> listeSommets = new ArrayList<>();
         for(Commune commune : listeCommune){
+           
             listeSommets.add(new Sommet(commune));
+          
         }
+        
         return listeSommets;
     }
 
