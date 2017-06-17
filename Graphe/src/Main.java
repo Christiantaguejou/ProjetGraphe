@@ -27,6 +27,14 @@ public class Main {
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
         //graphe.firtSuccesseur();
 
+
+       for (Sommet sommet : graphe.getSommets()){
+            System.out.println(sommet);
+            for(Sommet sommet1 : sommet.getSuccesseur())
+                System.out.println("-> " + sommet1);
+        }
+        /* 
+
 //       for (Sommet sommet : graphe.getSommets()){
 //            System.out.println(sommet);
 //            for(Sommet sommet1 : sommet.getSuccesseur())
@@ -40,7 +48,7 @@ public class Main {
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
-        ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
+        //ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
 
         //System.out.println("LISTE DES SUCCESSEURS de "+depart+" :\n"+depart.getSuccesseur());
         //Sommet reims = depart.getSuccesseur().get(2);
@@ -87,7 +95,7 @@ public class Main {
 //        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau());
 //        System.out.println(new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());
 //        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau() + new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());*/
-         //LinkedList<Sommet> s = Aetoile.algo(graphe.getSommets(), depart, arrive);
-//         Aetoile.AfficherAetoile(s);
+         LinkedList<Sommet> s = Aetoile.algo(graphe.getSommets(), depart, arrive);
+         Aetoile.AfficherAetoile(s);
     }
 }

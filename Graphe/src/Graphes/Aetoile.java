@@ -43,14 +43,17 @@ public class Aetoile {
                     tmp.setgCost(courant);
                     if(!openList.contains(tmp)) openList.add(tmp);
                 } else {
-                    if (tmp.getgCost() > tmp.calculateGcost(courant)) {
+                    if(openList.contains(tmp) && tmp.getgCost() > tmp.calculateGcost(courant)){
+                        System.out.println("Sommet  : "+tmp.getCommune().getNom());
                         tmp.setPredecesseur(courant);
+                        System.out.println("Predecesseur : "+tmp.getPredecesseur().getCommune().getNom());
                         tmp.setgCost(courant);
+                        
                     }
                 }
             }
-                System.out.println(openList);
-                System.out.println(closedList);
+                //System.out.println(openList);
+                //System.out.println(closedList);
         }
         arrive.setPredecesseur(closedList.getLast());
         return calcPath(depart,arrive);
@@ -59,7 +62,7 @@ public class Aetoile {
     private static LinkedList<Sommet> calcPath(Sommet depart, Sommet arrive) {
         // TODO if invalid nodes are given (eg cannot find from
         // goal to start, this method will result in an infinite loop!)
-        LinkedList<Sommet> chemin = new LinkedList<Sommet>();
+        LinkedList<Sommet> chemin = new LinkedList<>();
         Sommet courant = arrive;
         boolean done = false;
         int i=0; 
