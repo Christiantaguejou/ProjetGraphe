@@ -38,32 +38,37 @@ public class Dijkstra {
 
         for (int i = 0; i < firstSuccesseur.size(); i++) {
             if(i!=indice_depart){
-                Arc tmp = new Arc(depart, sommets.get(i));
-                    poids[i] = tmp.getPoids();
-                    retour.get(i).setPredecesseur(depart);
+                int indice = sommets.indexOf(firstSuccesseur.get(i));
+                Arc tmp = new Arc(depart, sommets.get(indice));
+                poids[indice] = tmp.getPoids();
+                retour.get(indice).setPredecesseur(depart);
             }
-
-
         }
+//
+//        System.out.println("Liste des poids");
+//        for(int i=0; i<poids.length;i++){
+//            if(poids[i]!=HIGH)
+//                System.out.println("poids "+retour.get(i)+" : "+poids[i]);
+//        }
 
         sommets.remove(depart);
-        System.out.println("depart ="+depart);
+        //System.out.println("depart ="+depart);
+
         while (!sommets.isEmpty()){
             Sommet x = getMin(poids, sommets,graphe);
-            System.out.println(x);
-            int i_x = graphe.getSommets().indexOf(x);
+            int i_x = retour.indexOf(x);
             sommets.remove(x);
             ArrayList<Sommet> successeurs = x.getSuccesseur();
-            //System.out.println("poids " +poids[i_x]+"\n");
+            System.out.println(x+" poids " +poids[i_x]+"\n");
 
             for(int i = 0; i<successeurs.size();i++){
                 Arc arc_tmp = new Arc(x,successeurs.get(i));
-                int i_successeur = graphe.getSommets().indexOf(successeurs.get(i));
-                System.out.println("poids "+successeurs.get(i)+" "+poids[i_successeur]+"\n");
-                if(poids[i_successeur]+arc_tmp.getPoids()<poids[i_x]){
+                int i_successeur = retour.indexOf(successeurs.get(i));
+                //System.out.println("poids "+successeurs.get(i)+" "+poids[i_successeur]+"\n");
+                if(poids[i_x]+arc_tmp.getPoids()<poids[i_successeur]){
                     System.out.println("-> "+successeurs.get(i)+"\n" );
-                    poids[i_x] = poids[i_successeur] + arc_tmp.getPoids();
-                    retour.get(i_x).setPredecesseur(successeurs.get(i));
+                    poids[i_successeur] = poids[i_x] + arc_tmp.getPoids();
+                    retour.get(i_successeur).setPredecesseur(x);
                 }
             }
             successeurs.clear();
