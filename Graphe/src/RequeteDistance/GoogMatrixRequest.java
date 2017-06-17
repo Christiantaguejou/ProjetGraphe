@@ -32,7 +32,7 @@ public class GoogMatrixRequest {
     Response response = client.newCall(request).execute();
     return response.body().string();
   }
-
+/*
   public static void main(String[] args) throws IOException, JSONException {
     GoogMatrixRequest request = new GoogMatrixRequest();
     String ville1 ="paris";
@@ -48,7 +48,7 @@ public class GoogMatrixRequest {
     JSONObject distance = tableauElem.getJSONObject(0);
     JSONObject distancekm = distance.getJSONObject("distance");
     System.out.println(distancekm.getString("value"));
-  }
+  }*/
   
   public int distanceReelle(String ville1,String ville2) throws IOException, JSONException{
     //GoogMatrixRequest request = new GoogMatrixRequest();
