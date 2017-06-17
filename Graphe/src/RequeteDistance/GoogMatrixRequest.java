@@ -9,6 +9,7 @@ import java.io.FileReader;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,9 +23,9 @@ import org.json.JSONObject;
 public class GoogMatrixRequest {
     private static final String API_KEY = "AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM";
 
-  OkHttpClient client = new OkHttpClient();
+  static OkHttpClient client = new OkHttpClient();
 
-  public String run(String url) throws IOException {
+  public static String run(String url) throws IOException {
     Request request = new Request.Builder()
         .url(url)
         .build();
@@ -50,10 +51,10 @@ public class GoogMatrixRequest {
     System.out.println(distancekm.getString("value"));
   }*/
   
-  public int distanceReelle(String ville1,String ville2) throws IOException, JSONException{
+  public static int distanceReelle(String ville1,String ville2) throws IOException, JSONException{
     //GoogMatrixRequest request = new GoogMatrixRequest();
     String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ville1+"&destinations="+ville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
-    String response = this.run(url_request);
+    String response = GoogMatrixRequest.run(url_request);
     //System.out.println(response);
     JSONObject reponse = new JSONObject(response);
     JSONArray lignes = reponse.getJSONArray("rows");
