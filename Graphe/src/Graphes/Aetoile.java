@@ -32,7 +32,8 @@ public class Aetoile {
             System.out.println(closedList);
             System.out.println("Fin Affichage de la closedList");
             //parcours de la liste de successeurs
-            for (Sommet tmp : courant.getSuccesseur()) {
+           for (Sommet tmp : courant.getSuccesseur()) {
+                //for (Sommet tmp : listeSommet) {
                 System.out.println("Sommet a tester  : "+tmp.getCommune().getNom());
                 if (!closedList.contains(tmp)) {
                     System.out.println("Sommet  : "+tmp.getCommune().getNom());
@@ -49,6 +50,7 @@ public class Aetoile {
                 }
             }
         }
+        arrive.setPredecesseur(closedList.getLast());
         return calcPath(depart,arrive);
     }
 
@@ -58,7 +60,7 @@ public class Aetoile {
         LinkedList<Sommet> chemin = new LinkedList<Sommet>();
         Sommet courant = arrive;
         boolean done = false;
-        int i=0;
+        int i=0; 
         while (!done) {
 
             chemin.addFirst(courant);

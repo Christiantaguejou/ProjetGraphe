@@ -60,9 +60,7 @@ public class Graphe {
                         this.listeCommune= triPopMin(listeCommune, valeurTri);
                         break;
                     default:
-
                         this.listeCommune = new ArrayList<>();
-
                         break;
                 }
                 break;
@@ -90,57 +88,30 @@ public class Graphe {
         ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
 
         this.sommets = transformToSommet(this.listeCommune);
-        spiderman();
-//        for(int i =0; i<this.listeCommune.size();i++){
-//            for(int j = 0; j< this.listeCommune.size();j++){
-//                if(i!=j){
-//                    if(Arc.distanceVolOiseau(this.listeCommune.get(i),listeCommune.get(j))<DIST_MAX_ARC){
-//                        Sommet tmp_s1 = new Sommet(this.listeCommune.get(i));
-//                        Sommet tmp_s2 =new Sommet(this.listeCommune.get(j));
-//                        Arc tmp_arc = new Arc(tmp_s1,tmp_s2);
-//                        //System.out.println(tmp_s1);
-//                        //System.out.println(tmp_s2);
-//
-//
-//                        if(!sAlreadyAdd.contains(tmp_s1)){
-//                            this.sommets.add(tmp_s1);
-//                            sAlreadyAdd.add(tmp_s1);
-//                        }
-//
-//                        if (!sAlreadyAdd.contains(tmp_s2)){
-//                            this.sommets.add(tmp_s2);
-//                            sAlreadyAdd.add(tmp_s2);
-//                        }
-//
-//                        if(!aAlreadyAdd.contains(tmp_arc)){
-//                            this.arcs.add(tmp_arc);
-//                            ////COMME LE GRAPH EST NON ORIENTER ON AJOUTE DIRECTEMENT L ARC A->B et B->A AFIN DE NE PAS
-//                            ////AVOIR DE DOUBLONS
-//                            aAlreadyAdd.add(new Arc(tmp_s2,tmp_s1));
-//                            aAlreadyAdd.add(tmp_arc);
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
-        System.out.println("fin parcours");
-        //ON AJOUTE LES SOMMETS A LA LISTE DES SOMMETS
-//        for (int i = 0; i < arcs.size(); i++) {
-//            Sommet[] sommets = arcs.get(i).getSommet();
-//            if (this.sommets.indexOf(sommets[0]) != -1)
-//                this.sommets.add(sommets[0]);
-//            if (this.sommets.indexOf(sommets[1]) != -1)
-//                this.sommets.add(sommets[1]);
-//        }
+         System.out.println("ici4");
+        for (int i =0; i< this.sommets.size(); i++){
+           
+            //ON NE REGARDE QUE LES SOMMETS OU L ON A PAS FIXE DE SUCCESSEURQUE L ON A PAS ENCORE VISITE D OU LE I+1
+            for(int j=i+1; j< this.sommets.size(); j++){
+                
+                if(Arc.distanceVolOiseau(this.sommets.get(i).getCommune(),this.sommets.get(j).getCommune())<DIST_MAX_ARC){
+                    
+                    this.sommets.get(i).addSuccesseur(this.sommets.get(j));
+                    this.arcs.add(new Arc(sommets.get(i),this.sommets.get(j)));
+                }
+            }
+        }
     }
 
 
     public ArrayList<Sommet> transformToSommet(ArrayList<Commune> listeCommune){
         ArrayList<Sommet> listeSommets = new ArrayList<>();
         for(Commune commune : listeCommune){
+           
             listeSommets.add(new Sommet(commune));
+          
         }
+        
         return listeSommets;
     }
 
@@ -308,16 +279,6 @@ public class Graphe {
         }
     }
 
-    public void spiderman()
-    {
-        for (int i =0; i< this.sommets.size(); i++){
-            //ON NE REGARDE QUE LES SOMMETS OU L ON A PAS FIXE DE SUCCESSEURQUE L ON A PAS ENCORE VISITE D OU LE I+1
-            for(int j=i+1; j< this.sommets.size(); j++){
-                if(Arc.distanceVolOiseau(this.sommets.get(i).getCommune(),this.sommets.get(j).getCommune())<DIST_MAX_ARC)
-                    sommets.get(i).addSuccesseur(this.sommets.get(j));
-            }
-        }
-    }
 
     /**
      * Getteur d'arêtes
