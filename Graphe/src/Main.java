@@ -48,7 +48,7 @@ public class Main {
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
-        //ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
+        ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
 
         //System.out.println("LISTE DES SUCCESSEURS de "+depart+" :\n"+depart.getSuccesseur());
         //Sommet reims = depart.getSuccesseur().get(2);
