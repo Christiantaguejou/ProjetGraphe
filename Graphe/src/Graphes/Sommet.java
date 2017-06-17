@@ -172,8 +172,8 @@ public class Sommet implements Comparable<Sommet>{
     }
     
     public double calculateHcost(Sommet s){
-     //return new Arc(this.commune,s.commune).distanceVolOiseau();
-     double tmp=0;
+     return new Arc(this.commune,s.commune).distanceVolOiseau();
+     /*double tmp=0;
      try {           
            tmp = GoogMatrixRequest.distanceReelle2(this.commune.getLongitude(),this.commune.getLatitude(),s.commune.getLongitude(),s.commune.getLatitude());
         } catch (IOException ex) {
@@ -181,12 +181,12 @@ public class Sommet implements Comparable<Sommet>{
         } catch (JSONException ex) {
             Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tmp;
+        return tmp;*/
     }
      
     public double calculateGcost(Sommet s){
-   // return new Arc(this.commune,s.commune).distanceVolOiseau();
-   double tmp=0;
+    return new Arc(this.commune,s.commune).distanceVolOiseau();
+   /*double tmp=0;
      try {           
            tmp = GoogMatrixRequest.distanceReelle2(this.commune.getLongitude(),this.commune.getLatitude(),s.commune.getLongitude(),s.commune.getLatitude());
         } catch (IOException ex) {
@@ -194,7 +194,7 @@ public class Sommet implements Comparable<Sommet>{
         } catch (JSONException ex) {
             Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tmp;
+        return tmp;*/
     }
 
     @Override
