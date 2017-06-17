@@ -15,7 +15,7 @@ public class Graphe {
     ArrayList<Sommet> listeSuccesseurs = new ArrayList<>();
     ArrayList<Sommet> listeSommet = new ArrayList<>();
     Sommet somDepart;
-    static int DIST_MAX_ARC = 160;
+    static int DIST_MAX_ARC = 200;
 
     public enum choixTri {
         MAX,
@@ -46,9 +46,8 @@ public class Graphe {
      * @param choixTri     si on trie par Max ou Min
      * @param valeurTri    valeur pour le trie des communes
      */
-    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart) {
+    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri) {
         this();
-        this.somDepart = somDepart;
         switch (triPar) {
             case POPULATION:
                 switch (choixTri) {
@@ -96,10 +95,16 @@ public class Graphe {
                 if(Arc.distanceVolOiseau(this.sommets.get(i).getCommune(),this.sommets.get(j).getCommune())<DIST_MAX_ARC){
                     
                     this.sommets.get(i).addSuccesseur(this.sommets.get(j));
+                    this.sommets.get(j).addSuccesseur(this.sommets.get(i));
                     this.arcs.add(new Arc(sommets.get(i),this.sommets.get(j)));
                 }
             }
         }
+    }
+
+    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart){
+        this(listeCommune,triPar,choixTri,valeurTri);
+        this.somDepart = somDepart;
     }
 
 

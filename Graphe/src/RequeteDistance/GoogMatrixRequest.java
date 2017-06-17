@@ -19,7 +19,7 @@ import org.json.JSONObject;
  *
  * @author markk
  */
-//cle_api=AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM 
+//cle_api=AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM
 public class GoogMatrixRequest {
     private static final String API_KEY = "AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM";
 
@@ -44,10 +44,17 @@ public class GoogMatrixRequest {
     JSONArray tableauElem = elements.getJSONArray("elements");
     JSONObject distance = tableauElem.getJSONObject(0);
     JSONObject distancekm = distance.getJSONObject("distance");
+<<<<<<< HEAD
     //System.out.println(distancekm.getString("value"));
     return (Integer.parseInt(distancekm.getString("value")))/1000;
   }
   public static double distanceReelle2(double longville1,double latville1,double longville2,double latville2) throws IOException, JSONException{
+=======
+    System.out.println(distancekm.getString("value"));
+  }*/
+
+  public static int distanceReelle(String ville1,String ville2) throws IOException, JSONException{
+>>>>>>> e326420672296ce0876714e966804fc24242e25f
     //GoogMatrixRequest request = new GoogMatrixRequest();
     String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+latville1+","+longville1+"&destinations="+latville2+","+longville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
     String response = GoogMatrixRequest.run(url_request);
@@ -61,5 +68,5 @@ public class GoogMatrixRequest {
     //System.out.println(distancekm.getString("value"));
     return (Integer.parseInt(distancekm.getString("value")))/1000;
   }
-      
+
 }
