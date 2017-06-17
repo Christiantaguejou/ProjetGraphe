@@ -62,7 +62,6 @@ public class Aetoile {
         boolean done = false;
         int i=0; 
         while (!done) {
-
             chemin.addFirst(courant);
             System.out.println("Dans calc1: "+courant.getCommune().getNom()+"\n");
             courant = courant.getPredecesseur();

@@ -29,27 +29,9 @@ public class GoogMatrixRequest {
     Request request = new Request.Builder()
         .url(url)
         .build();
-
     Response response = client.newCall(request).execute();
     return response.body().string();
   }
-/*
-  public static void main(String[] args) throws IOException, JSONException {
-    GoogMatrixRequest request = new GoogMatrixRequest();
-    String ville1 ="paris";
-    String ville2 ="marseille";
-  //  String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC%7CSeattle&destinations=San+Francisco%7CVictoria+BC&mode=driving&language=fr-FR&key=" + API_KEY;
-    String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ville1+"&destinations="+ville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
-
-    String response = request.run(url_request);
-    JSONObject reponse = new JSONObject(response);
-    JSONArray lignes = reponse.getJSONArray("rows");
-    JSONObject elements = lignes.getJSONObject(0);
-    JSONArray tableauElem = elements.getJSONArray("elements");
-    JSONObject distance = tableauElem.getJSONObject(0);
-    JSONObject distancekm = distance.getJSONObject("distance");
-    System.out.println(distancekm.getString("value"));
-  }*/
   
   public static int distanceReelle(String ville1,String ville2) throws IOException, JSONException{
     //GoogMatrixRequest request = new GoogMatrixRequest();
