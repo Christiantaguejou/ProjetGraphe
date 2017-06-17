@@ -46,7 +46,7 @@ public class Main {
         //Sommet reims = depart.getSuccesseur().get(2);
         //System.out.println("LISTE DES SUCCESSEURS de "+reims+" :\n"+reims.getSuccesseur());
 
-        System.out.println("Depart :"+depart+"\nArrive :"+arrive);
+        System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
         /*double[] poids = _Dijkstra(graphe,depart,arrive);
         for(int i =0; i<poids.length; i++){
             System.out.println("poids a i = "+i+" :"+poids[i]);
