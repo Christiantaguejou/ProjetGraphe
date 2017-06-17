@@ -3,6 +3,8 @@ package Graphes;
 import Communes.Commune;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by Christian TAGUEJOU on 10/06/2017.
@@ -59,38 +61,37 @@ public class Dijkstra {
             int i_x = retour.indexOf(x);
             sommets.remove(x);
             ArrayList<Sommet> successeurs = x.getSuccesseur();
-            System.out.println(x+" poids " +poids[i_x]+"\n");
+//            System.out.println(x+" poids " +poids[i_x]+"\n");
 
             for(int i = 0; i<successeurs.size();i++){
                 Arc arc_tmp = new Arc(x,successeurs.get(i));
                 int i_successeur = retour.indexOf(successeurs.get(i));
                 //System.out.println("poids "+successeurs.get(i)+" "+poids[i_successeur]+"\n");
                 if(poids[i_x]+arc_tmp.getPoids()<poids[i_successeur]){
-                    System.out.println("-> "+successeurs.get(i)+"\n" );
+//                    System.out.println("-> "+successeurs.get(i)+"\n" );
                     poids[i_successeur] = poids[i_x] + arc_tmp.getPoids();
                     retour.get(i_successeur).setPredecesseur(x);
                 }
             }
             successeurs.clear();
         }
-        test(retour,depart,arrive);
-        return retour;
+        ArrayList<Sommet> chemin =calcPath(retour,arrive);
+        return chemin;
     }
 
-    public static void test( ArrayList<Sommet> dijkstra , Sommet depart, Sommet arrive){
+    public static ArrayList<Sommet> calcPath( ArrayList<Sommet> dijkstra , Sommet arrive){
         ArrayList<Sommet> chemin = new ArrayList<Sommet>();
+        chemin.add(arrive);
         int indice_arrive = dijkstra.indexOf(arrive);
-        System.out.println("chemin : "+depart+"\n");
         Sommet courant = dijkstra.get(indice_arrive).getPredecesseur();
         while(courant!=null){
             chemin.add(courant);
             courant = courant.getPredecesseur();
         }
-        for(int i)
+        Collections.reverse(chemin);
 
-        System.out.println(chemin);
-
-
+//        System.out.println(chemin);
+        return chemin;
 
     }
 

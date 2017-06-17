@@ -26,21 +26,13 @@ public class Main {
 
         Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
         //graphe.firtSuccesseur();
-<<<<<<< HEAD
-       for (Sommet sommet : graphe.getSommets()){
-            System.out.println(sommet);
-            for(Sommet sommet1 : sommet.getSuccesseur())
-                System.out.println("-> " + sommet1);
-        }
-        /* 
-=======
+
 //       for (Sommet sommet : graphe.getSommets()){
 //            System.out.println(sommet);
 //            for(Sommet sommet1 : sommet.getSuccesseur())
 //                System.out.println("-> " + sommet1);
 //        }
 /* 
->>>>>>> e326420672296ce0876714e966804fc24242e25f
         for(Arc arc : graphe.getArcs()){
             Sommet[] sommets = arc.getSommet();
             System.out.println(sommets[0]+"--------"+sommets[1]);
