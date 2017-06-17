@@ -78,14 +78,20 @@ public class Dijkstra {
     }
 
     public static void test( ArrayList<Sommet> dijkstra , Sommet depart, Sommet arrive){
+        ArrayList<Sommet> chemin = new ArrayList<Sommet>();
         int indice_arrive = dijkstra.indexOf(arrive);
         System.out.println("chemin : "+depart+"\n");
         Sommet courant = dijkstra.get(indice_arrive).getPredecesseur();
-        System.out.println(courant);
         while(courant!=null){
-            System.out.println(courant+"\n");
+            chemin.add(courant);
             courant = courant.getPredecesseur();
         }
+        for(int i)
+
+        System.out.println(chemin);
+
+
+
     }
 
     public static Sommet getMin(double[] poids, ArrayList<Sommet> sommets, Graphe graphe){
