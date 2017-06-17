@@ -1,8 +1,13 @@
 package Graphes;
 
 import Communes.Commune;
+import RequeteDistance.GoogMatrixRequest;
+import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
 
 /**
  * Created by Christian TAGUEJOU on 25/05/2017.
@@ -54,7 +59,7 @@ public class Sommet implements Comparable<Sommet>{
      */
     @Override
     public String toString(){
-        return this.commune.getNom();   
+        return this.commune.getNom()+this.coutTotal();   
     }
 
 
@@ -162,16 +167,34 @@ public class Sommet implements Comparable<Sommet>{
     public void sethCost(double hCost) {
         this.hCost = hCost;
     }
-    public void sethCost(Sommet s) {
+    public void sethCost(Sommet s)  {
         this.hCost = calculateHcost(s);
     }
     
     public double calculateHcost(Sommet s){
-     return new Arc(this.commune,s.commune).distanceVolOiseau();
+     //return new Arc(this.commune,s.commune).distanceVolOiseau();
+     double tmp=0;
+     try {           
+           tmp = GoogMatrixRequest.distanceReelle2(this.commune.getLongitude(),this.commune.getLatitude(),s.commune.getLongitude(),s.commune.getLatitude());
+        } catch (IOException ex) {
+            Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tmp;
     }
      
     public double calculateGcost(Sommet s){
-    return new Arc(this.commune,s.commune).distanceVolOiseau();
+   // return new Arc(this.commune,s.commune).distanceVolOiseau();
+   double tmp=0;
+     try {           
+           tmp = GoogMatrixRequest.distanceReelle2(this.commune.getLongitude(),this.commune.getLatitude(),s.commune.getLongitude(),s.commune.getLatitude());
+        } catch (IOException ex) {
+            Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tmp;
     }
 
     @Override

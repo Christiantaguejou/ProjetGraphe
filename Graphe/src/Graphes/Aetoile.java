@@ -32,8 +32,8 @@ public class Aetoile {
             System.out.println(closedList);
             System.out.println("Fin Affichage de la closedList");
             //parcours de la liste de successeurs
-           for (Sommet tmp : courant.getSuccesseur()) {
-                //for (Sommet tmp : listeSommet) {
+           //for (Sommet tmp : courant.getSuccesseur()) {
+                for (Sommet tmp : listeSommet) {
                 System.out.println("Sommet a tester  : "+tmp.getCommune().getNom());
                 if (!closedList.contains(tmp)) {
                     System.out.println("Sommet  : "+tmp.getCommune().getNom());
@@ -49,6 +49,8 @@ public class Aetoile {
                     }
                 }
             }
+                System.out.println(openList);
+                System.out.println(closedList);
         }
         arrive.setPredecesseur(closedList.getLast());
         return calcPath(depart,arrive);

@@ -31,7 +31,7 @@ public class Main {
             for(Sommet sommet1 : sommet.getSuccesseur())
                 System.out.println("-> " + sommet1);
         }
-/* 
+        /* 
         for(Arc arc : graphe.getArcs()){
             Sommet[] sommets = arc.getSommet();
             System.out.println(sommets[0]+"--------"+sommets[1]);
