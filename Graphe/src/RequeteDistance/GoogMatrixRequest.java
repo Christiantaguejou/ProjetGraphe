@@ -9,6 +9,7 @@ import java.io.FileReader;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,51 +19,49 @@ import org.json.JSONObject;
  *
  * @author markk
  */
-//cle_api=AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM 
+//cle_api=AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM
 public class GoogMatrixRequest {
     private static final String API_KEY = "AIzaSyBkHh6SZhRFEi9yxo8ikALKzgxbHsolWeM";
 
-  OkHttpClient client = new OkHttpClient();
+  static OkHttpClient client = new OkHttpClient();
 
-  public String run(String url) throws IOException {
+  public static String run(String url) throws IOException {
     Request request = new Request.Builder()
         .url(url)
         .build();
-
     Response response = client.newCall(request).execute();
     return response.body().string();
   }
-/*
-  public static void main(String[] args) throws IOException, JSONException {
-    GoogMatrixRequest request = new GoogMatrixRequest();
-    String ville1 ="paris";
-    String ville2 ="marseille";
-  //  String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC%7CSeattle&destinations=San+Francisco%7CVictoria+BC&mode=driving&language=fr-FR&key=" + API_KEY;
-    String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ville1+"&destinations="+ville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
-
-    String response = request.run(url_request);
-    JSONObject reponse = new JSONObject(response);
-    JSONArray lignes = reponse.getJSONArray("rows");
-    JSONObject elements = lignes.getJSONObject(0);
-    JSONArray tableauElem = elements.getJSONArray("elements");
-    JSONObject distance = tableauElem.getJSONObject(0);
-    JSONObject distancekm = distance.getJSONObject("distance");
-    System.out.println(distancekm.getString("value"));
-  }*/
   
-  public int distanceReelle(String ville1,String ville2) throws IOException, JSONException{
+  public static double distanceReelle1(String ville1,String ville2) throws IOException, JSONException{
     //GoogMatrixRequest request = new GoogMatrixRequest();
-    String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ville1+"&destinations="+ville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
-    String response = this.run(url_request);
-    //System.out.println(response);
+    String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ville1+", France"+"&destinations="+ville2+", France"+"&mode=driving&language=fr-FR&key=" + API_KEY;
+    String response = GoogMatrixRequest.run(url_request);
+    System.out.println(response);
     JSONObject reponse = new JSONObject(response);
     JSONArray lignes = reponse.getJSONArray("rows");
     JSONObject elements = lignes.getJSONObject(0);
     JSONArray tableauElem = elements.getJSONArray("elements");
     JSONObject distance = tableauElem.getJSONObject(0);
     JSONObject distancekm = distance.getJSONObject("distance");
-    System.out.println(distancekm.getString("value"));
-    return (distancekm.getInt(distancekm.getString("value")))/1000;
+
+    //System.out.println(distancekm.getString("value"));
+    return (Integer.parseInt(distancekm.getString("value")))/1000;
   }
-      
+  public static double distanceReelle2(double longville1,double latville1,double longville2,double latville2) throws IOException, JSONException{
+ 
+    //GoogMatrixRequest request = new GoogMatrixRequest();
+    String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+latville1+","+longville1+"&destinations="+latville2+","+longville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
+    String response = GoogMatrixRequest.run(url_request);
+    System.out.println(response);
+    JSONObject reponse = new JSONObject(response);
+    JSONArray lignes = reponse.getJSONArray("rows");
+    JSONObject elements = lignes.getJSONObject(0);
+    JSONArray tableauElem = elements.getJSONArray("elements");
+    JSONObject distance = tableauElem.getJSONObject(0);
+    JSONObject distancekm = distance.getJSONObject("distance");
+    //System.out.println(distancekm.getString("value"));
+    return (Integer.parseInt(distancekm.getString("value")))/1000;
+  }
+
 }
