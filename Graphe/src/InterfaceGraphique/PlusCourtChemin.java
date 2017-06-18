@@ -45,6 +45,7 @@ import javafx.scene.input.ZoomEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.json.JSONException;
 
@@ -63,6 +64,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     ZoomService zoomService = context.getZoomService();
     BrowserContext context1 = browser1.getContext();
     ZoomService zoomService1 = context1.getZoomService();
+    boolean grapheGenere=false;
 
     /**
      * Creates new form PlusCourtChemin
@@ -377,9 +379,13 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(grapheGenere){
         List<Sommet> liste = new ArrayList<>();
         if (jTextField3.getText().equals("") || jTextField4.getText().equals("")) {
-
+JOptionPane.showMessageDialog(this,
+    "Saissisez les valeurs ! ",
+    "Attention",
+    JOptionPane.WARNING_MESSAGE);
         } else {
             System.out.println("ici3");
             Sommet depart = new Sommet(new Commune(jTextField3.getText()));
@@ -404,11 +410,17 @@ public class PlusCourtChemin extends javax.swing.JFrame {
                     default:break;
                 
                 }
-            browser1.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "scale=2&"+"center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(liste)+this.generatePath((LinkedList<Sommet>) liste) + "&key=" + API_KEY);
+            browser1.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "scale=2&"+"center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(liste)+this.generatePath(liste) + "&key=" + API_KEY);
 
             }
         }
-
+        }
+        else {
+        JOptionPane.showMessageDialog(this,
+    "Cliquez sur \"Visualiser Graphe\" d\'abord ",
+    "Attention",
+    JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -490,14 +502,14 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         return sb.toString();
     }
 
-    private String generatePath(LinkedList<Sommet> list) {
+    private String generatePath(List<Sommet> list) {
         StringBuilder sb = new StringBuilder();
         String pathStyle = "color:blue|weight:5";
         int i = 0, j = 0;
         sb.append("&path=");
         sb.append(pathStyle);
         while (!list.isEmpty() ) {
-            Sommet s = list.remove();
+            Sommet s = list.remove(i);
             sb.append("|").append(s.getCommune().getLatitude()).append(",").append(s.getCommune().getLongitude());
         }
         System.out.println(sb.toString());
@@ -539,6 +551,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         if (this.jCheckBox2.isSelected() || this.jCheckBox1.isSelected()) {
             try {
                 this.g = new Graphe(this.listeCommunes, choixTriPop, tri1, choixTriDist, typetridist, tri2, val1, val2);
+                this.grapheGenere=true;
             } catch (IOException ex) {
                 Logger.getLogger(PlusCourtChemin.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
@@ -548,6 +561,13 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             System.out.println("icihein");
             browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "scale=2&"+ "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(g.getSommets()) + "&key=" + API_KEY);
             System.out.println("fini");
+        }
+        else {
+        
+        JOptionPane.showMessageDialog(this,
+    "Un des deux tests doit être choisi au moins !",
+    "Attention",
+    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
