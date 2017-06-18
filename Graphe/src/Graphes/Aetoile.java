@@ -81,7 +81,7 @@ public class Aetoile {
             }
             i++;
         }
-        chemin.addLast(depart);
+        chemin.addFirst(depart);
         return chemin;
     }
 
