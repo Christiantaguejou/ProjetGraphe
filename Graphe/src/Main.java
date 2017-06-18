@@ -1,8 +1,10 @@
 import Communes.Commune;
 import Communes.CsvCommunes;
 import Graphes.*;
+import org.json.JSONException;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,16 +25,23 @@ public class Main {
         System.out.println("suis la");
         Commune paris = new Commune("paris", "PARIS",2243833,2.34445,48.86);
         Sommet sParis = new Sommet(paris);
-        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+        Graphe graphe = null;
+        try {
+            graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         //graphe.firtSuccesseur();
 
 
-       for (Sommet sommet : graphe.getSommets()){
+     /*  for (Sommet sommet : graphe.getSommets()){
             System.out.println(sommet);
             for(Sommet sommet1 : sommet.getSuccesseur())
                 System.out.println("-> " + sommet1);
-        }
-        /* 
+        }*/
+
 
 //       for (Sommet sommet : graphe.getSommets()){
 //            System.out.println(sommet);
@@ -47,13 +56,15 @@ public class Main {
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
-        //ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
+       // ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
+        //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
+        Dijkstra.Skiplist(graphe, depart, arrive);
 
         //System.out.println("LISTE DES SUCCESSEURS de "+depart+" :\n"+depart.getSuccesseur());
         //Sommet reims = depart.getSuccesseur().get(2);
         //System.out.println("LISTE DES SUCCESSEURS de "+reims+" :\n"+reims.getSuccesseur());
 
-        //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
+
         /*double[] poids = _Dijkstra(graphe,depart,arrive);
         for(int i =0; i<poids.length; i++){
             System.out.println("poids a i = "+i+" :"+poids[i]);
@@ -94,7 +105,7 @@ public class Main {
 //        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau());
 //        System.out.println(new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());
 //        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau() + new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());*/
-         LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
-         Aetoile.AfficherAetoile(s);
+       //  LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
+       //  Aetoile.AfficherAetoile(s);
     }
 }

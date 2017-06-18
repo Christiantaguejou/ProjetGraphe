@@ -22,6 +22,8 @@ import com.teamdev.jxbrowser.chromium.events.LoadAdapter;
 import com.teamdev.jxbrowser.chromium.events.ZoomListener;
 import static com.teamdev.jxbrowser.chromium.internal.ipc.ChannelType.Browser;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+import org.json.JSONException;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -514,8 +516,6 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=Boston,MA&visible=77+Massachusetts+Ave,Cambridge,MA%7CHarvard+Square,Cambridge,MA&size=512x512");
             System.out.println("fini");
         }
-
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
