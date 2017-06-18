@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JCheckBox;
 
 
 /**
@@ -42,8 +43,13 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     public PlusCourtChemin() {
          
         initComponents();
-        this.jTabbedPane1.add(view, BorderLayout.CENTER);
-        //browser.loadURL("http://www.google.com");
+        this.jComboBox4.setEnabled(false);
+        this.jTextField1.setEnabled(false);
+        this.jComboBox5.setEnabled(false);
+        this.jComboBox6.setEnabled(false);
+        this.jTextField2.setEnabled(false);
+        this.jPanel2.add(view);
+        browser.loadURL("http://www.google.com");
     }
 //
     Map myAttribute;
@@ -126,6 +132,11 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jLabel4.setText("Valeur");
 
         jCheckBox2.setText("Tri Distance");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
 
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vol d'oiseau", "Distance réelle", " " }));
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
@@ -263,10 +274,20 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        //if(this.)
+        if(this.jComboBox3.getSelectedItem() == "Dijkstra"){}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
+        JCheckBox checkBox = (JCheckBox) evt.getSource();
+        if(!checkBox.isSelected()){
+        this.jComboBox4.setEnabled(false);
+        this.jTextField1.setEnabled(false);
+        }else {
+        this.jComboBox4.setEnabled(true);
+        this.jTextField1.setEnabled(true);
+        }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
@@ -280,6 +301,20 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox6ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+        JCheckBox checkBox = (JCheckBox) evt.getSource();
+        if(!checkBox.isSelected()){
+        this.jComboBox5.setEnabled(false);
+        this.jComboBox6.setEnabled(false);
+        this.jTextField2.setEnabled(false);
+        } else {
+        this.jComboBox5.setEnabled(true);
+        this.jComboBox6.setEnabled(true);
+        this.jTextField2.setEnabled(true);
+        }
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     /**
      * @param args the command line arguments
