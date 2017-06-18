@@ -15,6 +15,11 @@ import static Graphes.Graphe.triPar.DISTANCEREELLE;
 import static Graphes.Graphe.triPar.POPULATION;
 import Graphes.Sommet;
 import com.teamdev.jxbrowser.chromium.Browser;
+import com.teamdev.jxbrowser.chromium.BrowserContext;
+import com.teamdev.jxbrowser.chromium.ZoomService;
+import com.teamdev.jxbrowser.chromium.events.FinishLoadingEvent;
+import com.teamdev.jxbrowser.chromium.events.LoadAdapter;
+import com.teamdev.jxbrowser.chromium.events.ZoomListener;
 import static com.teamdev.jxbrowser.chromium.internal.ipc.ChannelType.Browser;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
 import java.awt.BorderLayout;
@@ -23,15 +28,21 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.input.ZoomEvent;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import org.json.JSONException;
 
 /**
  *
@@ -41,21 +52,44 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
     Browser browser = new Browser();
     BrowserView view = new BrowserView(browser);
+    private static final String API_KEY = "AIzaSyBDD2w5eLMyagQpQq945LJep2PGr2i5ZuU";
+    BrowserContext context = browser.getContext();
+    ZoomService zoomService = context.getZoomService();
 
     /**
      * Creates new form PlusCourtChemin
      */
     public PlusCourtChemin() {
-
         initComponents();
         this.jComboBox4.setEnabled(false);
         this.jTextField1.setEnabled(false);
         this.jComboBox5.setEnabled(false);
         this.jComboBox6.setEnabled(false);
         this.jTextField2.setEnabled(false);
-        this.jPanel2.add(view);
-        browser.loadURL("http://www.google.com");
+        zoomService.addZoomListener(new ZoomListener() {
+            @Override
+            public void onZoomChanged(com.teamdev.jxbrowser.chromium.events.ZoomEvent ze) {
+            }
+
+            public void onZoomChanged(ZoomEvent event) {
+            }
+
+        });
+        browser.addLoadListener(new LoadAdapter() {
+            public void onFinishLoadingFrame(FinishLoadingEvent event) {
+                if (event.isMainFrame()) {
+                    event.getBrowser().setZoomLevel(2.0);
+                }
+            }
+        });
+        //this.jPanel2.add(view,BorderLayout.CENTER);
+        this.jTabbedPane1.setComponentAt(0, view);
+        //browser.loadURL("http://www.google.com");
+        // browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=Boston,MA&visible=77+Massachusetts+Ave,Cambridge,MA%7CHarvard+Square,Cambridge,MA&size=512x512");
+
     }
+    // Listen to zoom changed events
+
 //
     Map myAttribute;
     List<String> liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
@@ -105,6 +139,8 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(809, 593));
@@ -143,6 +179,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.setText("50000");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -176,6 +213,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
         jLabel6.setText("Valeur :");
 
+        jTextField2.setText("160");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -212,6 +250,20 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("zoom+");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("zoom-");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -263,7 +315,11 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(327, 327, 327))
+                .addGap(18, 18, 18)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,7 +346,10 @@ public class PlusCourtChemin extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
@@ -379,28 +438,34 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private String generateMarkers(ArrayList<Sommet> list) {
-        String markerStyle = "size:tiny%7Ccolor:green";
-        String tmp = markerStyle;
-        String concat = "";
+        StringBuilder sb = new StringBuilder();
+        String markerStyle = "markers=size:tiny|color:red";
+        sb.append(markerStyle);
         for (Sommet s : list) {
-            concat = tmp.concat("|" + s.getCommune().getLatitude() + "," + s.getCommune().getLongitude());
+            sb.append("|").append(s.getCommune().getLatitude()).append(",").append(s.getCommune().getLongitude());
         }
-        return concat;
+        System.out.println(sb);
+        return sb.toString();
     }
 
     private String generatePath(ArrayList<Sommet> list) {
-        String pathStyle = "color:0x0000ff80|weight:1";
-        String tmp = pathStyle;
-        String concat = "";
-        int i=0;
-        while (!list.isEmpty()) {
-            // LinkedList<Sommet> closedList = new LinkedList<>();
+        StringBuilder sb = new StringBuilder();
+        String pathStyle = "color:blue|weight:1";
+        int i = 0, j = 0;
+        LinkedList<Sommet> closedList = new LinkedList<>();
+        while (!list.isEmpty() && j <= 2) {
             Sommet s = list.remove(i);
-            for (Sommet s : list) {
-                concat = tmp.concat("|" + s.getCommune().getLatitude() + "," + s.getCommune().getLongitude());
+            for (Sommet t : s.getSuccesseur()) {
+                if (!closedList.contains(t) && j<=2) {
+                    sb.append("&path=").append(pathStyle).append("|").append(s.getCommune().getLatitude()).append(",").append(s.getCommune().getLongitude()).append("|").append(t.getCommune().getLatitude()).append(",").append(t.getCommune().getLongitude());
+                    closedList.add(t);
+                    j++;
+                }
             }
+           // j++;
         }
-        return concat;
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -435,9 +500,37 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             }
             val2 = Integer.parseInt(this.jTextField2.getText());
         }
+        if (this.jCheckBox2.isSelected() || this.jCheckBox1.isSelected()) {
+            try {
+                this.g = new Graphe(this.listeCommunes, choixTriPop, tri1, choixTriDist, typetridist, tri2, val1, val2);
+            } catch (IOException ex) {
+                Logger.getLogger(PlusCourtChemin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JSONException ex) {
+                Logger.getLogger(PlusCourtChemin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(g.getSommets());
+            System.out.println("icihein");
+            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(g.getSommets()) + this.generatePath(g.getSommets()) + "&key=" + API_KEY);
+            //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=Boston,MA&visible=77+Massachusetts+Ave,Cambridge,MA%7CHarvard+Square,Cambridge,MA&size=512x512");
+            System.out.println("fini");
+        }
 
-        this.g = new Graphe(this.listeCommunes, choixTriPop, tri1, choixTriDist, typetridist, tri2, val1, val2);
+
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        //JButton j = (JButton) evt.getSource();
+        //if(j.isSelected()) {
+        // System.out.println("hey");
+        this.browser.zoomIn();
+        //  }  
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.browser.zoomOut();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -477,6 +570,8 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox<String> jComboBox3;
