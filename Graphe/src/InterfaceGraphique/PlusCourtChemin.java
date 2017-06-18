@@ -8,6 +8,7 @@ package InterfaceGraphique;
 import Communes.Commune;
 import Communes.CsvCommunes;
 import Graphes.Graphe;
+import static Graphes.Graphe.choixTri.MAX;
 import Graphes.Sommet;
 import com.teamdev.jxbrowser.chromium.Browser;
 import static com.teamdev.jxbrowser.chromium.internal.ipc.ChannelType.Browser;
@@ -24,6 +25,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 
 /**
@@ -59,6 +62,14 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     Commune paris = new Commune("paris", "PARIS", 2243833, 2.34445, 48.86);
     Sommet sParis = new Sommet(paris);
     Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+    boolean mintripop= false;
+    boolean maxtripop= false;
+    int valuetripop=0;
+    int valuetriOiseau=0;
+    boolean mintridist= false;
+    boolean maxtridist= false;
+    int valuetrireel=0;
+    int typetridistance=0;
 //
 
     /**
@@ -129,6 +140,12 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("Valeur");
 
         jCheckBox2.setText("Tri Distance");
@@ -155,6 +172,12 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         });
 
         jLabel6.setText("Valeur :");
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -275,7 +298,11 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //if(this.)
-        if(this.jComboBox3.getSelectedItem() == "Dijkstra"){}
+        Graphe.choixTri tri;
+        if(this.jCheckBox1.isSelected()){
+            if(this.maxtripop) tri = MAX;
+            else if (this.mintripop) tri = MIN;
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -292,14 +319,32 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
+         JComboBox comboBox = (JComboBox) evt.getSource();
+        if(comboBox.getSelectedItem().equals("MIN")){
+        this.mintripop=true;
+        }else if(comboBox.getSelectedItem().equals("MAX")){
+         this.maxtripop=true;
+        }
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
         // TODO add your handling code here:
+        JComboBox comboBox = (JComboBox) evt.getSource();
+        if(comboBox.getSelectedIndex()==0){
+        this.typetridistance=1;//vol d'oiseau
+        }else if(comboBox.getSelectedIndex()==1){
+         this.typetridistance=1;//distance réelle
+        }
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
         // TODO add your handling code here:
+        JComboBox comboBox = (JComboBox) evt.getSource();
+        if(comboBox.getSelectedIndex()==0){
+        this.mintridist=true;//vol d'oiseau
+        }else if(comboBox.getSelectedIndex()==1){
+          this.maxtridist=true;//dist reelle
+        }
     }//GEN-LAST:event_jComboBox6ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
@@ -315,6 +360,18 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         this.jTextField2.setEnabled(true);
         }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+       JTextField jTextField = (JTextField) evt.getSource();
+        this.valuetripop=Integer.parseInt(jTextField.getText());
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+        JTextField jTextField = (JTextField) evt.getSource();
+        this.valuetripop=Integer.parseInt(jTextField.getText());
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
