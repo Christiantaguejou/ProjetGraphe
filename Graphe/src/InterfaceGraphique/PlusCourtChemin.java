@@ -404,7 +404,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
                     default:break;
                 
                 }
-            browser1.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(liste)+this.generatePath((LinkedList<Sommet>) liste) + "&key=" + API_KEY);
+            browser1.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "scale=2&"+"center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(liste)+this.generatePath((LinkedList<Sommet>) liste) + "&key=" + API_KEY);
 
             }
         }
@@ -546,7 +546,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             }
             System.out.println(g.getSommets());
             System.out.println("icihein");
-            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(g.getSommets()) + "&key=" + API_KEY);
+            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "scale=2&"+ "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(g.getSommets()) + "&key=" + API_KEY);
             System.out.println("fini");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
