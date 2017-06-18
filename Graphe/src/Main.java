@@ -1,8 +1,10 @@
 import Communes.Commune;
 import Communes.CsvCommunes;
 import Graphes.*;
+import org.json.JSONException;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +25,14 @@ public class Main {
         System.out.println("suis la");
         Commune paris = new Commune("paris", "PARIS",2243833,2.34445,48.86);
         Sommet sParis = new Sommet(paris);
-        Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+        Graphe graphe = null;
+        try {
+            graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         //graphe.firtSuccesseur();
 
 

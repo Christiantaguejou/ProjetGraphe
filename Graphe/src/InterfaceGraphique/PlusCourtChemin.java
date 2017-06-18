@@ -398,7 +398,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         int i=0;
         while (!list.isEmpty()) {
             // LinkedList<Sommet> closedList = new LinkedList<>();
-            Sommet s = list.remove(i);
+            Sommet sa = list.remove(i);
             for (Sommet s : list) {
                 concat = tmp.concat("|" + s.getCommune().getLatitude() + "," + s.getCommune().getLongitude());
             }
