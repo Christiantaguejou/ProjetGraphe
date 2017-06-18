@@ -110,7 +110,6 @@ public class Graphe {
 
 
         this.sommets = transformToSommet(this.listeCommune);
-        System.out.println("ici4");
         for (int i = 0; i < this.sommets.size(); i++) {
 
             //ON NE REGARDE QUE LES SOMMETS OU L ON A PAS FIXE DE SUCCESSEURQUE L ON A PAS ENCORE VISITE D OU LE I+1

@@ -7,6 +7,8 @@ package InterfaceGraphique;
 
 import Communes.Commune;
 import Communes.CsvCommunes;
+import Graphes.Aetoile;
+import Graphes.Dijkstra;
 import Graphes.Graphe;
 import static Graphes.Graphe.choixTri.MAX;
 import static Graphes.Graphe.choixTri.MIN;
@@ -253,6 +255,10 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Visualisation Trajet", jPanel2);
 
+        jTextField3.setText("grasse");
+
+        jTextField4.setText("saint-quentin");
+
         jButton2.setText("Visualiser Graphe");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,23 +377,34 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        //if(this.)
+        List<Sommet> liste = new ArrayList<>();
         if (jTextField3.getText().equals("") || jTextField4.getText().equals("")) {
 
         } else {
-            boolean dep = g.getSommets().contains(jTextField3.getText());
-            boolean arr = g.getSommets().contains(jTextField4.getText());
+            System.out.println("ici3");
+            Sommet depart = new Sommet(new Commune(jTextField3.getText()));
+            Sommet arrive = new Sommet(new Commune(jTextField4.getText()));
+           boolean dep = g.getSommets().contains(depart);
+           boolean arr = g.getSommets().contains(arrive);
+           //boolean dep=true;
+           //boolean arr= true;
             if (dep && arr) {
-                Sommet depart = this.g.getSommets().get(this.g.getSommets().indexOf(jTextField3.getText()));
-                Sommet arrive = this.g.getSommets().get(this.g.getSommets().indexOf(jTextField4.getText()));
+                System.out.println("ici4");
+                System.out.println(this.g.getSommets().indexOf(depart));
+                depart = this.g.getSommets().get(this.g.getSommets().indexOf(depart));
+                arrive = this.g.getSommets().get(this.g.getSommets().indexOf(arrive));
+                System.out.println("ici5");
                 switch(this.jComboBox3.getSelectedIndex()){
                     case 0:
+                        liste=Dijkstra._Dijkstra(g, depart, arrive);
                         break;
                     case 1:
+                        liste=Aetoile.algo(depart, arrive, typetridistance);
                         break;
                     default:break;
                 
                 }
+            browser1.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(liste)+this.generatePath((LinkedList<Sommet>) liste) + "&key=" + API_KEY);
 
             }
         }
@@ -462,7 +479,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         this.valuetripop = Integer.parseInt(jTextField.getText());
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private String generateMarkers(ArrayList<Sommet> list) {
+    private String generateMarkers(List<Sommet> list) {
         StringBuilder sb = new StringBuilder();
         String markerStyle = "markers=size:tiny|color:red";
         sb.append(markerStyle);
@@ -473,15 +490,15 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         return sb.toString();
     }
 
-    private String generatePath(ArrayList<Sommet> list) {
+    private String generatePath(LinkedList<Sommet> list) {
         StringBuilder sb = new StringBuilder();
         String pathStyle = "color:blue|weight:1";
         int i = 0, j = 0;
         LinkedList<Sommet> closedList = new LinkedList<>();
-        while (!list.isEmpty() && j <= 2) {
-            Sommet s = list.remove(i);
+        while (!list.isEmpty() ) {
+            Sommet s = list.remove();
             for (Sommet t : s.getSuccesseur()) {
-                if (!closedList.contains(t) && j <= 2) {
+                if (!closedList.contains(t) ) {
                     sb.append("&path=").append(pathStyle).append("|").append(s.getCommune().getLatitude()).append(",").append(s.getCommune().getLongitude()).append("|").append(t.getCommune().getLatitude()).append(",").append(t.getCommune().getLongitude());
                     closedList.add(t);
                     j++;
@@ -535,7 +552,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             }
             System.out.println(g.getSommets());
             System.out.println("icihein");
-            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(g.getSommets()) + this.generatePath(g.getSommets()) + "&key=" + API_KEY);
+            browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(g.getSommets()) + "&key=" + API_KEY);
             System.out.println("fini");
         }
     }//GEN-LAST:event_jButton2ActionPerformed

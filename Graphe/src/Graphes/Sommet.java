@@ -48,10 +48,11 @@ public class Sommet implements Comparable<Sommet>{
             System.out.println(this.commune.getId());
             System.out.println(ptr.commune.getId());
             System.out.println("fin test degalite");*/
-            if(this.commune.getId().equals(ptr.commune.getId())) retVal = true;
+            if(this.commune.getId().equalsIgnoreCase(ptr.commune.getId())) retVal = true;
            // System.out.println(retVal);
         }
         if (s instanceof String){
+            System.out.println("dans instance string");
             String ptr = (String) s;
             /*System.out.println("test degalite");
             System.out.println(this.commune.getId());

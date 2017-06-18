@@ -11,7 +11,7 @@ public class Commune {
     private double longitude;
     private double latitude;
 
-    public Commune(String id, String nom, int population, double longitude, double latitude){
+    public Commune(String id, String nom, int population, double longitude, double latitude) {
         this.id = id;
         this.nom = nom;
         this.population = population;
@@ -19,15 +19,18 @@ public class Commune {
         this.latitude = latitude;
     }
 
-    public Commune(){
+    public Commune() {
 
     }
-
-    public void afficheCommune(){
-        System.out.println("id: "+id+"\nNom: "+nom+"\nPopulation: "+population+"\nLongitude: "+longitude+"\nLatitude: "+latitude);
+    public Commune(String nom) {
+        this.id=nom;
     }
 
-    public String getId(){
+    public void afficheCommune() {
+        System.out.println("id: " + id + "\nNom: " + nom + "\nPopulation: " + population + "\nLongitude: " + longitude + "\nLatitude: " + latitude);
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -43,9 +46,12 @@ public class Commune {
         return latitude;
     }
 
-    public String getNom(){
+    public String getNom() {
         return nom;
+    }
 
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
 }
