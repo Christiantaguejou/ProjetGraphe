@@ -1,9 +1,12 @@
 package Graphes;
 
 import Communes.*;
+import RequeteDistance.GoogMatrixRequest;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import org.json.JSONException;
 
 /**
  * Created by Christian TAGUEJOU on 23/05/2017.
@@ -48,7 +51,7 @@ public class Graphe {
      * @param choixTri     si on trie par Max ou Min
      * @param valeurTri    valeur pour le trie des communes
      */
-    public Graphe(ArrayList<Commune> listeCommune, boolean triPop, choixTri choixTri1,boolean triDistance,triPar triPar, choixTri choixTri2, int valeurTri1,int valeurTri2) {
+    public Graphe(ArrayList<Commune> listeCommune, boolean triPop, choixTri choixTri1,boolean triDistance,triPar triPar, choixTri choixTri2, int valeurTri1,int valeurTri2) throws IOException, JSONException {
         this();
         
             if(triPop){
@@ -66,6 +69,8 @@ public class Graphe {
             else this.listeCommune = listeCommune;
                 
             if(triDistance){
+                switch (triPar){
+                    case DISTANCEOISEAU:
                 switch (choixTri2) {
                     case MAX:
                         this.listeCommune = triVolDoiseauMax(this.listeCommune, valeurTri2);
@@ -76,7 +81,22 @@ public class Graphe {
                     default:
                         this.listeCommune = new ArrayList<>();
                         break;
-                }}
+                }
+                    default:break;
+                    case DISTANCEREELLE:
+                        switch (choixTri2) {
+                    case MAX:
+                        this.listeCommune = triDistanceReelleMax(this.listeCommune, valeurTri2);
+                        break;
+                    case MIN:
+                        this.listeCommune = triDistanceReelleMin(this.listeCommune, valeurTri2);
+                        break;
+                    default:
+                        this.listeCommune = new ArrayList<>();
+                        break;
+                }
+            }
+    }
                     
         //////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME SOMMET
         ArrayList<Sommet> sAlreadyAdd = new ArrayList<>();
@@ -101,7 +121,7 @@ public class Graphe {
         }
     }
 
-    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart){
+    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart) throws IOException, JSONException{
       
         this(listeCommune,true,choixTri,false,null,null,valeurTri,0);
         this.somDepart = somDepart;
@@ -190,6 +210,22 @@ public class Graphe {
         }
         return listeTrie;
     }
+     public static ArrayList<Commune> triDistanceReelleMax(ArrayList<Commune> listeCommunes, int distanceMax) throws IOException, JSONException {
+        ArrayList<Commune> listeTrie = new ArrayList<>();
+        for (int i = 0; i < listeCommunes.size(); i++) {
+            for (int j = 0; j < listeCommunes.size(); j++) {
+                if (distanceMax > GoogMatrixRequest.distanceReelle2(listeCommunes.get(i).getLongitude(),listeCommunes.get(i).getLatitude(), listeCommunes.get(j).getLongitude(),listeCommunes.get(j).getLatitude())) {
+                    if (!listeTrie.contains(listeCommunes.get(i))) {
+                        listeTrie.add(listeCommunes.get(i));
+                    }
+                    if (!listeTrie.contains(listeCommunes.get(j))) {
+                        listeTrie.add(listeCommunes.get(j));
+                    }
+                }
+            }
+        }
+        return listeTrie;
+    }
 
     /**
      * permet de creer un graphe avec des distances entre sommet de longueur superieur a la
@@ -215,6 +251,23 @@ public class Graphe {
         }
         return listeTrie;
     }
+     public static ArrayList<Commune> triDistanceReelleMin(ArrayList<Commune> listeCommunes, int distanceMax) throws IOException, JSONException {
+        ArrayList<Commune> listeTrie = new ArrayList<>();
+        for (int i = 0; i < listeCommunes.size(); i++) {
+            for (int j = 0; j < listeCommunes.size(); j++) {
+                if (distanceMax < GoogMatrixRequest.distanceReelle2(listeCommunes.get(i).getLongitude(),listeCommunes.get(i).getLatitude(), listeCommunes.get(j).getLongitude(),listeCommunes.get(j).getLatitude())) {
+                    if (!listeTrie.contains(listeCommunes.get(i))) {
+                        listeTrie.add(listeCommunes.get(i));
+                    }
+                    if (!listeTrie.contains(listeCommunes.get(j))) {
+                        listeTrie.add(listeCommunes.get(j));
+                    }
+                }
+            }
+        }
+        return listeTrie;
+    }
+
 
     // Ceci permet d'affiche les successeur de la ville de départ
     public void firtSuccesseur(){
