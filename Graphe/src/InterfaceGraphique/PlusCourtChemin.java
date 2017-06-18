@@ -9,6 +9,10 @@ import Communes.Commune;
 import Communes.CsvCommunes;
 import Graphes.Graphe;
 import Graphes.Sommet;
+import com.teamdev.jxbrowser.chromium.Browser;
+import static com.teamdev.jxbrowser.chromium.internal.ipc.ChannelType.Browser;
+import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -19,20 +23,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import org.jgraph.JGraph;
-import org.jgraph.graph.AttributeMap;
-import org.jgraph.graph.DefaultEdge;
-import org.jgraph.graph.DefaultGraphCell;
-import org.jgraph.graph.DefaultGraphModel;
-import org.jgraph.graph.GraphConstants;
-import org.jgraph.graph.GraphModel;
-import org.jgrapht.DirectedGraph;
-import org.jgrapht.ListenableGraph;
-import org.jgrapht.ext.JGraphModelAdapter;
-import org.jgrapht.graph.DefaultListenableGraph;
-import org.jgrapht.graph.DirectedMultigraph;
-import org.jgrapht.graph.ListenableDirectedGraph;
-import org.jgrapht.graph.SimpleGraph;
+
 
 /**
  *
@@ -40,8 +31,8 @@ import org.jgrapht.graph.SimpleGraph;
  */
 public class PlusCourtChemin extends javax.swing.JFrame {
 
-    private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
-    private static final Dimension DEFAULT_SIZE = new Dimension(530, 320);
+  Browser browser = new Browser();
+  BrowserView view = new BrowserView(browser);
 
     /**
      * Creates new form PlusCourtChemin
@@ -49,8 +40,10 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     
 
     public PlusCourtChemin() {
+         
         initComponents();
-
+        this.jTabbedPane1.add(view, BorderLayout.CENTER);
+        //browser.loadURL("http://www.google.com");
     }
 //
     Map myAttribute;
@@ -87,6 +80,8 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -150,6 +145,32 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
         jLabel6.setText("Valeur :");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 801, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Visualisation Graphe", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 801, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Visualisation Trajet", jPanel2);
+
         jButton2.setText("Visualiser Graphe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -195,12 +216,12 @@ public class PlusCourtChemin extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)))
+                                .addComponent(jTextField2)))
                         .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(326, 326, 326)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(327, 327, 327))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +250,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -310,6 +331,8 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

@@ -37,7 +37,7 @@ public class GoogMatrixRequest {
     //GoogMatrixRequest request = new GoogMatrixRequest();
     String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ville1+", France"+"&destinations="+ville2+", France"+"&mode=driving&language=fr-FR&key=" + API_KEY;
     String response = GoogMatrixRequest.run(url_request);
-    System.out.println(response);
+    //System.out.println(response);
     JSONObject reponse = new JSONObject(response);
     JSONArray lignes = reponse.getJSONArray("rows");
     JSONObject elements = lignes.getJSONObject(0);
@@ -52,7 +52,7 @@ public class GoogMatrixRequest {
     //GoogMatrixRequest request = new GoogMatrixRequest();
     String url_request = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+latville1+","+longville1+"&destinations="+latville2+","+longville2+"&mode=driving&language=fr-FR&key=" + API_KEY;
     String response = GoogMatrixRequest.run(url_request);
-    System.out.println(response);
+    //System.out.println(response);
     JSONObject reponse = new JSONObject(response);
     JSONArray lignes = reponse.getJSONArray("rows");
     JSONObject elements = lignes.getJSONObject(0);

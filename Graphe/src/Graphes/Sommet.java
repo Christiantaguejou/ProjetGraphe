@@ -150,8 +150,16 @@ public class Sommet implements Comparable<Sommet>{
         this.gCost = gCost;
     }
     
-    public void setgCost(Sommet s) { 
-        this.gCost = s.getgCost() + calculateGcost(s);
+    public void setgCost(Sommet s,int type) { 
+        switch(type){
+            case 0 : 
+                this.gCost = calculateGcost(s);
+                break;
+            case 1: 
+                this.gCost = calculateGcost1(s);
+                break;
+            default:break;
+        }
     }
 
     /**
@@ -167,13 +175,24 @@ public class Sommet implements Comparable<Sommet>{
     public void sethCost(double hCost) {
         this.hCost = hCost;
     }
-    public void sethCost(Sommet s)  {
-        this.hCost = calculateHcost(s);
+    public void sethCost(Sommet s,int type)  {
+        
+        switch(type){
+            case 0 : 
+                this.hCost = calculateHcost(s);
+                break;
+            case 1: 
+                this.hCost = calculateHcost1(s);
+                break;
+            default:break;
+        }
     }
     
     public double calculateHcost(Sommet s){
      return new Arc(this.commune,s.commune).distanceVolOiseau();
-     /*double tmp=0;
+    }
+    public double calculateHcost1(Sommet s){
+     double tmp=0;
      try {           
            tmp = GoogMatrixRequest.distanceReelle2(this.commune.getLongitude(),this.commune.getLatitude(),s.commune.getLongitude(),s.commune.getLatitude());
         } catch (IOException ex) {
@@ -181,12 +200,15 @@ public class Sommet implements Comparable<Sommet>{
         } catch (JSONException ex) {
             Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tmp;*/
+        return tmp;
     }
      
     public double calculateGcost(Sommet s){
-    return new Arc(this.commune,s.commune).distanceVolOiseau();
-   /*double tmp=0;
+    return s.gCost+ (new Arc(this.commune,s.commune).distanceVolOiseau());
+  
+    }
+    public double calculateGcost1(Sommet s){
+   double tmp=0;
      try {           
            tmp = GoogMatrixRequest.distanceReelle2(this.commune.getLongitude(),this.commune.getLatitude(),s.commune.getLongitude(),s.commune.getLatitude());
         } catch (IOException ex) {
@@ -194,7 +216,7 @@ public class Sommet implements Comparable<Sommet>{
         } catch (JSONException ex) {
             Logger.getLogger(Sommet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tmp;*/
+        return s.gCost + tmp;
     }
 
     @Override

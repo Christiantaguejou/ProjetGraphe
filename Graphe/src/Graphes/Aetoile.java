@@ -14,7 +14,7 @@ public class Aetoile {
 
     static ArrayList<Sommet> sommetVisiter;
 
-    public static LinkedList<Sommet> algo(ArrayList<Sommet> listeSommet, Sommet depart, Sommet arrive) {
+    public static LinkedList<Sommet> algo(Sommet depart, Sommet arrive,int type) {
         PriorityQueue<Sommet> openList = new PriorityQueue<>();
         LinkedList<Sommet> closedList = new LinkedList<>();
         openList.add(depart);
@@ -39,17 +39,22 @@ public class Aetoile {
                     System.out.println("Sommet  : "+tmp.getCommune().getNom());
                     tmp.setPredecesseur(courant);
                     System.out.println("Predecesseur : "+tmp.getPredecesseur().getCommune().getNom());
-                    tmp.sethCost(arrive);
-                    tmp.setgCost(courant);
+                    tmp.sethCost(arrive,type);
+                    tmp.setgCost(courant,type);
                     if(!openList.contains(tmp)) openList.add(tmp);
                 } else {
-                    if(openList.contains(tmp) && tmp.getgCost() > tmp.calculateGcost(courant)){
+                    if(openList.contains(tmp) && tmp.getgCost() > ((type==0)?(tmp.calculateGcost(courant)):(tmp.calculateGcost1(courant)))){
                         System.out.println("Sommet  : "+tmp.getCommune().getNom());
                         tmp.setPredecesseur(courant);
                         System.out.println("Predecesseur : "+tmp.getPredecesseur().getCommune().getNom());
-                        tmp.setgCost(courant);
-                        
+                        tmp.setgCost(courant,type);
                     }
+                    else if(closedList.contains(tmp) && tmp.getgCost() > ((type==0)?(tmp.calculateGcost(courant)):(tmp.calculateGcost1(courant)))){
+                        System.out.println("Sommet  : "+tmp.getCommune().getNom());
+                        tmp.setPredecesseur(courant);
+                        System.out.println("Predecesseur : "+tmp.getPredecesseur().getCommune().getNom());
+                        tmp.setgCost(courant,type);
+                    }              
                 }
             }
                 //System.out.println(openList);
