@@ -17,12 +17,15 @@ import Graphes.Sommet;
 import com.teamdev.jxbrowser.chromium.Browser;
 import static com.teamdev.jxbrowser.chromium.internal.ipc.ChannelType.Browser;
 import com.teamdev.jxbrowser.chromium.swing.BrowserView;
+import org.json.JSONException;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -436,7 +439,13 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             val2 = Integer.parseInt(this.jTextField2.getText());
         }
 
-        this.g = new Graphe(this.listeCommunes, choixTriPop, tri1, choixTriDist, typetridist, tri2, val1, val2);
+        try {
+            this.g = new Graphe(this.listeCommunes, choixTriPop, tri1, choixTriDist, typetridist, tri2, val1, val2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

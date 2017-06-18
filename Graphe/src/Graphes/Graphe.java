@@ -2,10 +2,12 @@ package Graphes;
 
 import Communes.*;
 import RequeteDistance.GoogMatrixRequest;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+
 import org.json.JSONException;
 
 /**
@@ -42,100 +44,103 @@ public class Graphe {
         this.sommets = new ArrayList<>();
     }
 
+
     /**
      * Constructeur de graph
      * On trie directement les communes et pour chaque commune on crée des arcs vers toutes les autres commmunes
      *
      * @param listeCommune liste des communes
+     * @param triPop
+     * @param choixTri1    si on trie par Max ou Min
+     * @param triDistance
      * @param triPar       choix du tri(Par population ou Distance)
-     * @param choixTri     si on trie par Max ou Min
-     * @param valeurTri    valeur pour le trie des communes
+     * @param choixTri2    si on trie par Max ou Min
+     * @param valeurTri1   valeur pour le trie des communes
+     * @param valeurTri2   valeur pour le trie des communes
+     * @throws IOException
+     * @throws JSONException
      */
-    public Graphe(ArrayList<Commune> listeCommune, boolean triPop, choixTri choixTri1,boolean triDistance,triPar triPar, choixTri choixTri2, int valeurTri1,int valeurTri2) throws IOException, JSONException {
+    public Graphe(ArrayList<Commune> listeCommune, boolean triPop, choixTri choixTri1, boolean triDistance, triPar triPar, choixTri choixTri2, int valeurTri1, int valeurTri2) throws IOException, JSONException {
         this();
-        
-            if(triPop){
-                switch (choixTri1) {
-                    case MAX:
-                        this.listeCommune = triPopMax(listeCommune, valeurTri1);
-                        break;
-                    case MIN:
-                        this.listeCommune= triPopMin(listeCommune, valeurTri1);
-                        break;
-                    default:
-                        this.listeCommune = new ArrayList<>();
-                        break;
-                }}
-            else this.listeCommune = listeCommune;
-                
-            if(triDistance){
-                switch (triPar){
-                    case DISTANCEOISEAU:
-                switch (choixTri2) {
-                    case MAX:
-                        this.listeCommune = triVolDoiseauMax(this.listeCommune, valeurTri2);
-                        break;
-                    case MIN:
-                        this.listeCommune = triVolDoiseauMin(this.listeCommune, valeurTri2);
-                        break;
-                    default:
-                        this.listeCommune = new ArrayList<>();
-                        break;
-                }
-                    default:break;
-                    case DISTANCEREELLE:
-                        switch (choixTri2) {
-                    case MAX:
-                        this.listeCommune = triDistanceReelleMax(this.listeCommune, valeurTri2);
-                        break;
-                    case MIN:
-                        this.listeCommune = triDistanceReelleMin(this.listeCommune, valeurTri2);
-                        break;
-                    default:
-                        this.listeCommune = new ArrayList<>();
-                        break;
-                }
-            }
-    }
-                    
-        //////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME SOMMET
-        ArrayList<Sommet> sAlreadyAdd = new ArrayList<>();
 
-        /////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME ARC
-        ArrayList<Arc> aAlreadyAdd = new ArrayList<>();
+        if (triPop) {
+            switch (choixTri1) {
+                case MAX:
+                    this.listeCommune = triPopMax(listeCommune, valeurTri1);
+                    break;
+                case MIN:
+                    this.listeCommune = triPopMin(listeCommune, valeurTri1);
+                    break;
+                default:
+                    this.listeCommune = new ArrayList<>();
+                    break;
+            }
+        } else this.listeCommune = listeCommune;
+
+        if (triDistance) {
+            switch (triPar) {
+                case DISTANCEOISEAU:
+                    switch (choixTri2) {
+                        case MAX:
+                            this.listeCommune = triVolDoiseauMax(this.listeCommune, valeurTri2);
+                            break;
+                        case MIN:
+                            this.listeCommune = triVolDoiseauMin(this.listeCommune, valeurTri2);
+                            break;
+                        default:
+                            this.listeCommune = new ArrayList<>();
+                            break;
+                    }
+                default:
+                    break;
+                case DISTANCEREELLE:
+                    switch (choixTri2) {
+                        case MAX:
+                            this.listeCommune = triDistanceReelleMax(this.listeCommune, valeurTri2);
+                            break;
+                        case MIN:
+                            this.listeCommune = triDistanceReelleMin(this.listeCommune, valeurTri2);
+                            break;
+                        default:
+                            this.listeCommune = new ArrayList<>();
+                            break;
+                    }
+            }
+        }
+
 
         this.sommets = transformToSommet(this.listeCommune);
-         System.out.println("ici4");
-        for (int i =0; i< this.sommets.size(); i++){
-           
+        System.out.println("ici4");
+        for (int i = 0; i < this.sommets.size(); i++) {
+
             //ON NE REGARDE QUE LES SOMMETS OU L ON A PAS FIXE DE SUCCESSEURQUE L ON A PAS ENCORE VISITE D OU LE I+1
-            for(int j=i+1; j< this.sommets.size(); j++){
-                
-                if(Arc.distanceVolOiseau(this.sommets.get(i).getCommune(),this.sommets.get(j).getCommune())<DIST_MAX_ARC){
-                    
+            for (int j = i + 1; j < this.sommets.size(); j++) {
+
+                if (Arc.distanceVolOiseau(this.sommets.get(i).getCommune(), this.sommets.get(j).getCommune()) < DIST_MAX_ARC) {
+
                     this.sommets.get(i).addSuccesseur(this.sommets.get(j));
                     this.sommets.get(j).addSuccesseur(this.sommets.get(i));
-                    this.arcs.add(new Arc(sommets.get(i),this.sommets.get(j)));
+                    this.arcs.add(new Arc(sommets.get(i), this.sommets.get(j)));
                 }
             }
         }
     }
 
-    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart) throws IOException, JSONException{
-      
-        this(listeCommune,true,choixTri,false,null,null,valeurTri,0);
+    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart) throws IOException, JSONException {
+
+        this(listeCommune, true, choixTri, false, null, null, valeurTri, 0);
         this.somDepart = somDepart;
     }
 
 
-    public ArrayList<Sommet> transformToSommet(ArrayList<Commune> listeCommune){
+    public ArrayList<Sommet> transformToSommet(ArrayList<Commune> listeCommune) {
         ArrayList<Sommet> listeSommets = new ArrayList<>();
-        for(Commune commune : listeCommune){
-           
+        for (Commune commune : listeCommune) {
+
             listeSommets.add(new Sommet(commune));
-          
+
         }
-        
+
         return listeSommets;
     }
 
@@ -210,11 +215,12 @@ public class Graphe {
         }
         return listeTrie;
     }
-     public static ArrayList<Commune> triDistanceReelleMax(ArrayList<Commune> listeCommunes, int distanceMax) throws IOException, JSONException {
+
+    public static ArrayList<Commune> triDistanceReelleMax(ArrayList<Commune> listeCommunes, int distanceMax) throws IOException, JSONException {
         ArrayList<Commune> listeTrie = new ArrayList<>();
         for (int i = 0; i < listeCommunes.size(); i++) {
             for (int j = 0; j < listeCommunes.size(); j++) {
-                if (distanceMax > GoogMatrixRequest.distanceReelle2(listeCommunes.get(i).getLongitude(),listeCommunes.get(i).getLatitude(), listeCommunes.get(j).getLongitude(),listeCommunes.get(j).getLatitude())) {
+                if (distanceMax > GoogMatrixRequest.distanceReelle2(listeCommunes.get(i).getLongitude(), listeCommunes.get(i).getLatitude(), listeCommunes.get(j).getLongitude(), listeCommunes.get(j).getLatitude())) {
                     if (!listeTrie.contains(listeCommunes.get(i))) {
                         listeTrie.add(listeCommunes.get(i));
                     }
@@ -251,11 +257,12 @@ public class Graphe {
         }
         return listeTrie;
     }
-     public static ArrayList<Commune> triDistanceReelleMin(ArrayList<Commune> listeCommunes, int distanceMax) throws IOException, JSONException {
+
+    public static ArrayList<Commune> triDistanceReelleMin(ArrayList<Commune> listeCommunes, int distanceMax) throws IOException, JSONException {
         ArrayList<Commune> listeTrie = new ArrayList<>();
         for (int i = 0; i < listeCommunes.size(); i++) {
             for (int j = 0; j < listeCommunes.size(); j++) {
-                if (distanceMax < GoogMatrixRequest.distanceReelle2(listeCommunes.get(i).getLongitude(),listeCommunes.get(i).getLatitude(), listeCommunes.get(j).getLongitude(),listeCommunes.get(j).getLatitude())) {
+                if (distanceMax < GoogMatrixRequest.distanceReelle2(listeCommunes.get(i).getLongitude(), listeCommunes.get(i).getLatitude(), listeCommunes.get(j).getLongitude(), listeCommunes.get(j).getLatitude())) {
                     if (!listeTrie.contains(listeCommunes.get(i))) {
                         listeTrie.add(listeCommunes.get(i));
                     }
@@ -270,7 +277,7 @@ public class Graphe {
 
 
     // Ceci permet d'affiche les successeur de la ville de départ
-    public void firtSuccesseur(){
+    public void firtSuccesseur() {
         listeSommet = transformToSommet(this.listeCommune);
         //liste des communes qu'on va supprimer de listeSommet parce qu'il sont deja dans la liste
         //de successeur du sommet de depart
@@ -278,38 +285,38 @@ public class Graphe {
 
         //Pour chaque sommet s, on verifie que la distance soit < distMAX
         //si c'est bon, on l'ajoute dans les listes des successeurs
-        for(Sommet s : listeSommet){
-            if(Arc.distanceVolOiseau(s.getCommune(), somDepart.getCommune()) <= DIST_MAX_ARC){
+        for (Sommet s : listeSommet) {
+            if (Arc.distanceVolOiseau(s.getCommune(), somDepart.getCommune()) <= DIST_MAX_ARC) {
                 somDepart.addSuccesseur(s); //Liste personnel du sommet de depart
                 listeSuccesseurs.add(s); //On travaillera avec cette liste par la suite pour avoir tous les sommet
-                                        //possible
+                //possible
                 System.out.println(s.getCommune().getNom());
                 listeSommet.remove(s);
             }
         }
 
-        do{
+        do {
             web();
-        }while(listeSuccesseurs.isEmpty());//Sachant qu'a chaque itération on supprime les communes inutiles,
-                        //On effectura cette boucle jusqu'a ce qu'il n'ya plus de commune (ou sommet) à tester
+        } while (listeSuccesseurs.isEmpty());//Sachant qu'a chaque itération on supprime les communes inutiles,
+        //On effectura cette boucle jusqu'a ce qu'il n'ya plus de commune (ou sommet) à tester
 
       /*  for(Sommet s : listeSuccesseurs){
             System.out.println(s.getCommune().getNom());
         }*/
     }
 
-    public void web (){
+    public void web() {
         /**
          * Pour chaque sommet su GRAPHE A, on verifie si la distance entre A et les successeur <dISTMAX
          */
-        for(Sommet s : listeSommet){
-            System.out.println("sommet: "+s.getCommune().getNom() );
-            for(Sommet som : listeSuccesseurs){
-                System.out.println("sommet2: "+som.getCommune().getNom() );
+        for (Sommet s : listeSommet) {
+            System.out.println("sommet: " + s.getCommune().getNom());
+            for (Sommet som : listeSuccesseurs) {
+                System.out.println("sommet2: " + som.getCommune().getNom());
                 //Si la distance est bonne....
-                if(Arc.distanceVolOiseau(som.getCommune(), s.getCommune()) <= DIST_MAX_ARC){
+                if (Arc.distanceVolOiseau(som.getCommune(), s.getCommune()) <= DIST_MAX_ARC) {
                     //S'il n'est pas contenu dans listeSuccesseurs, on l'ajoute, puis on le supprime de listeSommet
-                    if(!listeSuccesseurs.contains(s)) {
+                    if (!listeSuccesseurs.contains(s)) {
                         som.addSuccesseur(s);
                         listeSuccesseurs.add(s);
                         listeSommet.remove(listeSommet.indexOf(s));
