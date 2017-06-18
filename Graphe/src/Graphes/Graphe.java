@@ -78,10 +78,13 @@ public class Graphe {
         } else this.listeCommune = listeCommune;
 
         if (triDistance) {
+            
             switch (triPar) {
                 case DISTANCEOISEAU:
                     switch (choixTri2) {
+                     
                         case MAX:
+                            System.out.println("encore1");
                             this.listeCommune = triVolDoiseauMax(this.listeCommune, valeurTri2);
                             break;
                         case MIN:
@@ -96,6 +99,7 @@ public class Graphe {
                 case DISTANCEREELLE:
                     switch (choixTri2) {
                         case MAX:
+                            System.out.println("encore2");
                             this.listeCommune = triDistanceReelleMax(this.listeCommune, valeurTri2);
                             break;
                         case MIN:
@@ -206,6 +210,7 @@ public class Graphe {
                     if (!listeTrie.contains(listeCommunes.get(i))) {
                         listeTrie.add(listeCommunes.get(i));
                     }
+                    System.out.println(i+" "+j);
                     if (!listeTrie.contains(listeCommunes.get(j))) {
                         listeTrie.add(listeCommunes.get(j));
                     }

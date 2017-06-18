@@ -111,10 +111,10 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     boolean mintripop = false;
     boolean maxtripop = false;
     int valuetripop = 0;
-    int valuetriOiseau = 0;
+    //int valuetriOiseau = 0;
     boolean mintridist = false;
     boolean maxtridist = false;
-    int valuetrireel = 0;
+    int valuetriDist = 0;
     int typetridistance = 0;
 
 //
@@ -204,7 +204,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             }
         });
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vol d'oiseau", "Distance réelle", " " }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vol d'oiseau", "Distance réelle" }));
         jComboBox5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox5ActionPerformed(evt);
@@ -220,7 +220,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Valeur :");
+        jLabel6.setText("Valeur  (km) :");
 
         jTextField2.setText("160");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +233,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 801, Short.MAX_VALUE)
+            .addGap(0, 808, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +246,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 801, Short.MAX_VALUE)
+            .addGap(0, 808, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,8 +322,8 @@ public class PlusCourtChemin extends javax.swing.JFrame {
                                 .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -476,7 +476,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
         JTextField jTextField = (JTextField) evt.getSource();
-        this.valuetripop = Integer.parseInt(jTextField.getText());
+        this.valuetriDist = Integer.parseInt(jTextField.getText());
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private String generateMarkers(List<Sommet> list) {
@@ -492,7 +492,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
     private String generatePath(LinkedList<Sommet> list) {
         StringBuilder sb = new StringBuilder();
-        String pathStyle = "color:blue|weight:1";
+        String pathStyle = "color:blue|weight:5";
         int i = 0, j = 0;
         sb.append("&path=");
         sb.append(pathStyle);

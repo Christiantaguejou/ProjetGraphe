@@ -59,7 +59,7 @@ public class GoogMatrixRequest {
     JSONArray tableauElem = elements.getJSONArray("elements");
     JSONObject distance = tableauElem.getJSONObject(0);
     JSONObject distancekm = distance.getJSONObject("distance");
-    //System.out.println(distancekm.getString("value"));
+    System.out.println(distancekm.getString("value"));
     return (Integer.parseInt(distancekm.getString("value")))/1000;
   }
 
