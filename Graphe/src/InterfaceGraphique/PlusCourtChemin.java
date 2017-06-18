@@ -54,9 +54,13 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
     Browser browser = new Browser();
     BrowserView view = new BrowserView(browser);
+    Browser browser1 = new Browser();
+    BrowserView view1 = new BrowserView(browser1);
     private static final String API_KEY = "AIzaSyBDD2w5eLMyagQpQq945LJep2PGr2i5ZuU";
     BrowserContext context = browser.getContext();
     ZoomService zoomService = context.getZoomService();
+    BrowserContext context1 = browser1.getContext();
+    ZoomService zoomService1 = context1.getZoomService();
 
     /**
      * Creates new form PlusCourtChemin
@@ -86,6 +90,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         });
         //this.jPanel2.add(view,BorderLayout.CENTER);
         this.jTabbedPane1.setComponentAt(0, view);
+        this.jTabbedPane1.setComponentAt(1, view1);
         //browser.loadURL("http://www.google.com");
         // browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=Boston,MA&visible=77+Massachusetts+Ave,Cambridge,MA%7CHarvard+Square,Cambridge,MA&size=512x512");
 
@@ -367,7 +372,25 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //if(this.)
+        if (jTextField3.getText().equals("") || jTextField4.getText().equals("")) {
 
+        } else {
+            boolean dep = g.getSommets().contains(jTextField3.getText());
+            boolean arr = g.getSommets().contains(jTextField4.getText());
+            if (dep && arr) {
+                Sommet depart = this.g.getSommets().get(this.g.getSommets().indexOf(jTextField3.getText()));
+                Sommet arrive = this.g.getSommets().get(this.g.getSommets().indexOf(jTextField4.getText()));
+                switch(this.jComboBox3.getSelectedIndex()){
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    default:break;
+                
+                }
+
+            }
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -458,13 +481,13 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         while (!list.isEmpty() && j <= 2) {
             Sommet s = list.remove(i);
             for (Sommet t : s.getSuccesseur()) {
-                if (!closedList.contains(t) && j<=2) {
+                if (!closedList.contains(t) && j <= 2) {
                     sb.append("&path=").append(pathStyle).append("|").append(s.getCommune().getLatitude()).append(",").append(s.getCommune().getLongitude()).append("|").append(t.getCommune().getLatitude()).append(",").append(t.getCommune().getLongitude());
                     closedList.add(t);
                     j++;
                 }
             }
-           // j++;
+            // j++;
         }
         System.out.println(sb.toString());
         return sb.toString();
@@ -513,7 +536,6 @@ public class PlusCourtChemin extends javax.swing.JFrame {
             System.out.println(g.getSommets());
             System.out.println("icihein");
             browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?" + "center=46.6,1.9&maptype=roadmap&size=800x440&zoom=5&" + this.generateMarkers(g.getSommets()) + this.generatePath(g.getSommets()) + "&key=" + API_KEY);
-            //browser.loadURL("https://maps.googleapis.com/maps/api/staticmap?center=Boston,MA&visible=77+Massachusetts+Ave,Cambridge,MA%7CHarvard+Square,Cambridge,MA&size=512x512");
             System.out.println("fini");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
