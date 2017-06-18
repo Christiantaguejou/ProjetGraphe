@@ -494,17 +494,11 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         StringBuilder sb = new StringBuilder();
         String pathStyle = "color:blue|weight:1";
         int i = 0, j = 0;
-        LinkedList<Sommet> closedList = new LinkedList<>();
+        sb.append("&path=");
+        sb.append(pathStyle);
         while (!list.isEmpty() ) {
             Sommet s = list.remove();
-            for (Sommet t : s.getSuccesseur()) {
-                if (!closedList.contains(t) ) {
-                    sb.append("&path=").append(pathStyle).append("|").append(s.getCommune().getLatitude()).append(",").append(s.getCommune().getLongitude()).append("|").append(t.getCommune().getLatitude()).append(",").append(t.getCommune().getLongitude());
-                    closedList.add(t);
-                    j++;
-                }
-            }
-            // j++;
+            sb.append("|").append(s.getCommune().getLatitude()).append(",").append(s.getCommune().getLongitude());
         }
         System.out.println(sb.toString());
         return sb.toString();
