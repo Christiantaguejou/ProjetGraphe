@@ -36,12 +36,12 @@ public class Main {
         //graphe.firtSuccesseur();
 
 
-       for (Sommet sommet : graphe.getSommets()){
+     /*  for (Sommet sommet : graphe.getSommets()){
             System.out.println(sommet);
             for(Sommet sommet1 : sommet.getSuccesseur())
                 System.out.println("-> " + sommet1);
-        }
-        /* 
+        }*/
+
 
 //       for (Sommet sommet : graphe.getSommets()){
 //            System.out.println(sommet);
@@ -56,13 +56,15 @@ public class Main {
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
-        //ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
+       // ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
+        //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
+        Dijkstra.Skiplist(graphe, depart, arrive);
 
         //System.out.println("LISTE DES SUCCESSEURS de "+depart+" :\n"+depart.getSuccesseur());
         //Sommet reims = depart.getSuccesseur().get(2);
         //System.out.println("LISTE DES SUCCESSEURS de "+reims+" :\n"+reims.getSuccesseur());
 
-        //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
+
         /*double[] poids = _Dijkstra(graphe,depart,arrive);
         for(int i =0; i<poids.length; i++){
             System.out.println("poids a i = "+i+" :"+poids[i]);
@@ -103,7 +105,7 @@ public class Main {
 //        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau());
 //        System.out.println(new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());
 //        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau() + new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());*/
-         LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
-         Aetoile.AfficherAetoile(s);
+       //  LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
+       //  Aetoile.AfficherAetoile(s);
     }
 }
