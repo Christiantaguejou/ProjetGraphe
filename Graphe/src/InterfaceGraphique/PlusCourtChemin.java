@@ -9,6 +9,10 @@ import Communes.Commune;
 import Communes.CsvCommunes;
 import Graphes.Graphe;
 import static Graphes.Graphe.choixTri.MAX;
+import static Graphes.Graphe.choixTri.MIN;
+import static Graphes.Graphe.triPar.DISTANCEOISEAU;
+import static Graphes.Graphe.triPar.DISTANCEREELLE;
+import static Graphes.Graphe.triPar.POPULATION;
 import Graphes.Sommet;
 import com.teamdev.jxbrowser.chromium.Browser;
 import static com.teamdev.jxbrowser.chromium.internal.ipc.ChannelType.Browser;
@@ -22,12 +26,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-
 
 /**
  *
@@ -35,16 +39,14 @@ import javax.swing.JTextField;
  */
 public class PlusCourtChemin extends javax.swing.JFrame {
 
-  Browser browser = new Browser();
-  BrowserView view = new BrowserView(browser);
+    Browser browser = new Browser();
+    BrowserView view = new BrowserView(browser);
 
     /**
      * Creates new form PlusCourtChemin
      */
-    
-
     public PlusCourtChemin() {
-         
+
         initComponents();
         this.jComboBox4.setEnabled(false);
         this.jTextField1.setEnabled(false);
@@ -61,17 +63,18 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     //System.out.println("suis la");
     Commune paris = new Commune("paris", "PARIS", 2243833, 2.34445, 48.86);
     Sommet sParis = new Sommet(paris);
-    Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
-    boolean mintripop= false;
-    boolean maxtripop= false;
-    int valuetripop=0;
-    int valuetriOiseau=0;
-    boolean mintridist= false;
-    boolean maxtridist= false;
-    int valuetrireel=0;
-    int typetridistance=0;
-//
+//    Graphe graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+    Graphe g;
+    boolean mintripop = false;
+    boolean maxtripop = false;
+    int valuetripop = 0;
+    int valuetriOiseau = 0;
+    boolean mintridist = false;
+    boolean maxtridist = false;
+    int valuetrireel = 0;
+    int typetridistance = 0;
 
+//
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,6 +209,11 @@ public class PlusCourtChemin extends javax.swing.JFrame {
         jTabbedPane1.addTab("Visualisation Trajet", jPanel2);
 
         jButton2.setText("Visualiser Graphe");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -298,80 +306,138 @@ public class PlusCourtChemin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //if(this.)
-        Graphe.choixTri tri;
-        if(this.jCheckBox1.isSelected()){
-            if(this.maxtripop) tri = MAX;
-            else if (this.mintripop) tri = MIN;
-        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
         JCheckBox checkBox = (JCheckBox) evt.getSource();
-        if(!checkBox.isSelected()){
-        this.jComboBox4.setEnabled(false);
-        this.jTextField1.setEnabled(false);
-        }else {
-        this.jComboBox4.setEnabled(true);
-        this.jTextField1.setEnabled(true);
+        if (!checkBox.isSelected()) {
+            this.jComboBox4.setEnabled(false);
+            this.jTextField1.setEnabled(false);
+        } else {
+            this.jComboBox4.setEnabled(true);
+            this.jTextField1.setEnabled(true);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
-         JComboBox comboBox = (JComboBox) evt.getSource();
-        if(comboBox.getSelectedItem().equals("MIN")){
-        this.mintripop=true;
-        }else if(comboBox.getSelectedItem().equals("MAX")){
-         this.maxtripop=true;
+        JComboBox comboBox = (JComboBox) evt.getSource();
+        if (comboBox.getSelectedItem().equals("MIN")) {
+            this.mintripop = true;
+        } else if (comboBox.getSelectedItem().equals("MAX")) {
+            this.maxtripop = true;
         }
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
         // TODO add your handling code here:
         JComboBox comboBox = (JComboBox) evt.getSource();
-        if(comboBox.getSelectedIndex()==0){
-        this.typetridistance=1;//vol d'oiseau
-        }else if(comboBox.getSelectedIndex()==1){
-         this.typetridistance=1;//distance réelle
+        if (comboBox.getSelectedIndex() == 0) {
+            this.typetridistance = 1;//vol d'oiseau
+        } else if (comboBox.getSelectedIndex() == 1) {
+            this.typetridistance = 2;//distance réelle
         }
     }//GEN-LAST:event_jComboBox5ActionPerformed
 
     private void jComboBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox6ActionPerformed
         // TODO add your handling code here:
         JComboBox comboBox = (JComboBox) evt.getSource();
-        if(comboBox.getSelectedIndex()==0){
-        this.mintridist=true;//vol d'oiseau
-        }else if(comboBox.getSelectedIndex()==1){
-          this.maxtridist=true;//dist reelle
+        if (comboBox.getSelectedIndex() == 0) {
+            this.mintridist = true;//vol d'oiseau
+        } else if (comboBox.getSelectedIndex() == 1) {
+            this.maxtridist = true;//dist reelle
         }
     }//GEN-LAST:event_jComboBox6ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         // TODO add your handling code here:
         JCheckBox checkBox = (JCheckBox) evt.getSource();
-        if(!checkBox.isSelected()){
-        this.jComboBox5.setEnabled(false);
-        this.jComboBox6.setEnabled(false);
-        this.jTextField2.setEnabled(false);
+        if (!checkBox.isSelected()) {
+            this.jComboBox5.setEnabled(false);
+            this.jComboBox6.setEnabled(false);
+            this.jTextField2.setEnabled(false);
         } else {
-        this.jComboBox5.setEnabled(true);
-        this.jComboBox6.setEnabled(true);
-        this.jTextField2.setEnabled(true);
+            this.jComboBox5.setEnabled(true);
+            this.jComboBox6.setEnabled(true);
+            this.jTextField2.setEnabled(true);
         }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-       JTextField jTextField = (JTextField) evt.getSource();
-        this.valuetripop=Integer.parseInt(jTextField.getText());
+        JTextField jTextField = (JTextField) evt.getSource();
+        this.valuetripop = Integer.parseInt(jTextField.getText());
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
         JTextField jTextField = (JTextField) evt.getSource();
-        this.valuetripop=Integer.parseInt(jTextField.getText());
+        this.valuetripop = Integer.parseInt(jTextField.getText());
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private String generateMarkers(ArrayList<Sommet> list) {
+        String markerStyle = "size:tiny%7Ccolor:green";
+        String tmp = markerStyle;
+        String concat = "";
+        for (Sommet s : list) {
+            concat = tmp.concat("|" + s.getCommune().getLatitude() + "," + s.getCommune().getLongitude());
+        }
+        return concat;
+    }
+
+    private String generatePath(ArrayList<Sommet> list) {
+        String pathStyle = "color:0x0000ff80|weight:1";
+        String tmp = pathStyle;
+        String concat = "";
+        int i=0;
+        while (!list.isEmpty()) {
+            // LinkedList<Sommet> closedList = new LinkedList<>();
+            Sommet s = list.remove(i);
+            for (Sommet s : list) {
+                concat = tmp.concat("|" + s.getCommune().getLatitude() + "," + s.getCommune().getLongitude());
+            }
+        }
+        return concat;
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Graphe.choixTri tri1 = MIN;
+        Graphe.choixTri tri2 = MIN;
+        boolean choixTriPop = false;
+        boolean choixTriDist = false;
+        int val1 = 0;
+        int val2 = 0;
+        Graphe.triPar typetridist = DISTANCEOISEAU;
+        if (this.jCheckBox1.isSelected()) {
+            choixTriPop = true;
+            if (this.maxtripop) {
+                tri1 = MAX;
+            } else if (this.mintripop) {
+                tri1 = MIN;
+            }
+            val1 = Integer.parseInt(this.jTextField1.getText());
+        }
+        if (this.jCheckBox2.isSelected()) {
+            choixTriDist = true;
+            if (this.typetridistance == 1) {
+                typetridist = DISTANCEOISEAU;
+            } else if (this.typetridistance == 2) {
+                typetridist = DISTANCEREELLE;
+            }
+            if (this.maxtridist) {
+                tri2 = MAX;
+            } else if (this.mintridist) {
+                tri2 = MIN;
+            }
+            val2 = Integer.parseInt(this.jTextField2.getText());
+        }
+
+        this.g = new Graphe(this.listeCommunes, choixTriPop, tri1, choixTriDist, typetridist, tri2, val1, val2);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

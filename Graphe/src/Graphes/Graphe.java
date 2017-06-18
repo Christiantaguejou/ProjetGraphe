@@ -25,7 +25,8 @@ public class Graphe {
 
     public enum triPar {
         POPULATION,
-        DISTANCE
+        DISTANCEOISEAU,
+        DISTANCEREELLE
     }
 
 
@@ -47,39 +48,36 @@ public class Graphe {
      * @param choixTri     si on trie par Max ou Min
      * @param valeurTri    valeur pour le trie des communes
      */
-    public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri) {
+    public Graphe(ArrayList<Commune> listeCommune, boolean triPop, choixTri choixTri1,boolean triDistance,triPar triPar, choixTri choixTri2, int valeurTri1,int valeurTri2) {
         this();
-        switch (triPar) {
-            case POPULATION:
-                switch (choixTri) {
+        
+            if(triPop){
+                switch (choixTri1) {
                     case MAX:
-                        this.listeCommune = triPopMax(listeCommune, valeurTri);
+                        this.listeCommune = triPopMax(listeCommune, valeurTri1);
                         break;
                     case MIN:
-                        this.listeCommune= triPopMin(listeCommune, valeurTri);
+                        this.listeCommune= triPopMin(listeCommune, valeurTri1);
                         break;
                     default:
                         this.listeCommune = new ArrayList<>();
                         break;
-                }
-                break;
-            case DISTANCE:
-                switch (choixTri) {
+                }}
+            else this.listeCommune = listeCommune;
+                
+            if(triDistance){
+                switch (choixTri2) {
                     case MAX:
-                        this.listeCommune = triVolDoiseauMax(listeCommune, valeurTri);
+                        this.listeCommune = triVolDoiseauMax(this.listeCommune, valeurTri2);
                         break;
                     case MIN:
-                        this.listeCommune = triVolDoiseauMin(listeCommune, valeurTri);
+                        this.listeCommune = triVolDoiseauMin(this.listeCommune, valeurTri2);
                         break;
                     default:
                         this.listeCommune = new ArrayList<>();
                         break;
-                }
-                break;
-            default:
-                this.listeCommune = new ArrayList<>();
-                break;
-        }
+                }}
+                    
         //////ARRAY LIST POUR NE PAS AJOUTER DEUX FOIS LE MEME SOMMET
         ArrayList<Sommet> sAlreadyAdd = new ArrayList<>();
 
@@ -104,7 +102,8 @@ public class Graphe {
     }
 
     public Graphe(ArrayList<Commune> listeCommune, triPar triPar, choixTri choixTri, int valeurTri, Sommet somDepart){
-        this(listeCommune,triPar,choixTri,valeurTri);
+      
+        this(listeCommune,true,choixTri,false,null,null,valeurTri,0);
         this.somDepart = somDepart;
     }
 
