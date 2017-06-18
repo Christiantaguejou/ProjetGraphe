@@ -5,6 +5,7 @@ import Communes.Commune;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.PriorityQueue;
 
 /**
  * Created by Christian TAGUEJOU on 10/06/2017.
@@ -12,6 +13,7 @@ import java.util.Collections;
 public class Dijkstra {
 
     static int HIGH = 1000000;
+
 
     /**
      * Algo Dijkstra du cours
@@ -86,6 +88,67 @@ public class Dijkstra {
         Collections.reverse(chemin);
         return chemin;
 
+    }
+
+    public void dijkstra_plus(Graphe graphe, Sommet depart, Sommet arrive){
+        //Initialisation de l'algo
+
+        depart.setCout(0);
+        PriorityQueue<Sommet> priorityQueue = new PriorityQueue<>();
+        priorityQueue.add(depart);
+
+        while(!priorityQueue.isEmpty()){
+            Sommet courant = priorityQueue.poll();
+
+            for(Sommet sommet : courant.getSuccesseur()){
+                sommet.setCout(Arc.distanceVolOiseau(sommet,courant));
+                double distance = sommet.getCout()+courant.getCout();
+//                if(distance<)
+            }
+        }
+
+        ArrayList<Sommet> sommets = (ArrayList<Sommet>) graphe.getSommets().clone();
+        ArrayList<Sommet> retour = (ArrayList<Sommet>) graphe.getSommets().clone();
+        int indice_depart = sommets.indexOf(depart);
+
+        ArrayList<Sommet> firstSuccesseur = depart.getSuccesseur();
+        double[] poids = new double[sommets.size()];
+
+        for (int i = 0; i < sommets.size(); i++) {
+            if (i != indice_depart)
+                poids[i] = HIGH;
+            else
+                poids[i] = 0;
+        }
+
+        for (int i = 0; i < firstSuccesseur.size(); i++) {
+            if (i != indice_depart) {
+                int indice = sommets.indexOf(firstSuccesseur.get(i));
+                Arc tmp = new Arc(depart, sommets.get(indice));
+                poids[indice] = tmp.getPoids();
+                retour.get(indice).setPredecesseur(depart);
+            }
+        }
+
+        sommets.remove(depart);
+
+        while (!sommets.isEmpty()) {
+            Sommet x = getMin(poids, sommets, graphe);
+            int i_x = retour.indexOf(x);
+            sommets.remove(x);
+            ArrayList<Sommet> successeurs = x.getSuccesseur();
+
+            for (int i = 0; i < successeurs.size(); i++) {
+                Arc arc_tmp = new Arc(x, successeurs.get(i));
+                int i_successeur = retour.indexOf(successeurs.get(i));
+                if (poids[i_x] + arc_tmp.getPoids() < poids[i_successeur]) {
+                    poids[i_successeur] = poids[i_x] + arc_tmp.getPoids();
+                    retour.get(i_successeur).setPredecesseur(x);
+                }
+            }
+            successeurs.clear();
+        }
+        ArrayList<Sommet> chemin = calcPath(retour, arrive);
     }
 
     /**
