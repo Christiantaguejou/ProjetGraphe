@@ -52,7 +52,7 @@ public class Main {
         long debut = System.currentTimeMillis();
         //ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
         long fin = System.currentTimeMillis() - debut;
-        /*System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
+        System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
 
         Sommet depart1 = graphe.getSommets().get(0);
         Sommet arrive1 = graphe.getSommets().get(1);
@@ -70,4 +70,5 @@ public class Main {
 
         System.out.println("FIN TEST DE TEMPS DE CALCUL");
     }
+
 }
