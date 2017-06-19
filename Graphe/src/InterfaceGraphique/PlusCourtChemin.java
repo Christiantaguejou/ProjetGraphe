@@ -161,7 +161,7 @@ public class PlusCourtChemin extends javax.swing.JFrame {
 
         jLabel3.setText("Choix d'algo :");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dijkstra", "A Etoile" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dijkstra", "A Etoile", "Dijkstra+Fibonacci" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
@@ -401,11 +401,17 @@ JOptionPane.showMessageDialog(this,
                 System.out.println("ici5");
                 switch(this.jComboBox3.getSelectedIndex()){
                     case 0:
+                        System.out.println("Dans Dijkstra");
                         liste=Dijkstra._Dijkstra(g, depart, arrive);
                         break;
                     case 1:
+                        System.out.println("Dans Aetoile");
                         liste=Aetoile.algo(depart, arrive, typetridistance);
                         break;
+                    case 2:
+                        System.out.println("fibonacci");
+                        liste=Dijkstra.dijkstra_plus(g,depart, arrive);
+                        break; 
                     default:break;
                 
                 }
