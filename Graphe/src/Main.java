@@ -51,6 +51,7 @@ public class Main {
         //TEST DE DIJKSTRA NORMAL
         long debut = System.currentTimeMillis();
         //ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
+        //System.out.println(dij);
         long fin = System.currentTimeMillis() - debut;
         System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
 
@@ -59,12 +60,13 @@ public class Main {
         //TEST DE DIJKSTRA AVEC PRIORITY QUEUE
         long debut_1 = System.currentTimeMillis();
         ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
+        System.out.println(oklm);
         long fin_1 = System.currentTimeMillis() - debut_1;
         System.out.println("Le temps de Dijkstra avec PriorityQueue est de "+fin_1+" ms");
 
         //TEST DE AETOILE
         long debut_2 = System.currentTimeMillis();
-        LinkedList<Sommet> s = Aetoile.algo(depart, arrive,0);
+        //LinkedList<Sommet> s = Aetoile.algo(depart, arrive,0);
         long fin_2 = System.currentTimeMillis() - debut_2;
         System.out.println("Le temps de A ETOILE est de "+fin_2+" ms");
 

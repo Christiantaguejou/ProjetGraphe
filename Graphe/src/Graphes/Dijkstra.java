@@ -73,6 +73,7 @@ public class Dijkstra {
 
     /**
      * Calcul le chemin le plus court après l'algo de Dijkstra
+     *
      * @param arrive Sommet d arrive
      * @return Liste Sommet dans l'ordre pour le chemin le plus court
      */
@@ -80,6 +81,7 @@ public class Dijkstra {
         ArrayList<Sommet> chemin = new ArrayList<Sommet>();
         chemin.add(arrive);
         Sommet courant = arrive.getPredecesseur();
+        System.out.println(courant);
         while (courant != null) {
             chemin.add(courant);
             courant = courant.getPredecesseur();
@@ -89,23 +91,21 @@ public class Dijkstra {
 
     }
 
-    public static ArrayList<Sommet> dijkstra_plus(Graphe graphe, Sommet depart, Sommet arrive){
+    public static ArrayList<Sommet> dijkstra_plus(Graphe graphe, Sommet depart, Sommet arrive) {
         //Initialisation de l'algo
 
         depart.setCout(0);
         PriorityQueue<Sommet> priorityQueue = new PriorityQueue<>();
         priorityQueue.add(depart);
 
-        for (Sommet sommet : graphe.getSommets()) {
-            if (sommet != depart)
-                sommet.setCout(Arc.distanceVolOiseau(sommet,depart));
-        }
+        
 
-        while(!priorityQueue.isEmpty()){
+        while (!priorityQueue.isEmpty()) {
             Sommet courant = priorityQueue.poll();
-            for(Sommet sommet : courant.getSuccesseur()){
-                double distance = Arc.distanceVolOiseau(sommet,courant)+courant.getCout();
-                if(distance<sommet.getCout()){
+            for (Sommet sommet : courant.getSuccesseur()) {
+                double distance = Arc.distanceVolOiseau(sommet, courant) + courant.getCout();
+                System.out.println(sommet);
+                if (distance < sommet.getCout()) {
                     priorityQueue.remove(sommet);
                     sommet.setCout(distance);
                     sommet.setPredecesseur(courant);
@@ -118,12 +118,12 @@ public class Dijkstra {
     }
 
 
-
     /**
      * Calcul le plus petit Sommet de la liste sommets
-     * @param poids tableau de poids des sommets
+     *
+     * @param poids   tableau de poids des sommets
      * @param sommets liste des sommets
-     * @param graphe graphe
+     * @param graphe  graphe
      * @return plus petit Sommet
      */
     public static Sommet getMin(double[] poids, ArrayList<Sommet> sommets, Graphe graphe) {
@@ -139,6 +139,5 @@ public class Dijkstra {
         return sommets.get(i_min);
     }
 
- 
 
 }
