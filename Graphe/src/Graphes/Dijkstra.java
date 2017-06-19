@@ -81,7 +81,6 @@ public class Dijkstra {
         ArrayList<Sommet> chemin = new ArrayList<Sommet>();
         chemin.add(arrive);
         Sommet courant = arrive.getPredecesseur();
-        System.out.println(courant);
         while (courant != null) {
             chemin.add(courant);
             courant = courant.getPredecesseur();
@@ -97,6 +96,10 @@ public class Dijkstra {
         depart.setCout(0);
         PriorityQueue<Sommet> priorityQueue = new PriorityQueue<>();
         priorityQueue.add(depart);
+        for(Sommet sommet : graphe.getSommets()){
+            if(sommet!=depart)
+                sommet.setCout(HIGH);
+        }
 
 
 
@@ -104,7 +107,6 @@ public class Dijkstra {
             Sommet courant = priorityQueue.poll();
             for (Sommet sommet : courant.getSuccesseur()) {
                 double distance = Arc.distanceVolOiseau(sommet, courant) + courant.getCout();
-                System.out.println(sommet);
                 if (distance < sommet.getCout()) {
                     priorityQueue.remove(sommet);
                     sommet.setCout(distance);
