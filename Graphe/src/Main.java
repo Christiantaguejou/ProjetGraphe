@@ -57,12 +57,12 @@ public class Main {
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
-        ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
-        ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
+        //ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
+        //ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
 
        // ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
         //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
-        Dijkstra.Skiplist(graphe, depart, arrive);
+        //Dijkstra.Skiplist(graphe, depart, arrive);
 
         //System.out.println("LISTE DES SUCCESSEURS de "+depart+" :\n"+depart.getSuccesseur());
         //Sommet reims = depart.getSuccesseur().get(2);
@@ -124,19 +124,24 @@ public class Main {
 
         //TEST DE DIJKSTRA NORMAL
         long debut = System.currentTimeMillis();
-        ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
+        //ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
         long fin = System.currentTimeMillis() - debut;
-        System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
+        /*System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
 
+        Sommet depart1 = graphe.getSommets().get(0);
+        Sommet arrive1 = graphe.getSommets().get(1);
         //TEST DE DIJKSTRA AVEC PRIORITY QUEUE
         debut = System.currentTimeMillis();
-        ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
+        ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart1,arrive1);
         fin = System.currentTimeMillis() - debut;
         System.out.println("Le temps de Dijkstra avec PriorityQueue est de "+fin+" ms");
-
+        */
+        Sommet depart2 = graphe.getSommets().get(0);
+        Sommet arrive2 = graphe.getSommets().get(1);
+        
         //TEST DE AETOILE
         debut = System.currentTimeMillis();
-        LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
+        LinkedList<Sommet> s = Aetoile.algo(depart2, arrive2,0);
         fin = System.currentTimeMillis() - debut;
         System.out.println("Le temps de A ETOILE est de "+fin+" ms");
     }
