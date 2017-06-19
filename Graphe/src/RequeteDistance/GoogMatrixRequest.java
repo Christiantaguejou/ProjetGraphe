@@ -5,11 +5,9 @@
  */
 package RequeteDistance;
 
-import java.io.FileReader;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONException;

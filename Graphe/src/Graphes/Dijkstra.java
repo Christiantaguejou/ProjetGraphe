@@ -167,7 +167,6 @@ public class Dijkstra {
                 min = poids[indice];
                 i_min = i;
             }
-
         }
         return sommets.get(i_min);
     }
