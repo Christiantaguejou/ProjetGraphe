@@ -139,38 +139,6 @@ public class Dijkstra {
         return sommets.get(i_min);
     }
 
-    public static void Skiplist(Graphe graphe, Sommet depart, Sommet arrive) {
-        //Initialisation de l'algo
-        ArrayList<Sommet> sommets = (ArrayList<Sommet>) graphe.getSommets().clone();
-        ArrayList<Sommet> retour = (ArrayList<Sommet>) graphe.getSommets().clone();
-        int indice_depart = sommets.indexOf(depart);
 
-        ArrayList<Sommet> firstSuccesseur = depart.getSuccesseur();
-        double[] poids = new double[sommets.size()];
-
-        for (int i = 0; i < sommets.size(); i++) {
-            if (i != indice_depart)
-                poids[i] = HIGH;
-            else
-                poids[i] = 0;
-        }
-
-        for (int i = 0; i < firstSuccesseur.size(); i++) {
-            if (i != indice_depart) {
-                int indice = sommets.indexOf(firstSuccesseur.get(i));
-                Arc tmp = new Arc(depart, sommets.get(indice));
-                poids[indice] = tmp.getPoids();
-                retour.get(indice).setPredecesseur(depart);
-                System.out.println(poids[i]);
-            }
-        }
-
-        //Principe
-        //On va parcourir les villes pour atteindre la ville de poids = 0 (ville d'arrivée)
-        //Au départ, on parcours les successeurs de la ville de depart
-        //On va prendre celui qui a la poids le moins élevés
-        //Ensuite, on va parcourir ses successeurs en choisissant le poids min
-        //Ainsi de suite jusqu'a atteindre la ville avec poids = 0
-    }
 
 }

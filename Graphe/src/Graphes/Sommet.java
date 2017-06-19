@@ -79,19 +79,6 @@ public class Sommet implements Comparable<Sommet>{
        return this.gCost+this.hCost;
     }
 
-//    public Sommet successeur(Sommet dep, Sommet arr, Sommet actuelle){
-//        if ( new Arc(dep.getCommune(), arr.getCommune()).distanceVolOiseau() > new Arc(actuelle.getCommune(), arr.getCommune()).distanceVolOiseau()){
-//            setSuccesseur(actuelle); //La commune actuelle est un successeur de la commune de depart
-//        }
-//        return getSuccesseur();
-//    }
-//
-//    public Sommet predecesseur(Sommet dep, Sommet arr, Sommet preced){
-//        if ( new Arc(dep.getCommune(), arr.getCommune()).distanceVolOiseau() < new Arc(preced.getCommune(), arr.getCommune()).distanceVolOiseau()){
-//            setPredecesseur(preced);
-//        }
-//        return getPredecesseur();
-//    }
 
     /**
      * @return the commune

@@ -23,101 +23,27 @@ public class Main {
         List<String> liste;
         liste = CsvCommunes.readFile(new File("../doc/CommunesFrance.csv"));
         ArrayList<Commune> listeCommunes = CsvCommunes.tableau(liste);
-        System.out.println("suis la");
-        Commune paris = new Commune("paris", "PARIS",2243833,2.34445,48.86);
-        Sommet sParis = new Sommet(paris);
         Graphe graphe = null;
         try {
-            graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000, sParis);
+            graphe = new Graphe(listeCommunes, Graphe.triPar.POPULATION, Graphe.choixTri.MIN, 50000);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //graphe.firtSuccesseur();
-
-
-     /*  for (Sommet sommet : graphe.getSommets()){
-            System.out.println(sommet);
-            for(Sommet sommet1 : sommet.getSuccesseur())
-                System.out.println("-> " + sommet1);
-        }*/
-
-
-//       for (Sommet sommet : graphe.getSommets()){
-//            System.out.println(sommet);
-//            for(Sommet sommet1 : sommet.getSuccesseur())
-//                System.out.println("-> " + sommet1);
-//        }
-/* 
-        for(Arc arc : graphe.getArcs()){
-            Sommet[] sommets = arc.getSommet();
-            System.out.println(sommets[0]+"--------"+sommets[1]);
-        }*/
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
         ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
         ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
 
-       // ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
-        //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
-        Dijkstra.Skiplist(graphe, depart, arrive);
-
-        //System.out.println("LISTE DES SUCCESSEURS de "+depart+" :\n"+depart.getSuccesseur());
-        //Sommet reims = depart.getSuccesseur().get(2);
-        //System.out.println("LISTE DES SUCCESSEURS de "+reims+" :\n"+reims.getSuccesseur());
-
-
-        /*double[] poids = _Dijkstra(graphe,depart,arrive);
-        for(int i =0; i<poids.length; i++){
-            System.out.println("poids a i = "+i+" :"+poids[i]);
-        }*/
-//        System.out.println(graphe.getArcs().size());
-//        _Dijkstra(graphe);
-
-
-//        for(Commune c : graphe.getListeCommune()){
-//            System.out.println(c.getNom());
-//        }
-//        System.out.println("FIN dAFFICHAGE");
-//        //Trie de la liste
-//        //ArrayList<Commune> listeTrie;
-//        //listeTrie = CsvCommunes.triPopMin(listeCommunes, 10000);
-//
-//
-//        //Graphes
-//        Commune rennes = new Commune("rennes","RENNES",207178,-1.68333,48.0833);
-//        Commune brest = new Commune("brest", "BREST", 141303,-4.48333,48.4);
-//        Commune ozan = new Commune("ozan", "OZAN",618,4.91667,49.3833);
-//        Commune nice = new Commune("nice","NICE",343304,7.25,43.7);
-//
-//        //   Graphe graph1 = new Graphe(listeTrie, rennes, brest);
-//       /* for(Commune c : graph1.gps()){
-//         //   System.out.println(c.getNom());
-//        }*/
-//
-//        //Aetoile
-//        ArrayList<Sommet> listeSommet= new ArrayList<>();
-//        for(Commune c : graphe){
-//            listeSommet.add(new Sommet(c));
-//        }
-//        Sommet sRennes = new Sommet(rennes);
-//        Sommet sBrest = new Sommet(brest);
-//        Sommet snice = new Sommet(nice);
-//       /* System.out.println(sOzan.coutTotal(sRennes, sBrest));
-//        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau());
-//        System.out.println(new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());
-//        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau() + new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());*/
-       //  LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
-       //  Aetoile.AfficherAetoile(s);
         testTemps(graphe);
     }
 
 
     public static void testTemps(Graphe graphe){
 
-        System.out.println("DEBUT TEST DE TEMPS");
+        System.out.println("DEBUT TEST DE TEMPS DE CALCUL");
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
@@ -129,15 +55,17 @@ public class Main {
         System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
 
         //TEST DE DIJKSTRA AVEC PRIORITY QUEUE
-        debut = System.currentTimeMillis();
+        long debut_1 = System.currentTimeMillis();
         ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
-        fin = System.currentTimeMillis() - debut;
-        System.out.println("Le temps de Dijkstra avec PriorityQueue est de "+fin+" ms");
+        long fin_1 = System.currentTimeMillis() - debut_1;
+        System.out.println("Le temps de Dijkstra avec PriorityQueue est de "+fin_1+" ms");
 
         //TEST DE AETOILE
-        debut = System.currentTimeMillis();
-        LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
-        fin = System.currentTimeMillis() - debut;
-        System.out.println("Le temps de A ETOILE est de "+fin+" ms");
+        long debut_2 = System.currentTimeMillis();
+        LinkedList<Sommet> s = Aetoile.algo(depart, arrive,0);
+        long fin_2 = System.currentTimeMillis() - debut_2;
+        System.out.println("Le temps de A ETOILE est de "+fin_2+" ms");
+
+        System.out.println("FIN TEST DE TEMPS DE CALCUL");
     }
 }
