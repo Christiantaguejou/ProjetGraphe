@@ -56,6 +56,10 @@ public class Main {
 
         Sommet depart = graphe.getSommets().get(0);
         Sommet arrive = graphe.getSommets().get(1);
+        ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
+        ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
+        System.out.println(dij);
+        System.out.println(oklm);
        // ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
         //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
         Dijkstra.Skiplist(graphe, depart, arrive);

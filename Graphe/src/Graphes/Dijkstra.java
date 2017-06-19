@@ -66,21 +66,19 @@ public class Dijkstra {
             }
             successeurs.clear();
         }
-        ArrayList<Sommet> chemin = calcPath(retour, arrive);
+        ArrayList<Sommet> chemin = calcPath(arrive);
         return chemin;
     }
 
     /**
      * Calcul le chemin le plus court après l'algo de Dijkstra
-     * @param dijkstra liste de sommets traités par Dijkstra
      * @param arrive Sommet d arrive
      * @return Liste Sommet dans l'ordre pour le chemin le plus court
      */
-    public static ArrayList<Sommet> calcPath(ArrayList<Sommet> dijkstra, Sommet arrive) {
+    public static ArrayList<Sommet> calcPath(Sommet arrive) {
         ArrayList<Sommet> chemin = new ArrayList<Sommet>();
         chemin.add(arrive);
-        int indice_arrive = dijkstra.indexOf(arrive);
-        Sommet courant = dijkstra.get(indice_arrive).getPredecesseur();
+        Sommet courant = arrive.getPredecesseur();
         while (courant != null) {
             chemin.add(courant);
             courant = courant.getPredecesseur();
@@ -90,66 +88,35 @@ public class Dijkstra {
 
     }
 
-    public void dijkstra_plus(Graphe graphe, Sommet depart, Sommet arrive){
+    public static ArrayList<Sommet> dijkstra_plus(Graphe graphe, Sommet depart, Sommet arrive){
         //Initialisation de l'algo
 
         depart.setCout(0);
         PriorityQueue<Sommet> priorityQueue = new PriorityQueue<>();
         priorityQueue.add(depart);
 
+        for (Sommet sommet : graphe.getSommets()) {
+            if (sommet != depart)
+                sommet.setCout(Arc.distanceVolOiseau(sommet,depart));
+        }
+
         while(!priorityQueue.isEmpty()){
             Sommet courant = priorityQueue.poll();
-
             for(Sommet sommet : courant.getSuccesseur()){
-                sommet.setCout(Arc.distanceVolOiseau(sommet,courant));
-                double distance = sommet.getCout()+courant.getCout();
-//                if(distance<)
-            }
-        }
-
-        ArrayList<Sommet> sommets = (ArrayList<Sommet>) graphe.getSommets().clone();
-        ArrayList<Sommet> retour = (ArrayList<Sommet>) graphe.getSommets().clone();
-        int indice_depart = sommets.indexOf(depart);
-
-        ArrayList<Sommet> firstSuccesseur = depart.getSuccesseur();
-        double[] poids = new double[sommets.size()];
-
-        for (int i = 0; i < sommets.size(); i++) {
-            if (i != indice_depart)
-                poids[i] = HIGH;
-            else
-                poids[i] = 0;
-        }
-
-        for (int i = 0; i < firstSuccesseur.size(); i++) {
-            if (i != indice_depart) {
-                int indice = sommets.indexOf(firstSuccesseur.get(i));
-                Arc tmp = new Arc(depart, sommets.get(indice));
-                poids[indice] = tmp.getPoids();
-                retour.get(indice).setPredecesseur(depart);
-            }
-        }
-
-        sommets.remove(depart);
-
-        while (!sommets.isEmpty()) {
-            Sommet x = getMin(poids, sommets, graphe);
-            int i_x = retour.indexOf(x);
-            sommets.remove(x);
-            ArrayList<Sommet> successeurs = x.getSuccesseur();
-
-            for (int i = 0; i < successeurs.size(); i++) {
-                Arc arc_tmp = new Arc(x, successeurs.get(i));
-                int i_successeur = retour.indexOf(successeurs.get(i));
-                if (poids[i_x] + arc_tmp.getPoids() < poids[i_successeur]) {
-                    poids[i_successeur] = poids[i_x] + arc_tmp.getPoids();
-                    retour.get(i_successeur).setPredecesseur(x);
+                double distance = Arc.distanceVolOiseau(sommet,courant)+courant.getCout();
+                if(distance<sommet.getCout()){
+                    priorityQueue.remove(sommet);
+                    sommet.setCout(distance);
+                    sommet.setPredecesseur(courant);
+                    priorityQueue.add(sommet);
                 }
             }
-            successeurs.clear();
         }
-        ArrayList<Sommet> chemin = calcPath(retour, arrive);
+
+        return calcPath(arrive);
     }
+
+
 
     /**
      * Calcul le plus petit Sommet de la liste sommets
