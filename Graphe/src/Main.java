@@ -5,6 +5,7 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.SyncFailedException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,8 +59,7 @@ public class Main {
         Sommet arrive = graphe.getSommets().get(1);
         ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
         ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
-        System.out.println(dij);
-        System.out.println(oklm);
+
        // ArrayList<Sommet> dijkstra = Dijkstra._Dijkstra(graphe,depart,arrive);
         //System.out.println("Depart :"+depart+"\n"+"chemin : \n"+dijkstra+"\nArrive :"+arrive);
         Dijkstra.Skiplist(graphe, depart, arrive);
@@ -111,5 +111,33 @@ public class Main {
 //        System.out.println(new Arc(sRennes.commune, sOzan.commune).distanceVolOiseau() + new Arc(sBrest.commune, sOzan.commune).distanceVolOiseau());*/
        //  LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
        //  Aetoile.AfficherAetoile(s);
+        testTemps(graphe);
+    }
+
+
+    public static void testTemps(Graphe graphe){
+
+        System.out.println("DEBUT TEST DE TEMPS");
+
+        Sommet depart = graphe.getSommets().get(0);
+        Sommet arrive = graphe.getSommets().get(1);
+
+        //TEST DE DIJKSTRA NORMAL
+        long debut = System.currentTimeMillis();
+        ArrayList<Sommet> dij = Dijkstra._Dijkstra(graphe,depart,arrive);
+        long fin = System.currentTimeMillis() - debut;
+        System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
+
+        //TEST DE DIJKSTRA AVEC PRIORITY QUEUE
+        debut = System.currentTimeMillis();
+        ArrayList<Sommet> oklm = Dijkstra.dijkstra_plus(graphe,depart,arrive);
+        fin = System.currentTimeMillis() - debut;
+        System.out.println("Le temps de Dijkstra avec PriorityQueue est de "+fin+" ms");
+
+        //TEST DE AETOILE
+        debut = System.currentTimeMillis();
+        LinkedList<Sommet> s = Aetoile.algo(depart, arrive,1);
+        fin = System.currentTimeMillis() - debut;
+        System.out.println("Le temps de A ETOILE est de "+fin+" ms");
     }
 }

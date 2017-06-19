@@ -24,6 +24,7 @@ public class Dijkstra {
      * @return liste des sommets traités
      */
     public static ArrayList<Sommet> _Dijkstra(Graphe graphe, Sommet depart, Sommet arrive) {
+
         //Initialisation de l'algo
         ArrayList<Sommet> sommets = (ArrayList<Sommet>) graphe.getSommets().clone();
         ArrayList<Sommet> retour = (ArrayList<Sommet>) graphe.getSommets().clone();
