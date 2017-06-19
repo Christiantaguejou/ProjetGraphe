@@ -1,0 +1,5 @@
+-pour lancer l'appli, il faut exécuter le fichier ProjetGraphe2017.jar
+-vous aurez besoin d'internet pour afficher les itineraires sur une carte
+-l'interface est assez intuitive
+-pour faire calculer un plus court chemin, il faut d'abord faire un tri
+-ensuite vous pouvez modifié la ville de départ et la ville d'arrivée puis cliquez sur GO
