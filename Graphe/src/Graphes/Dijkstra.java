@@ -98,7 +98,7 @@ public class Dijkstra {
         PriorityQueue<Sommet> priorityQueue = new PriorityQueue<>();
         priorityQueue.add(depart);
 
-        
+
 
         while (!priorityQueue.isEmpty()) {
             Sommet courant = priorityQueue.poll();

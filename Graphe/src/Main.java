@@ -55,7 +55,7 @@ public class Main {
         long fin = System.currentTimeMillis() - debut;
         System.out.println("Le temps de Dijkstra normal est de "+fin+" ms");
 
-        Sommet depart1 = graphe.getSommets().get(0);
+       /* Sommet depart1 = graphe.getSommets().get(0);
         Sommet arrive1 = graphe.getSommets().get(1);
         //TEST DE DIJKSTRA AVEC PRIORITY QUEUE
         long debut_1 = System.currentTimeMillis();
@@ -63,6 +63,7 @@ public class Main {
         System.out.println(oklm);
         long fin_1 = System.currentTimeMillis() - debut_1;
         System.out.println("Le temps de Dijkstra avec PriorityQueue est de "+fin_1+" ms");
+        System.out.println(oklm);/*
 
         //TEST DE AETOILE
         long debut_2 = System.currentTimeMillis();
@@ -70,7 +71,7 @@ public class Main {
         long fin_2 = System.currentTimeMillis() - debut_2;
         System.out.println("Le temps de A ETOILE est de "+fin_2+" ms");
 
-        System.out.println("FIN TEST DE TEMPS DE CALCUL");
+        System.out.println("FIN TEST DE TEMPS DE CALCUL");*/
     }
 
 }
